@@ -1,18 +1,17 @@
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import Tabs from './src/tabs';
 
-import {useColorScheme, View} from 'react-native';
+/*import {useColorScheme, View} from 'react-native';*/
+import Tabs from './src/Tabs.tsx';
 
-type SectionProps = PropsWithChildren<{
+/*type SectionProps = PropsWithChildren<{
   title: string;
-}>;
+}>;*/
 
 function App(): React.JSX.Element {
   return (
-    <NavigationContainer children>
+    <NavigationContainer>
       <Tabs />
     </NavigationContainer>
   );
@@ -20,7 +19,7 @@ function App(): React.JSX.Element {
 
 export default App;
 
-function Section({children, title}: SectionProps): React.JSX.Element {
+/*function Section({children, title}: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return <View></View>;
-}
+}*/
