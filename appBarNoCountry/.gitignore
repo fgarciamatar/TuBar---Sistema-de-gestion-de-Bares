@@ -25,7 +25,6 @@ ios/.xcode.env.local
 # Android/IntelliJ
 #
 build/
-.idea
 .gradle
 local.properties
 *.iml
@@ -64,4 +63,4 @@ yarn-error.log
 
 # testing
 /coverage
-/idea
+.idea
