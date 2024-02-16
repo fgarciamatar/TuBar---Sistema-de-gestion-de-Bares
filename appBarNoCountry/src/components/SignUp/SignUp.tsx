@@ -25,7 +25,7 @@ function SignUp() {
       <Text style={styles.textLogIn}>Registro</Text>
 
       <View style={styles.acountContainer}>
-        <Image source={require('../assets/image-bar.png')} />
+        <Image source={require("../../assets/image-bar.png")} />
         <Text>Completa los campos para crear una cuenta</Text>
       </View>
 
