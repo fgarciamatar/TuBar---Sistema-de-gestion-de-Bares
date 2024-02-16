@@ -16,7 +16,7 @@ function Welcom(/*{navigation}*/) {
       <View>
         <Image
           style={styles.image}
-          source={require('../assets/image-bar.png')}
+          source={require('../../../assets/image-bar.png')}
         />
       </View>
 

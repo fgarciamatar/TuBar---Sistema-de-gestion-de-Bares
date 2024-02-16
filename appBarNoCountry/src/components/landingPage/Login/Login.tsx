@@ -21,7 +21,10 @@ function Login() {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Usuario</Text>
-      <Image source={require('../assets/image-bar.png')} style={styles.image} />
+      <Image
+        source={require('../../../assets/image-bar.png')}
+        style={styles.image}
+      />
 
       <View style={styles.formContainer}>
         <Text style={styles.label}>Usuario</Text>
