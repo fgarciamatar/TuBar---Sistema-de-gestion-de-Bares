@@ -8,29 +8,44 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; 
 
-function Welcom(/*{navigation}*/) {
+function Welcom () {
+  const navigation = useNavigation();
+  
+  const handleSend = () => {
+    navigation.navigate("Login" as never);
+  };
+
   return (
     <View>
       <Text style={styles.titleWelcom}>Bienvenido a NOMBRE</Text>
       <View>
         <Image
           style={styles.image}
+<<<<<<<< HEAD:appBarNoCountry/src/screens/Welcom/Welcom.tsx
+          source={require('../../assets/image-bar.png')}
+========
+<<<<<<< HEAD:appBarNoCountry/src/components/Welcom/Welcom.tsx
+          source={require("../../assets/image-bar.png")}
+=======
           source={require('../../../assets/image-bar.png')}
+>>>>>>> a618f134121e920299ba62aadb9f8e78d44b6f1d:appBarNoCountry/src/components/landingPage/Welcom/Welcom.tsx
+>>>>>>>> feature/EPICA.HU/SelectPerfil:appBarNoCountry/src/components/Welcom/Welcom.tsx
         />
       </View>
 
       <View>
         <Text>
           Lee nuestra
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => console.log("Política de Privacidad presionada")}>
             <Text style={styles.privacity}>Política de Privacidad</Text>
           </TouchableOpacity>
           .Toca “Acepto y continúo” para aceptar los Términos de Servicio.
         </Text>
         <Button
           title="ACEPTAR Y CONTINUAR"
-          /*onPress={() => navigation.navigate('Login', {name: 'Login'})}*/
+          onPress={handleSend}
         />
       </View>
 
