@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import {
   View,
   Text,
@@ -11,29 +10,23 @@ import {
 } from 'react-native';
 
 function Login() {
-  const navigation = useNavigation();
-
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleEnviar = () => {
+  const handleSend = () => {
     console.log('Nombre:', user);
-    console.log('Email:', password);
-  };
-
-  const handleNavegar = () => {
-    //navigation.navigate('');
+    console.log('Password:', password);
   };
 
   return (
     <View style={styles.container}>
-      <Text>
-        style={styles.textTitle}
-        Inicia Sesión
-      </Text>
-      <Image source={require('../assets/image-bar.png')} style={styles.image} />
+      <Text style={styles.label}>Usuario</Text>
+      <Image
+        source={require('../../../assets/image-bar.png')}
+        style={styles.image}
+      />
 
-      <View>
+      <View style={styles.formContainer}>
         <Text style={styles.label}>Usuario</Text>
         <TextInput
           style={styles.input}
@@ -41,19 +34,19 @@ function Login() {
           value={user}
           onChangeText={setUser}
         />
-        <Text style={styles.label}>Password</Text>
+        <Text style={styles.label}>Contraseña</Text>
         <TextInput
           style={styles.input}
           placeholder="Contraseña"
           value={password}
           onChangeText={setPassword}
         />
-        <TouchableOpacity onPress={handleNavegar}>
+        <TouchableOpacity>
           <Text style={styles.textPassword}>Olvide Mi contraseña</Text>
         </TouchableOpacity>
       </View>
 
-      <Button title="Inicia Sesión" onPress={handleEnviar} />
+      <Button title="Inicia Sesión" onPress={handleSend} />
 
       <View style={styles.createCountContainer}>
         <Text>¿Aún no tienes una cuenta?</Text>
@@ -81,6 +74,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  formContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
   input: {
     borderWidth: 1,
     borderColor: '#D7D7D7',
@@ -90,6 +88,8 @@ const styles = StyleSheet.create({
   textTitle: {
     fontSize: 30,
     marginBottom: 10,
+    textAlign: 'left',
+    padding: 10,
   },
   textPassword: {
     color: '#3F86FC',
@@ -102,6 +102,8 @@ const styles = StyleSheet.create({
   },
   createCountContainer: {
     fontFamily: 'Roboto',
+    display: 'flex',
+    flexDirection: 'column',
   },
   createCount: {
     color: '#3F86FC',
