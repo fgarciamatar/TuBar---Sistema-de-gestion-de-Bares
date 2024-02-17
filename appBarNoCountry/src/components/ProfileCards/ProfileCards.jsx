@@ -8,32 +8,36 @@ import WaiterProfile from '../WaiterProfile/WaiterProfile';
 function ProfileCards() {
   const navigation = useNavigation();
 
-  const handleSalon = () => {
+  const handleSalonWaiter = () => {
     navigation.navigate('Salon');
   };
+  const handleSalonAdm = () => {
+    navigation.navigate('AdminPinScreen');
+  };
+  
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
     <View style={styles.container}>
-      <TouchableOpacity onPress={handleSalon} style={styles.cardContainer}>
+      <TouchableOpacity onPress={handleSalonAdm} style={styles.cardContainer}>
         <AdminProfile />
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleSalon} style={styles.cardContainer}>
+      <TouchableOpacity onPress={handleSalonWaiter} style={styles.cardContainer}>
         <WaiterProfile />
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleSalon} style={styles.cardContainer}>
+      <TouchableOpacity onPress={handleSalonWaiter} style={styles.cardContainer}>
         <WaiterProfile />
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleSalon} style={styles.cardContainer}>
+      <TouchableOpacity onPress={handleSalonWaiter} style={styles.cardContainer}>
         <WaiterProfile />
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleSalon} style={styles.cardContainer}>
+      <TouchableOpacity onPress={handleSalonWaiter} style={styles.cardContainer}>
         <WaiterProfile />
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleSalon} style={styles.cardContainer}>
+      <TouchableOpacity onPress={handleSalonWaiter} style={styles.cardContainer}>
         <WaiterProfile />
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleSalon} style={styles.cardContainer}>
+      <TouchableOpacity onPress={handleSalonWaiter} style={styles.cardContainer}>
         <WaiterProfile />
       </TouchableOpacity>
     </View>
