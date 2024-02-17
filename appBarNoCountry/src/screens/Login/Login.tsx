@@ -1,28 +1,33 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
-  View,
-  Text,
   Button,
   Image,
-  TextInput,
   StyleSheet,
+  Text,
+  TextInput,
   TouchableOpacity,
+  View,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; 
 
 function Login() {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigation = useNavigation();
+
   const handleSend = () => {
     console.log('Nombre:', user);
     console.log('Password:', password);
+
+    navigation.navigate("SelectPerfil" as never);
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Usuario</Text>
       <Image
-        source={require('../../../assets/image-bar.png')}
+        source={require('../../assets/image-bar.png')}
         style={styles.image}
       />
 

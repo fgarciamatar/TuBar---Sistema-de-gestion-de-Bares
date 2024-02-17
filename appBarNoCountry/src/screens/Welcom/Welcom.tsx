@@ -8,29 +8,36 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; 
 
-function Welcom(/*{navigation}*/) {
+function Welcom () {
+  const navigation = useNavigation();
+  
+  const handleSend = () => {
+    navigation.navigate("Login" as never);
+  };
+
   return (
     <View>
       <Text style={styles.titleWelcom}>Bienvenido a NOMBRE</Text>
       <View>
         <Image
           style={styles.image}
-          source={require('../../../assets/image-bar.png')}
+          source={require('../../assets/image-bar.png')}
         />
       </View>
 
       <View>
         <Text>
           Lee nuestra
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => console.log("Política de Privacidad presionada")}>
             <Text style={styles.privacity}>Política de Privacidad</Text>
           </TouchableOpacity>
           .Toca “Acepto y continúo” para aceptar los Términos de Servicio.
         </Text>
         <Button
           title="ACEPTAR Y CONTINUAR"
-          /*onPress={() => navigation.navigate('Login', {name: 'Login'})}*/
+          onPress={handleSend}
         />
       </View>
 
