@@ -1,19 +1,19 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { Text } from 'tamagui';
-import Navbar from '../../components/Navbar/Navbar';
+
+import { Text } from 'react-native-elements';
 import { View } from 'react-native-reanimated/lib/typescript/Animated';
+
 
 const Stack = createStackNavigator();
 
-function Salon() {
+function Navbar() {
   return (
-    <View>
-    <Navbar/>
-    <Text>SALON</Text>
-    <Text>SALON</Text>
-    </View>
+  <View>
+    <Text>Salon</Text>
+   
+  </View>
   );
 }
 
-export default Salon;
+export default Navbar;
