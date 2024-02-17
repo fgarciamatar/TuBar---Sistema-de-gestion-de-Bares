@@ -1,10 +1,12 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+
 import Login from './screens/Login/Login.tsx';
 import Welcom from './screens/Welcom/Welcom.tsx';
 import SignUp from './screens/SignUp/SignUp.tsx';
 import SelectPerfil from './screens/SelectPerfil/SelectPerfil.jsx';
 import Salon from "./screens/Salon/Salon.jsx"
+
 
 const Stack = createStackNavigator();
 
