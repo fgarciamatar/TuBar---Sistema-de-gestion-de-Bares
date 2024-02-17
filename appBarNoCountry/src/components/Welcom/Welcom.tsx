@@ -16,7 +16,11 @@ function Welcom(/*{navigation}*/) {
       <View>
         <Image
           style={styles.image}
+<<<<<<< HEAD:appBarNoCountry/src/components/Welcom/Welcom.tsx
           source={require("../../assets/image-bar.png")}
+=======
+          source={require('../../../assets/image-bar.png')}
+>>>>>>> a618f134121e920299ba62aadb9f8e78d44b6f1d:appBarNoCountry/src/components/landingPage/Welcom/Welcom.tsx
         />
       </View>
 
