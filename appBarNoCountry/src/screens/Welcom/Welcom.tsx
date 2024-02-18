@@ -18,9 +18,10 @@ function Welcom() {
   };
 
   return (
-    <View>
-      <Text style={styles.titleWelcom}>Bienvenido a NOMBRE</Text>
-      <View>
+    <View style={styles.welcomContainer}>
+      <Text style={styles.titleWelcom}>Bienvenido a</Text>
+      <Text style={styles.textBar}>TUBAR</Text>
+      <View style={styles.imageContainer}>
         <Image
           style={styles.image}
           source={require('../../assets/image-bar.png')}
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   titleWelcom: {
-    fontSize: 28,
+    fontSize: 30,
     textAlign: 'center',
     color: 'white',
     fontFamily: 'Montserrat',
@@ -65,6 +66,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat',
     textAlign: 'center',
     fontWeight: 'bold',
+  },
+  imageContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 25,
+  },
+  image: {
+    width: 268,
+    height: 218,
   },
   continueContainer:{
     display: "flex",
@@ -106,15 +117,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     fontFamily: "Montserrat",
-  },
-  image: {
-    width: 200,
-    height: 200,
-  },
-  privacity: {
-    color: '#470000',
-  },
-
+  }
 });
+
 
 export default Welcom;
