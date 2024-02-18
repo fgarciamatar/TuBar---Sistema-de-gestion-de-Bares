@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import {
+  View,
+  Text,
   Button,
   Image,
-  StyleSheet,
-  Text,
   TextInput,
+  StyleSheet,
   TouchableOpacity,
-  View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 
@@ -21,6 +21,11 @@ function Login() {
     console.log('Password:', password);
 
     navigation.navigate("SelectPerfil" as never);
+  };
+
+  const handleSignUp = () => {
+
+    navigation.navigate("SignUp" as never);
   };
 
   return (
@@ -51,7 +56,9 @@ function Login() {
         </TouchableOpacity>
       </View>
 
-      <Button title="Inicia Sesión" onPress={handleSend} />
+ <TouchableOpacity onPress={handleSend} style={styles.button}>
+        <Text style={styles.textButton}>Inicia sesion</Text>
+      </TouchableOpacity>
 
       <View style={styles.createCountContainer}>
         <Text>¿Aún no tienes una cuenta?</Text>
@@ -95,6 +102,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: 'left',
     padding: 10,
+  },
+  textButton: {
+    textAlign: "center",
+    color: "#4505D0",
+    fontWeight: "bold",
+    fontSize: 16,
   },
   textPassword: {
     color: '#3F86FC',
