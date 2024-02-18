@@ -32,7 +32,7 @@ function Welcom() {
           Lee nuestra Política de Privacidad .Toca “Acepto y continúo” para
           aceptar los Términos de Servicio.
         </Text>
-        <TouchableOpacity  onPress={() => navigation.navigate('Login' as never)}
+        <TouchableOpacity  onPress={handleSend}
           style={styles.sendButton}>
           <Text style={styles.textButton}>Aceptar y Continuar</Text>
         </TouchableOpacity>
