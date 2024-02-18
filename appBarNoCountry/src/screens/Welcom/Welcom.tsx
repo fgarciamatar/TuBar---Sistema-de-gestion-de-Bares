@@ -121,4 +121,8 @@ const styles = StyleSheet.create({
 });
 
 
+<<<<<<< HEAD
 export default Welcom;
+=======
+export default Welcom;
+>>>>>>> c9578da7c8d6e6490a34e9071fad45fc2ee3bd01
