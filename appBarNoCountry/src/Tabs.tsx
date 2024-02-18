@@ -14,6 +14,7 @@ const Stack = createStackNavigator();
 function Tabs() {
   return (
     <Stack.Navigator>
+      <Stack.Screen name="Welcom" component={Welcom} />
       <Stack.Screen
         options={{
           headerStyle: styles.headerScreen,
@@ -22,10 +23,9 @@ function Tabs() {
             fontWeight: 'bold',
           },
         }}
-        name="Welcom"
-        component={Welcom}
+        name="Login"
+        component={Login}
       />
-      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen
         options={{
           headerStyle: styles.headerScreen,
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   headerScreen: {
     backgroundColor: '#D0BBFD',
     borderWidth: 1,
-    borderColor: "#AA84FC",
+    borderColor: '#AA84FC',
   },
 });
 

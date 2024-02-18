@@ -24,7 +24,7 @@ function Welcom() {
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={require('../../assets/image-bar.png')}
+          source={require('../../assets/landing-page.png')}
         />
       </View>
 
@@ -121,8 +121,4 @@ const styles = StyleSheet.create({
 });
 
 
-<<<<<<< HEAD
 export default Welcom;
-=======
-export default Welcom;
->>>>>>> c9578da7c8d6e6490a34e9071fad45fc2ee3bd01
