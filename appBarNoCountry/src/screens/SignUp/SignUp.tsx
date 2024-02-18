@@ -1,13 +1,13 @@
+import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  Image,
-  TextInput,
-  StyleSheet,
   Button,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import React, {useState} from 'react';
 
 function SignUp() {
   const [user, setUser] = useState('');
@@ -25,15 +25,7 @@ function SignUp() {
       <Text style={styles.textLogIn}>Registro</Text>
 
       <View style={styles.acountContainer}>
-<<<<<<<< HEAD:appBarNoCountry/src/screens/SignUp/SignUp.tsx
         <Image source={require('../../assets/image-bar.png')} />
-========
-<<<<<<< HEAD:appBarNoCountry/src/components/SignUp/SignUp.tsx
-        <Image source={require("../../assets/image-bar.png")} />
-=======
-        <Image source={require('../../../assets/image-bar.png')} />
->>>>>>> a618f134121e920299ba62aadb9f8e78d44b6f1d:appBarNoCountry/src/components/landingPage/SignUp/SignUp.tsx
->>>>>>>> feature/EPICA.HU/SelectPerfil:appBarNoCountry/src/components/SignUp/SignUp.tsx
         <Text>Completa los campos para crear una cuenta</Text>
       </View>
 
