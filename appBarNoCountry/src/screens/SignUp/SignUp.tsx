@@ -1,13 +1,13 @@
+import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  Image,
-  TextInput,
-  StyleSheet,
   Button,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import React, {useState} from 'react';
 
 function SignUp() {
   const [user, setUser] = useState('');
@@ -25,7 +25,7 @@ function SignUp() {
       <Text style={styles.textLogIn}>Registro</Text>
 
       <View style={styles.acountContainer}>
-        <Image source={require('../../../assets/image-bar.png')} />
+        <Image source={require('../../assets/image-bar.png')} />
         <Text>Completa los campos para crear una cuenta</Text>
       </View>
 

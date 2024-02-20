@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,21 +8,31 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; 
 
 function Login() {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigation = useNavigation();
+
   const handleSend = () => {
     console.log('Nombre:', user);
     console.log('Password:', password);
+
+    navigation.navigate("SelectPerfil" as never);
+  };
+
+  const handleSignUp = () => {
+
+    navigation.navigate("SignUp" as never);
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Usuario</Text>
       <Image
-        source={require('../../../assets/image-bar.png')}
+        source={require('../../assets/image-bar.png')}
         style={styles.image}
       />
 
@@ -46,7 +56,9 @@ function Login() {
         </TouchableOpacity>
       </View>
 
-      <Button title="Inicia Sesión" onPress={handleSend} />
+ <TouchableOpacity onPress={handleSend} style={styles.button}>
+        <Text style={styles.textButton}>Inicia sesion</Text>
+      </TouchableOpacity>
 
       <View style={styles.createCountContainer}>
         <Text>¿Aún no tienes una cuenta?</Text>
@@ -90,6 +102,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: 'left',
     padding: 10,
+  },
+  textButton: {
+    textAlign: "center",
+    color: "#4505D0",
+    fontWeight: "bold",
+    fontSize: 16,
   },
   textPassword: {
     color: '#3F86FC',
