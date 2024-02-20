@@ -27,6 +27,10 @@ function Login() {
     navigation.navigate('SignUp' as never);
   };
 
+  const handlePassword = () => {
+    navigation.navigate('Password' as never);
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -43,7 +47,7 @@ function Login() {
           value={password}
           onChangeText={setPassword}
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handlePassword}>
           <Text style={styles.textPassword}>Olvide Mi contraseña</Text>
         </TouchableOpacity>
       </View>
@@ -54,7 +58,7 @@ function Login() {
 
       <View style={styles.createCountContainer}>
         <Text>¿Aún no tienes una cuenta?</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleSignUp}>
           <Text style={styles.createCount}>Registrarme</Text>
         </TouchableOpacity>
       </View>
@@ -87,7 +91,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   input: {
-    borderRadius: 5,
+    borderRadius: 8,
     backgroundColor: '#D7D7D7',
     padding: 10,
     width: 288,

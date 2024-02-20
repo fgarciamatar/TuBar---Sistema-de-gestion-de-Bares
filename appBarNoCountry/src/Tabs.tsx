@@ -7,6 +7,7 @@ import Welcom from './screens/Welcom/Welcom';
 import SignUp from './screens/SignUp/SignUp';
 import SelectPerfil from './screens/SelectPerfil/SelectPerfil.jsx';
 import Salon from './screens/Salon/Salon.jsx';
+import Password from "./screens/Password/Password"
 import AdminPinScreen from './screens/AdminPinScreen/AdminPinScreen.jsx';
 
 const Stack = createStackNavigator();
@@ -36,6 +37,17 @@ function Tabs() {
         }}
         name="SignUp"
         component={SignUp}
+      />
+      <Stack.Screen
+        options={{
+          headerStyle: styles.headerScreen,
+          headerTintColor: '#000',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+        name="Password"
+        component={Password}
       />
       <Stack.Screen name="SelectPerfil" component={SelectPerfil} />
       <Stack.Screen name="Salon" component={Salon} />
