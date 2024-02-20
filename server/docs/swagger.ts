@@ -1,4 +1,5 @@
 import swaggerJSDoc, { OAS3Definition, OAS3Options } from 'swagger-jsdoc';
+import path from 'path';
 
 const server = `http://${process.env.HOST}:${process.env.PORT}${process.env.ROUTE}`;
 const swaggerDefinition: OAS3Definition = {
@@ -58,7 +59,7 @@ const swaggerDefinition: OAS3Definition = {
 
 const swaggerOptions: OAS3Options = {
   swaggerDefinition,
-  apis: ['./routes/*.ts'],
+  apis: [`${path.join(__dirname, '../routes/*.routes*')}`],
 };
 
 export default swaggerJSDoc(swaggerOptions);
