@@ -1,9 +1,12 @@
-import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import Navbar from '../../components/Navbar/Navbar';
 import Tables from '../../components/Tables/Tables';
 
 function Salon() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View>
@@ -13,9 +16,8 @@ function Salon() {
         <Text>Mesas ocupadas:</Text>
         <Text>Mesas desocupadas:</Text>
       </View>
-      <View>
-        <Tables />
-      </View>
+
+      <Tables />
     </View>
   );
 }
@@ -33,4 +35,3 @@ const styles = StyleSheet.create({
 });
 
 export default Salon;
-
