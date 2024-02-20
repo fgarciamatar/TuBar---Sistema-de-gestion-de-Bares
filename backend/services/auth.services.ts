@@ -8,7 +8,7 @@ class AuthService {
 
   async checkBarCredentials(userName: string, password: string) {
     const bar = await barService.findBarByUserNameOr404(userName);
-    const verifyPassword = compareEncrypt(password, bar.password);
+    const verifyPassword = await compareEncrypt(password, bar.password);
     if (!verifyPassword) throw new AppError('Wrong Credentials', 401);
     return bar;
   }

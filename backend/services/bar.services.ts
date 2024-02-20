@@ -16,9 +16,17 @@ class BarService {
     return newAuthBar;
   }
   async findBarByUserNameOr404(userName: string) {
-    if (!userName) throw new AppError('userName not given', 400);
+    if (!userName)
+      throw new AppError(
+        'Credenciales incorrectas. Verifique su usuario y contraseña',
+        401
+      );
     const bar = await BarModel.findOne({ where: { userName } });
-    if (!bar) throw new AppError('Not found User', 404);
+    if (!bar)
+      throw new AppError(
+        'Credenciales incorrectas. Verifique su usuario y contraseña',
+        401
+      );
     return bar;
   }
 }

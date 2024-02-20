@@ -9,6 +9,8 @@ import cors from 'cors';
 import db from '../database/db';
 import path from 'path';
 import AppError from './appError';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSetup from '../docs/swagger';
 // import globalErrorHandler from '../controllers/error.controllers';
 import { initModels } from '../database/models';
 import { globalErrorHandler } from '../controllers';
@@ -37,7 +39,7 @@ class Server {
       .then(() => console.log('Database authenticate'))
       .catch(err => console.log(err));
     initModels();
-    db.sync({ force: true })
+    db.sync({ alter: true })
       .then(() => console.log('Database synced'))
       .catch(error => console.log(error));
   }
@@ -52,24 +54,29 @@ class Server {
     // router.use('/roles', routesRoles);
     // router.use('/cities', routesCities);
     // router.use('/tags', routesTags);
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 
-    this.app.all('*', (req: Request, res: Response, next: NextFunction) => {
-      return next(
-        new AppError(`can't find ${req.originalUrl} on this server`, 404)
-      );
+    this.app.use(
+      /^\/(?!$).*$/,
+      (req: Request, res: Response, next: NextFunction) => {
+        return next(
+          new AppError(`can't find ${req.originalUrl} on this server`, 404)
+        );
+      }
+    );
+    this.app.use('/', (req: Request, res: Response) => {
+      res.json({
+        status: true,
+        server: 'OK',
+      });
     });
-    // this.app.use('/', (req: Request, res: Response) => {
-    //   res.json({
-    //     status: true,
-    //     server: 'OK',
-    //   });
-    // });
     this.app.use(globalErrorHandler);
   }
   listen() {
     this.app.listen(this.PORT, () => {
       const server = `http://${this.HOST}:${this.PORT}`;
       console.log(`🚀 Server deployed at: ${server}`);
+      console.log(`📝 View docs at: ${server}/api-docs`);
     });
   }
 }

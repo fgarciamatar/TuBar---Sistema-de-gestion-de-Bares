@@ -43,7 +43,7 @@ const logIn = catchAsync(async (req, res, next) => {
 const signUp = catchAsync(async (req, res, next) => {
   const { body } = req;
   // throw new AppError('No se pudo editar el projecto', 400);
-  
+
   const query = await barService.createAuthBar(body);
   // try {
   //   await sender.sendMail({

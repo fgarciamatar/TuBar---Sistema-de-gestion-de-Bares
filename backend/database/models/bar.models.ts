@@ -36,7 +36,7 @@ const BarModel = db.define<BarAttributes>('bars', {
     },
     unique: {
       name: 'userName',
-      msg: 'Este dato tiene que ser unico.',
+      msg: "Este 'userName' ya esta registrado.",
     },
   },
   email: {
@@ -51,7 +51,7 @@ const BarModel = db.define<BarAttributes>('bars', {
       },
     },
     unique: {
-      msg: 'Este dato tiene que ser unico.',
+      msg: "Este 'email' ya esta registrado.",
       name: 'email',
     },
   },

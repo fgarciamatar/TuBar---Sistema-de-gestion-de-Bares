@@ -1,8 +1,7 @@
-import { BarModel, UserModel } from './';
+import { BarModel } from './';
 
 const initModels = () => {
   BarModel;
-  // UserModel;
 };
 
 export default initModels;
