@@ -24,7 +24,7 @@ function Welcom() {
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={require('../../assets/image-bar.png')}
+          source={require('../../assets/landing-page.png')}
         />
       </View>
 

@@ -6,27 +6,38 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Alert,
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import { apiRegister } from '../../apis';
 
 function SignUp() {
-  const [user, setUser] = useState('');
+  const [name, setname] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [userName, setUserName] = useState('');
 
   const navigation = useNavigation();
 
-  const handleSend = () => {
-    console.log('Nombre:', user);
+  const handleSend = async (name,userName, email, password) => { 
+
+    const resp = await apiRegister(name, userName, email, password)
+    if(resp.data == "Bar registrado exitosamente."){
+      Alert.alert('Éxito', resp.data);
+      navigation.navigate('Login');
+    }else{
+      Alert.alert('Error',resp.data);
+    }
+    console.log('Nombre:', name);
     console.log('Email:', email);
     console.log('Password:', password);
+    console.log('User:', userName);
 
-    navigation.navigate('SelectPerfil' as never);
   };
 
   const handleLogIn = () => {
-    navigation.navigate('Login' as never);
+    navigation.navigate('Login');
   };
 
   return (
@@ -40,8 +51,10 @@ function SignUp() {
       </View>
 
       <View style={styles.formContainer}>
-        <Text style={styles.labelInput}>Usuario</Text>
-        <TextInput style={styles.input} value={user} onChangeText={setUser} />
+        <Text style={styles.labelInput}>Nombre del Bar/Restaurante</Text>
+        <TextInput style={styles.input} value={name} onChangeText={setname} />
+        <Text style={styles.labelInput}>Nombre de usuario</Text>
+        <TextInput style={styles.input} value={userName} onChangeText={setUserName} />
         <Text style={styles.labelInput}>Email</Text>
         <TextInput style={styles.input} value={email} onChangeText={setEmail} />
         <Text style={styles.labelInput}>Contraseña</Text>
