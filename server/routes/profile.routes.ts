@@ -4,7 +4,7 @@ import { getProfiles } from '../controllers/profile.controllers';
 
 const router = Router();
 
-router.use(protect);
+router.use(protect(['barSession']));
 /**
  * @swagger
  * tags:

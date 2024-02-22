@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { logIn, signUp } from '../controllers';
+import { logIn, logInProfile, protect, signUp } from '../controllers';
 
 const router = Router();
 
@@ -23,7 +23,7 @@ const router = Router();
  *          schema:
  *            $ref: "#/components/schemas/login"
  *    responses:
- *       '200 ':
+ *       '200':
  *         description: Inicio de sesión exitoso.
  *         content:
  *          application/json:
@@ -54,7 +54,7 @@ router.post('/login', logIn);
  *       '201':
  *         description: Bar registrado exitosamente.
  *       '400':
- *         description: | 
+ *         description: |
  *          No se pudo registrar el Bar. Verifique los datos proporcionados.
  *            - Formato del email incorrecto.
  *       '409':
@@ -67,5 +67,45 @@ router.post('/login', logIn);
  *
  */
 router.post('/sign-up', signUp);
+router.use(protect(['barSession']));
+
+/**
+ * @swagger
+ * tags:
+ *  name: Auth
+ *  description: Auth Endpoints
+ */
+
+/**
+ * @swagger
+ * /auth/login/profile:
+ *  post:
+ *    tags: [Auth]
+ *    summary: Login del perfil
+ *    description: Endpoint para hacer login con los perfiles
+ *    requestBody:
+ *       content:
+ *         application/json:
+ *          schema:
+ *            $ref: "#/components/schemas/loginProfile"
+ *    responses:
+ *       '200':
+ *         description: Inicio de sesión exitoso.
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: "#/components/schemas/loginResponse"
+ *       '401':
+ *         description: |
+ *          Error en la autorizacion.
+ *            - Credenciales incorrectas. Verifique su pin.
+ *            - ¡Usted no se ha identificado! por favor inicie sesión para obtener acceso
+ *       '500':
+ *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
+ *    security:
+ *       - bearerAuth: []
+ */
+
+router.post('/login/profile', logInProfile);
 
 export default router;

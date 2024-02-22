@@ -15,3 +15,4 @@ export type ControllerFunction = (
 ) => Promise<void>;
 
 export type Role = 'ADMIN' | 'EMPLOYER';
+export type TokenType = 'barSession' | 'profileSession';

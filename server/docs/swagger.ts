@@ -39,6 +39,14 @@ const swaggerDefinition: OAS3Definition = {
           userName: { type: 'string', example: 'uniqueBar' },
         },
       },
+      loginProfile: {
+        type: 'object',
+        required: ['pinCode', 'profielId'],
+        properties: {
+          pinCode: { type: 'string', example: '109e9d' },
+          profileId: { type: 'number', example: 1 },
+        },
+      },
       loginResponse: {
         type: 'object',
         example: {
