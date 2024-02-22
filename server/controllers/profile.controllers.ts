@@ -2,10 +2,42 @@ import { ProfileService } from '../services';
 import { catchAsync } from '../utils';
 
 const profileService = new ProfileService();
-const getProfiles = catchAsync(async (req, res, next) => {
-  const { barSession } = res.locals;
-  const profiles = await profileService.findProfiles(barSession.id);
-  res.status(200).json(profiles);
+
+const getProfilesForBar = catchAsync(async (req, res, next) => {
+  const { barSession, profileSession } = res.locals;
+  const barId = barSession ? barSession.id : profileSession.barId;
+  const profiles = await profileService.findProfilesForBar(barId);
+  res.status(200).json({ status: true, profiles });
 });
 
-export { getProfiles };
+const createProfileForBar = catchAsync(async (req, res, next) => {
+  const { body } = req;
+  const { profileSession } = res.locals;
+  const data = { ...body, barId: profileSession.barId };
+  const profile = await profileService.createProfileForBar(data);
+  res.status(200).json({ status: true, profile });
+});
+
+const deleteProfileForBar = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const { profileSession } = res.locals;
+  await profileService.removeProfileForBar(+id, profileSession.barId);
+  res.status(204).json({ status: true, msg: 'Perfil eliminado exitosamente.' });
+});
+const editProfileForBar = catchAsync(async (req, res, next) => {
+  const { body, params } = req;
+  const { profileSession } = res.locals;
+  const { id } = params;
+  const data = { ...body, barId: profileSession.barId };
+  const profile = await profileService.updateProfileForBar(+id, data);
+  res
+    .status(200)
+    .json({ status: true, msg: 'Perfil editado exitosamente.', profile });
+});
+
+export {
+  getProfilesForBar,
+  createProfileForBar,
+  deleteProfileForBar,
+  editProfileForBar,
+};

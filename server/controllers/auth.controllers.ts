@@ -5,6 +5,7 @@ import { AppError } from '../models';
 import { tokenSign, verifyToken } from '../utils/jwt';
 import { BarModel } from '../database/models';
 import { TokenType } from '../interfaces';
+import { Role } from '../interfaces/profile';
 
 const authService = new AuthService();
 const barService = new BarService();
@@ -22,11 +23,12 @@ const protect = (auths: TokenType[]) =>
       );
     const token = authorization.split(' ')[1];
     const { id, tokenType } = verifyToken(token);
-    console.log({ id });
-    if (!auths.includes(tokenType)) {
-      throw new AppError(`Usted no tiene acceso a esta ruta.`, 401);
-    }
+    const correctTokenType = auths.includes(tokenType);
+
     if (tokenType === 'barSession') {
+      if (!correctTokenType)
+        throw new AppError(`Necesita iniciar sesión con su perfil.`, 401);
+
       const bar = await barService.findBarById(id);
       if (!bar)
         return next(
@@ -38,6 +40,8 @@ const protect = (auths: TokenType[]) =>
       res.locals.barSession = bar;
     }
     if (tokenType === 'profileSession') {
+      if (!correctTokenType)
+        throw new AppError(`Necesita iniciar sesión.`, 401);
       const profile = await profileService.findProfileById(id);
       if (!profile)
         return next(
@@ -47,6 +51,17 @@ const protect = (auths: TokenType[]) =>
           )
         );
       res.locals.profileSession = profile;
+    }
+    next();
+  });
+
+const checkRole = (roles: Role[]) =>
+  catchAsync(async (req, res, next) => {
+    const { profileSession } = res.locals;
+    if (!roles.includes(profileSession.role)) {
+      return next(
+        new AppError('No tienes permisos para acceder a esta ruta.', 403)
+      );
     }
     next();
   });
@@ -63,11 +78,12 @@ const logIn = catchAsync(async (req, res, next) => {
 });
 const logInProfile = catchAsync(async (req, res, next) => {
   const { pinCode, profileId } = req.body;
-  const { barSession } = res.locals;
+  const { barSession, profileSession } = res.locals;
+  const barId = barSession ? barSession.id : profileSession.barId;
   const profile = await authService.checkProfileCredentials(
     +profileId,
     pinCode,
-    barSession.id
+    barId
   );
   const token = tokenSign(profile.id, 'profileSession');
   res.status(200).json({
@@ -94,11 +110,11 @@ const signUp = catchAsync(async (req, res, next) => {
   //   errors.push({errorName:'Error Sending Email', message:'Something went wrong with the Sender Email'})
   // }
   const result = {
+    status: true,
     bar: query,
     pin: pinCode,
   };
-  console.log('query', query);
   res.status(201).json(result);
 });
 
-export { signUp, logIn, protect, logInProfile };
+export { signUp, logIn, protect, logInProfile, checkRole };
