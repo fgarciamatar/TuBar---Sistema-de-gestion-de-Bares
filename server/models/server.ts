@@ -12,9 +12,9 @@ import AppError from './appError';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSetup from '../docs/swagger';
 // import globalErrorHandler from '../controllers/error.controllers';
-import { initModels } from '../database/models';
+import { TableModel, initModels } from '../database/models';
 import { globalErrorHandler } from '../controllers';
-import { authRoutes, profileRoutes } from '../routes';
+import { authRoutes, profileRoutes, tableRoutes } from '../routes';
 
 class Server {
   private app: Application;
@@ -48,6 +48,7 @@ class Server {
     this.app.use(this.ROUTE, router);
     router.use('/auth', authRoutes);
     router.use('/profiles', profileRoutes);
+    router.use('/tables', tableRoutes);
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 
     this.app.use(

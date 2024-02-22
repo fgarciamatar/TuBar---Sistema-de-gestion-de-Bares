@@ -60,7 +60,10 @@ const checkRole = (roles: Role[]) =>
     const { profileSession } = res.locals;
     if (!roles.includes(profileSession.role)) {
       return next(
-        new AppError('No tienes permisos para acceder a esta ruta.', 403)
+        new AppError(
+          'Este perfil no tiene permisos para acceder a esta ruta.',
+          403
+        )
       );
     }
     next();

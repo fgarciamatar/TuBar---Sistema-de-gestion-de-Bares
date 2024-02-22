@@ -30,9 +30,7 @@ const editProfileForBar = catchAsync(async (req, res, next) => {
   const { id } = params;
   const data = { ...body, barId: profileSession.barId };
   const profile = await profileService.updateProfileForBar(+id, data);
-  res
-    .status(200)
-    .json({ status: true, msg: 'Perfil editado exitosamente.', profile });
+  res.status(200).json({ status: true, profile });
 });
 
 export {

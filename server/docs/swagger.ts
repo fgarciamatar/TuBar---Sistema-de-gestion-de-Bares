@@ -5,7 +5,7 @@ const server = `http://${process.env.HOST}:${process.env.PORT}${process.env.ROUT
 const swaggerDefinition: OAS3Definition = {
   openapi: '3.0.0',
   info: {
-    title: 'Documentacion de mi API',
+    title: 'Documentacion BAR API',
     version: '1.0.0',
   },
   servers: [
@@ -61,11 +61,10 @@ const swaggerDefinition: OAS3Definition = {
           },
         },
       },
-      profileEditSuccess: {
+      profileResponse: {
         type: 'object',
         example: {
           status: true,
-          msg: 'Perfil editado exitosamente.',
           profile: {
             id: 4,
             name: 'Mesero1',
@@ -89,6 +88,36 @@ const swaggerDefinition: OAS3Definition = {
             enum: ['ADMIN', 'EMPLOYEE'],
           },
           pinCode: { type: 'string', example: 'abcde12345' },
+        },
+      },
+      tableGeneral: {
+        type: 'object',
+        required: ['tableNumber', 'ability', 'location'],
+        properties: {
+          tableNumber: { type: 'num', example: 1 },
+          isOccupied: {
+            type: 'boolean',
+            example: false,
+            description: 'No es necesario enviarlo, el valor default de false',
+          },
+          ability: { type: 'num', example: 5 },
+          location: { type: 'string', example: 'medio' },
+        },
+      },
+      tableResponse: {
+        type: 'object',
+        example: {
+          status: true,
+          profile: {
+            isOccupied: false,
+            id: 1,
+            tableNumber: 1,
+            ability: 5,
+            location: 'medio',
+            barId: 22,
+            updatedAt: '2024-02-22T19:37:04.016Z',
+            createdAt: '2024-02-22T19:37:04.016Z',
+          },
         },
       },
     },

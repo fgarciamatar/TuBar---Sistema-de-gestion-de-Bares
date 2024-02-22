@@ -1,33 +1,35 @@
 import { Router } from 'express';
 import { checkRole, protect } from '../controllers';
 import {
-  createProfileForBar,
-  deleteProfileForBar,
-  editProfileForBar,
-  getProfilesForBar,
-} from '../controllers/profile.controllers';
+  createTableForBar,
+  deleteTableForBar,
+  editableForBar,
+  getTablesForBar,
+} from '../controllers/table.controllers';
 
 const router = Router();
 
 /**
  * @swagger
  * tags:
- *  name: Perfiles
- *  description: Perfiles endpoints
+ *  name: Mesas
+ *  description: Mesas endpoints
  */
+
+router.use(protect(['profileSession']));
 
 /**
  * @swagger
- * /profiles:
+ * /tables:
  *  get:
- *    tags: [Perfiles]
- *    summary: Obtener los perfiles del Bar, requiere sesion del perfil o del bar
- *    description: Endpoint para listar los perfiles creados en el bar
+ *    tags: [Mesas]
+ *    summary: Obtener los mesas del Bar, requiere sesion del perfil
+ *    description: Endpoint para listar las mesas creados en el bar
  *    responses:
  *       '200':
  *         description: Consulta exitosa.
  *       '401':
- *         description: ¡Usted no se ha identificado! por favor inicie sesión para obtener acceso.
+ *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
  *       '500':
  *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
  *    security:
@@ -35,30 +37,33 @@ const router = Router();
  *
  */
 
-router.get('/', protect(['barSession', 'profileSession']), getProfilesForBar);
-router.use(protect(['profileSession']));
+router.get('/', getTablesForBar);
 router.use(checkRole(['ADMIN']));
 /**
  * @swagger
- * /profiles:
+ * /tables:
  *  post:
- *    tags: [Perfiles]
- *    summary: Crear un nuevo perfil para el Bar, requiere sesion del perfil
- *    description: Endpoint para crear  perfiles del bar
+ *    tags: [Mesas]
+ *    summary: Crear una mesa para el Bar, requiere sesion del perfil
+ *    description: Endpoint para crear mesas del bar
  *    requestBody:
  *       content:
  *         application/json:
  *          schema:
- *            $ref: "#/components/schemas/profileGeneral"
+ *            $ref: "#/components/schemas/tableGeneral"
  *    responses:
  *       '200':
- *         description: Perfil creado exitosamente.
+ *         description: Mesa creado exitosamente.
  *         content:
  *          application/json:
  *            schema:
- *              $ref: "#/components/schemas/profileResponse"
+ *              $ref: "#/components/schemas/tableResponse"
+ *       '400':
+ *         description: No se pudo crear la mesa. Verifique los datos proporcionados.
  *       '401':
  *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
+ *       '403':
+ *         description: Este perfil no tiene permisos para acceder a esta ruta.
  *       '409':
  *         description: Error de validación, revise que los campos enviados son los correctos.
  *       '500':
@@ -67,46 +72,48 @@ router.use(checkRole(['ADMIN']));
  *      - bearerAuth: []
  *
  */
-router.post('/', createProfileForBar);
+router.post('/', createTableForBar);
 /**
  * @swagger
- * /profiles/{id}:
+ * /tables/{id}:
  *  delete:
- *    tags: [Perfiles]
- *    summary: Eliminar un perfil del bar, requiere sesion del perfil
- *    description: Endpoint para eliminar perfiles del bar
+ *    tags: [Mesas]
+ *    summary: Eliminar una mesa del bar, requiere sesion del perfil
+ *    description: Endpoint para eliminar mesas del bar
  *    parameters:
  *       - name: id
  *         in: path
- *         description: Id del perfil
+ *         description: Id de la mesa
  *         required: true
  *         schema:
  *           type: integer
  *    responses:
  *       '204':
- *         description: Perfil eliminado exitosamente.
+ *         description: Mesa eliminado exitosamente.
  *       '401':
  *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
+ *       '403':
+ *         description: Este perfil no tiene permisos para acceder a esta ruta..
  *       '404':
- *         description: No se encontró ningún perfil con el ID especificado.
+ *         description: No se encontró ninguna mesa con el ID especificado.
  *       '500':
  *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
  *    security:
  *      - bearerAuth: []
  *
  */
-router.delete('/:id', deleteProfileForBar);
+router.delete('/:id', deleteTableForBar);
 /**
  * @swagger
- * /profiles/{id}:
+ * /tables/{id}:
  *  patch:
- *    tags: [Perfiles]
- *    summary: Editar un perfile del Bar, requiere sesion del perfil
- *    description: Endpoint para editar  perfiles del bar
+ *    tags: [Mesas]
+ *    summary: Editar una mesa del Bar, requiere sesion del perfil
+ *    description: Endpoint para editar las mesas del bar
  *    parameters:
  *       - name: id
  *         in: path
- *         description: Id del perfil
+ *         description: Id de la mesa
  *         required: true
  *         schema:
  *           type: integer
@@ -114,18 +121,22 @@ router.delete('/:id', deleteProfileForBar);
  *       content:
  *         application/json:
  *          schema:
- *            $ref: "#/components/schemas/profileGeneral"
+ *            $ref: "#/components/schemas/tableGeneral"
  *    responses:
  *       '200':
- *         description: Perfil editado exitosamente.
+ *         description: Mesa editado exitosamente.
  *         content:
  *          application/json:
  *            schema:
- *              $ref: "#/components/schemas/profileResponse"
+ *              $ref: "#/components/schemas/tableResponse"
+ *       '400':
+ *         description: No se pudo editar la mesa. Verifique los datos proporcionados.
  *       '401':
  *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
+ *       '403':
+ *         description: Este perfil no tiene permisos para acceder a esta ruta..
  *       '404':
- *         description: No se encontró ningún perfil con el ID especificado.
+ *         description: No se encontró ninguna mesa con el ID especificado.
  *       '409':
  *         description: Error de validación, revise que los campos enviados son los correctos.
  *       '500':
@@ -134,6 +145,6 @@ router.delete('/:id', deleteProfileForBar);
  *      - bearerAuth: []
  *
  */
-router.patch('/:id', editProfileForBar);
+router.patch('/:id', editableForBar);
 
 export default router;
