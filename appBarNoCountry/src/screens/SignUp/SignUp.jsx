@@ -26,7 +26,7 @@ function SignUp() {
     const errors = validation(formState); // Validar el formulario
     setErrors(errors); // Actualizar el estado de los errores
     setIsValid(Object.keys(errors).length === 0); // Verificar si el formulario es válido
-  }, [name, userName, email, password]);
+  }, [name, userName, email, password]);//
 
   const navigation = useNavigation();
 
