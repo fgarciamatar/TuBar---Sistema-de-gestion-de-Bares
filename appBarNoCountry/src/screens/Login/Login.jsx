@@ -22,7 +22,7 @@ function Login() {
     if (resp.status === true) {
       Alert.alert("Exito",'Sesion iniciada');
       navigation.navigate('SelectPerfil');
-    } else {
+    } else  if (resp.status === true)  {
       Alert.alert('Usuario no encontrado, por favor intentelo de nuevo.');
     }
   };

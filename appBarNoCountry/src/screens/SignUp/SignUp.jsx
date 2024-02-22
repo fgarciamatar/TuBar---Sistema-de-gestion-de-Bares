@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {
   Alert,
   Image,
@@ -7,9 +7,10 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import { apiRegister } from '../../apis';
+import {apiRegister} from '../../apis';
+import validation from '../../validation';
 
 function SignUp() {
   const [name, setName] = useState('');
@@ -17,12 +18,23 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [userName, setUserName] = useState('');
 
+  const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    const formState = {name, userName, email, password}; // Estado actual del formulario
+    const errors = validation(formState); // Validar el formulario
+    setErrors(errors); // Actualizar el estado de los errores
+    setIsValid(Object.keys(errors).length === 0); // Verificar si el formulario es válido
+  }, [name, userName, email, password]);//
+
   const navigation = useNavigation();
 
   const handleSend = async () => {
     const resp = await apiRegister(name, userName, email, password);
+    console.log('respuestaa:', resp);
     if (resp.createdAt) {
-      Alert.alert('Éxito', resp.data);
+      Alert.alert('Éxito', 'Usuario creado correctamente');
       navigation.navigate('Login');
     }
   };
@@ -43,26 +55,44 @@ function SignUp() {
 
       <View style={styles.formContainer}>
         <Text style={styles.labelInput}>Nombre del Bar/Restaurante</Text>
-        <TextInput style={styles.input} value={name} onChangeText={setName} />
+        <TextInput
+          style={styles.input}
+          value={name}
+          onChangeText={setName}
+        />
+        {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
+
         <Text style={styles.labelInput}>Nombre de usuario</Text>
         <TextInput
           style={styles.input}
           value={userName}
           onChangeText={setUserName}
         />
+        {errors.userName && <Text style={styles.errorText}>{errors.userName}</Text>}
+
         <Text style={styles.labelInput}>Email</Text>
-        <TextInput style={styles.input} value={email} onChangeText={setEmail} />
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+        />
+        {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+
         <Text style={styles.labelInput}>Contraseña</Text>
         <TextInput
           style={styles.input}
           value={password}
           onChangeText={setPassword}
         />
+        {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
       </View>
 
       <View style={styles.sendContainer}>
-        <TouchableOpacity onPress={handleSend} style={styles.button}>
-          <Text style={styles.textButton}>Registrame</Text>
+        <TouchableOpacity
+          onPress={handleSend}
+          style={[styles.button, !isValid && styles.disabledButton]}
+          disabled={!isValid}>
+          <Text style={styles.textButton}>Regístrame</Text>
         </TouchableOpacity>
 
         <View style={styles.logInContainer}>
@@ -96,11 +126,6 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
-  textSigUp: {
-    textAlign: 'left',
-    padding: 10,
-    borderBottomColor: 'gray',
-  },
   formContainer: {
     display: 'flex',
     justifyContent: 'center',
@@ -132,6 +157,9 @@ const styles = StyleSheet.create({
     borderColor: '#AA84FC',
     marginTop: 20,
   },
+  disabledButton: {
+    backgroundColor: '#ccc',
+  },
   textButton: {
     textAlign: 'center',
     color: '#4505D0',
@@ -146,6 +174,10 @@ const styles = StyleSheet.create({
   },
   textLogIn: {
     color: '#3F86FC',
+  },
+  errorText: {
+    color: 'red',
+    marginTop: 5,
   },
 });
 
