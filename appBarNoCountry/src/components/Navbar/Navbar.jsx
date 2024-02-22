@@ -12,7 +12,7 @@ function Navbar() {
       </View>
       <TouchableOpacity onPress={() => navigation.navigate('SelectPerfil')}>
         <View style={styles.imageContainer}>
-          <Image
+          <Image 
             style={styles.image}
             source={require('../../assets/user.png')}
           />

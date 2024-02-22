@@ -1,38 +1,44 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  Button,
+  Alert,
   Image,
-  TextInput,
   StyleSheet,
+  Text,
+  TextInput,
   TouchableOpacity,
+  View
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; 
+import { apiLogin } from '../../apis';
 
 function Login() {
-  const [user, setUser] = useState('');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
   const navigation = useNavigation();
 
-  const handleSend = () => {
-    console.log('Nombre:', user);
-    console.log('Password:', password);
-
-    navigation.navigate("SelectPerfil" as never);
+  const handleSend = async () => {
+    const resp = await apiLogin(userName, password);
+    if (resp.status === true) {
+      Alert.alert("Exito",'Sesion iniciada');
+      navigation.navigate('SelectPerfil');
+    } else {
+      Alert.alert('Usuario no encontrado, por favor intentelo de nuevo.');
+    }
   };
 
   const handleSignUp = () => {
+    navigation.navigate('SignUp');
+  };
 
-    navigation.navigate("SignUp" as never);
+  const handlePassword = () => {
+    navigation.navigate('Password');
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Usuario</Text>
       <Image
-        source={require('../../assets/image-bar.png')}
+        source={require('../../assets/landing-page.png')}
         style={styles.image}
       />
 
@@ -40,29 +46,27 @@ function Login() {
         <Text style={styles.label}>Usuario</Text>
         <TextInput
           style={styles.input}
-          placeholder="Usuario"
-          value={user}
-          onChangeText={setUser}
+          value={userName}
+          onChangeText={setUserName}
         />
         <Text style={styles.label}>Contraseña</Text>
         <TextInput
           style={styles.input}
-          placeholder="Contraseña"
           value={password}
           onChangeText={setPassword}
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handlePassword}>
           <Text style={styles.textPassword}>Olvide Mi contraseña</Text>
         </TouchableOpacity>
       </View>
 
- <TouchableOpacity onPress={handleSend} style={styles.button}>
-        <Text style={styles.textButton}>Inicia sesion</Text>
+      <TouchableOpacity onPress={handleSend} style={styles.button}>
+        <Text style={styles.textButton}>Inicia sesión</Text>
       </TouchableOpacity>
 
       <View style={styles.createCountContainer}>
         <Text>¿Aún no tienes una cuenta?</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleSignUp}>
           <Text style={styles.createCount}>Registrarme</Text>
         </TouchableOpacity>
       </View>
@@ -73,29 +77,33 @@ function Login() {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    flex: 1,
-    flexDirection: 'column',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 174,
+    height: 163.8,
     padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 100,
+    marginTop: 40,
   },
   label: {
-    marginBottom: 5,
     fontSize: 16,
-    fontWeight: 'bold',
+    color: '#000',
   },
   formContainer: {
     display: 'flex',
-    flexDirection: 'column',
     gap: 10,
+    marginTop: 40,
   },
   input: {
-    borderWidth: 1,
-    borderColor: '#D7D7D7',
-    borderRadius: 5,
+    borderRadius: 8,
+    backgroundColor: '#D7D7D7',
     padding: 10,
+    width: 288,
+    height: 30,
   },
   textTitle: {
     fontSize: 30,
@@ -104,27 +112,36 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   textButton: {
-    textAlign: "center",
-    color: "#4505D0",
-    fontWeight: "bold",
+    textAlign: 'center',
+    color: '#4505D0',
+    fontWeight: 'bold',
     fontSize: 16,
   },
   textPassword: {
     color: '#3F86FC',
     textAlign: 'right',
+    fontWeight: '400',
+    fontFamily: 'Montserrat',
   },
   button: {
     width: 186,
     borderRadius: 5,
     padding: 10,
+    backgroundColor: '#D0BBFD',
+    borderWidth: 1,
+    borderColor: '#AA84FC',
+    marginTop: 40,
   },
   createCountContainer: {
     fontFamily: 'Roboto',
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
+    gap: 5,
+    marginTop: 50,
   },
   createCount: {
     color: '#3F86FC',
+    lineHeight: 17.07,
   },
 });
 
