@@ -1,34 +1,38 @@
-import React, {useState} from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  Button,
+  Alert,
   Image,
-  TextInput,
   StyleSheet,
+  Text,
+  TextInput,
   TouchableOpacity,
+  View
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { apiLogin } from '../../apis';
 
 function Login() {
-  const [user, setUser] = useState('');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
   const navigation = useNavigation();
 
-  const handleSend = () => {
-    console.log('Nombre:', user);
-    console.log('Password:', password);
-
-    navigation.navigate('SelectPerfil' as never);
+  const handleSend = async () => {
+    const resp = await apiLogin(userName, password);
+    if (resp.status === true) {
+      Alert.alert("Exito",'Sesion iniciada');
+      navigation.navigate('SelectPerfil');
+    } else {
+      Alert.alert('Usuario no encontrado, por favor intentelo de nuevo.');
+    }
   };
 
   const handleSignUp = () => {
-    navigation.navigate('SignUp' as never);
+    navigation.navigate('SignUp');
   };
 
   const handlePassword = () => {
-    navigation.navigate('Password' as never);
+    navigation.navigate('Password');
   };
 
   return (
@@ -40,7 +44,11 @@ function Login() {
 
       <View style={styles.formContainer}>
         <Text style={styles.label}>Usuario</Text>
-        <TextInput style={styles.input} value={user} onChangeText={setUser} />
+        <TextInput
+          style={styles.input}
+          value={userName}
+          onChangeText={setUserName}
+        />
         <Text style={styles.label}>Contraseña</Text>
         <TextInput
           style={styles.input}

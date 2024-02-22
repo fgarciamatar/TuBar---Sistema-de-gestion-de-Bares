@@ -1,39 +1,30 @@
-import React, {useState} from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
 import {
-  Button,
+  Alert,
   Image,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  Alert,
-  View,
+  View
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import { apiRegister } from '../../apis';
 
 function SignUp() {
-  const [name, setname] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [userName, setUserName] = useState('');
 
   const navigation = useNavigation();
 
-  const handleSend = async (name,userName, email, password) => { 
-
-    const resp = await apiRegister(name, userName, email, password)
-    if(resp.data == "Bar registrado exitosamente."){
+  const handleSend = async () => {
+    const resp = await apiRegister(name, userName, email, password);
+    if (resp.createdAt) {
       Alert.alert('Éxito', resp.data);
       navigation.navigate('Login');
-    }else{
-      Alert.alert('Error',resp.data);
     }
-    console.log('Nombre:', name);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('User:', userName);
-
   };
 
   const handleLogIn = () => {
@@ -52,9 +43,13 @@ function SignUp() {
 
       <View style={styles.formContainer}>
         <Text style={styles.labelInput}>Nombre del Bar/Restaurante</Text>
-        <TextInput style={styles.input} value={name} onChangeText={setname} />
+        <TextInput style={styles.input} value={name} onChangeText={setName} />
         <Text style={styles.labelInput}>Nombre de usuario</Text>
-        <TextInput style={styles.input} value={userName} onChangeText={setUserName} />
+        <TextInput
+          style={styles.input}
+          value={userName}
+          onChangeText={setUserName}
+        />
         <Text style={styles.labelInput}>Email</Text>
         <TextInput style={styles.input} value={email} onChangeText={setEmail} />
         <Text style={styles.labelInput}>Contraseña</Text>
