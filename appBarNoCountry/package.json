@@ -1,9 +1,9 @@
 {
-  "name": "appBarNoCountry",
+  "nameApp": "appBarNoCountry",
   "version": "0.0.1",
   "private": false,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "npx react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
@@ -16,6 +16,7 @@
     "@react-navigation/native": "^6.1.10",
     "@react-navigation/stack": "^6.3.21",
     "@reduxjs/toolkit": "^2.0.1",
+    "axios": "^1.6.7",
     "core-js": "^3.35.1",
     "flow": "^0.2.3",
     "git": "^0.1.5",

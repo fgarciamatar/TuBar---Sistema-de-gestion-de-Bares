@@ -1,14 +1,28 @@
-import * as React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 function Tables() {
+  const navigation = useNavigation();
   const mesas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+  const handleSend = () => {
+    navigation.navigate('Comanda');
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {mesas.map((mesa, index) => (
         <View key={index} style={styles.mesa}>
-          <Text style={styles.mesaText}>{mesa}</Text>
+          <TouchableOpacity onPress={handleSend}>
+            <Text style={styles.mesaText}>{mesa}</Text>
+          </TouchableOpacity>
         </View>
       ))}
     </ScrollView>
@@ -38,6 +52,3 @@ const styles = StyleSheet.create({
 });
 
 export default Tables;
-
-
-
