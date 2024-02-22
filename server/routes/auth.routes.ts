@@ -67,7 +67,6 @@ router.post('/login', logIn);
  *
  */
 router.post('/sign-up', signUp);
-router.use(protect(['barSession']));
 
 /**
  * @swagger
@@ -81,7 +80,7 @@ router.use(protect(['barSession']));
  * /auth/login/profile:
  *  post:
  *    tags: [Auth]
- *    summary: Login del perfil
+ *    summary: Login del perfil, requiere sesion en perfil o en bar
  *    description: Endpoint para hacer login con los perfiles
  *    requestBody:
  *       content:
@@ -106,6 +105,10 @@ router.use(protect(['barSession']));
  *       - bearerAuth: []
  */
 
-router.post('/login/profile', logInProfile);
+router.post(
+  '/login/profile',
+  protect(['barSession', 'profileSession']),
+  logInProfile
+);
 
 export default router;

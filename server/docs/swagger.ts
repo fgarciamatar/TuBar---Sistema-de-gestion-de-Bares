@@ -61,6 +61,36 @@ const swaggerDefinition: OAS3Definition = {
           },
         },
       },
+      profileEditSuccess: {
+        type: 'object',
+        example: {
+          status: true,
+          msg: 'Perfil editado exitosamente.',
+          profile: {
+            id: 4,
+            name: 'Mesero1',
+            role: 'EMPLOYEE',
+            pinCode:
+              '$2a$10$XyWLLX1dZFhUL6wi89d2XOqnDHGK2sFBC8r0MR3C20n07lMgS7Gkm',
+            barId: 22,
+            createdAt: '2024-02-22T03:54:21.177Z',
+            updatedAt: '2024-02-22T15:55:19.407Z',
+          },
+        },
+      },
+      profileGeneral: {
+        type: 'object',
+        required: ['name', 'role', 'pinCode'],
+        properties: {
+          name: { type: 'string', example: 'Mesero1' },
+          role: {
+            type: 'string',
+            example: 'EMPLOYEE',
+            enum: ['ADMIN', 'EMPLOYEE'],
+          },
+          pinCode: { type: 'string', example: 'abcde12345' },
+        },
+      },
     },
   },
 };
