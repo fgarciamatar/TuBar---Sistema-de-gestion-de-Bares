@@ -34,8 +34,23 @@ function SignUp() {
     const resp = await apiRegister(name, userName, email, password);
     console.log('respuestaa:', resp);
     if (resp.createdAt) {
-      Alert.alert('Éxito', 'Usuario creado correctamente');
-      navigation.navigate('Login');
+      Alert.alert('Éxito', 'Usuario creado correctamente', [
+        {
+          text: 'OK',
+          onPress: () => {
+            navigation.navigate('Login');
+          },
+        },
+      ]);
+    }else{
+      Alert.alert('Error', 'Usuario ya existe', [
+        {
+          text: 'OK',
+          onPress: () => {
+            navigation.navigate('Login');
+          },
+        },
+      ]);
     }
   };
 
