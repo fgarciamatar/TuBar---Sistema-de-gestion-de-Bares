@@ -6,16 +6,16 @@ import {
 } from 'sequelize';
 import { ModelSequlize } from './types';
 
-export interface PerfilAttributes extends ModelSequlize<PerfilAttributes> {
+export interface BillAttributes extends ModelSequlize<BillAttributes> {
   id?: CreationOptional<number>;
-  name: string;
-  rol: string;
-  bar_id: number;
+  billNumber: string;
   createdAt?: CreationOptional<Date>;
+  total: number;
+  profileId: number;
   updatedAt?: CreationOptional<Date>;
 }
 
-export type PerfilProps = Pick<
-  PerfilAttributes,
-  'name' | 'rol' | 'bar_id'
+export type BillProps = Pick<
+  BillAttributes,
+  'billNumber' | 'total' | 'profileId'
 >;

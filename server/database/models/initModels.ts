@@ -1,11 +1,14 @@
-import { BarModel } from './';
-import MesaModel from './mesa.models';
-import PerfilModel from './perfil.models';
+import { BarModel, BillModel, OrderModel, OrdersDetailModel, ProfileModel, ProductsCategoryModel, ProductModel, TableModel} from './';
 
 const initModels = () => {
   BarModel;
-  PerfilModel;
-  MesaModel;
+  BillModel;
+  OrderModel;
+  OrdersDetailModel;
+  ProfileModel;
+  ProductsCategoryModel;
+  ProductModel;
+  TableModel;
 };
 
 export default initModels;

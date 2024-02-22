@@ -1,43 +1,37 @@
 import { DataTypes, Optional } from 'sequelize';
 import db from '../db';
-import { MesaAttributes } from '../../interfaces';
+import { TableAttributes } from '../../interfaces';
 import BarModel from './bar.models';
 
-
-type MesaCreationAttributes = Optional<
-  MesaAttributes,
-  'id' | 'createdAt' | 'updatedAt'
->;
-
-const MesaModel = db.define<MesaAttributes>('mesas', {
-  numero_mesa: {
+const TableModel = db.define<TableAttributes>('tables', {
+  tableNumber: {
     type: DataTypes.INTEGER,
     allowNull: false,
     validate: {
       notNull: {
-        msg: "El campo 'numero_mesa' es obligatorio y debe ser proporcionado.",
+        msg: "El campo 'tableNumber' es obligatorio y debe ser proporcionado.",
       },
     },
   },
-  capacidad: {
+  ability: {
     type: DataTypes.INTEGER,
     allowNull: false,
     validate: {
       notNull: {
-        msg: "El campo 'capacidad' es obligatorio y debe ser proporcionado.",
+        msg: "El campo 'ability' es obligatorio y debe ser proporcionado.",
       },
     },
   },
-  ubicacion: {
+  location: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
       notNull: {
-        msg: "El campo 'ubicacion' es obligatorio y debe ser proporcionado.",
+        msg: "El campo 'location' es obligatorio y debe ser proporcionado.",
       },
     },
   },
-  bar_id: {
+  barId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -46,10 +40,10 @@ const MesaModel = db.define<MesaAttributes>('mesas', {
     },
     validate: {
       notNull: {
-        msg: "El campo 'bar_id' es obligatorio y debe ser proporcionado.",
+        msg: "El campo 'barId' es obligatorio y debe ser proporcionado.",
       },
     },
   },
 });
 
-export default MesaModel;
+export default TableModel;

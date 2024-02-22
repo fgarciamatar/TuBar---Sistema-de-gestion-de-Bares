@@ -2,11 +2,6 @@ import { DataTypes, Optional } from 'sequelize';
 import db from '../db';
 import { BarAttributes } from '../../interfaces';
 
-type BarCreationAttributes = Optional<
-  BarAttributes,
-  'id' | 'createdAt' | 'updatedAt'
->;
-
 const BarModel = db.define<BarAttributes>('bars', {
   password: {
     type: DataTypes.STRING,
