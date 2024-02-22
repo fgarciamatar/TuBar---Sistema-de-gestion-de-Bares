@@ -14,7 +14,7 @@ import swaggerSetup from '../docs/swagger';
 // import globalErrorHandler from '../controllers/error.controllers';
 import { initModels } from '../database/models';
 import { globalErrorHandler } from '../controllers';
-import { authRoutes } from '../routes';
+import { authRoutes, profileRoutes } from '../routes';
 
 class Server {
   private app: Application;
@@ -47,13 +47,7 @@ class Server {
     const router = Router();
     this.app.use(this.ROUTE, router);
     router.use('/auth', authRoutes);
-    // router.use('/users', routesUsers);
-    // router.use('/countries', routesCountries);
-    // router.use('/states', routesStates);
-    // router.use('/publications-types', routespublicationsTypes);
-    // router.use('/roles', routesRoles);
-    // router.use('/cities', routesCities);
-    // router.use('/tags', routesTags);
+    router.use('/profiles', profileRoutes);
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 
     this.app.use(

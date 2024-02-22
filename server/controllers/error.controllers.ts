@@ -2,13 +2,12 @@ import { NextFunction, Request, Response } from 'express';
 import AppError from '../models/appError';
 import Sequelize from 'sequelize';
 
-export const globalErrorHandler = (
+const globalErrorHandler = (
   err: AppError,
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-
   if (err instanceof Sequelize.Error) {
     err.status = 'fail in db';
 
@@ -40,10 +39,12 @@ export const globalErrorHandler = (
     err.message ||
     'Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.';
   err.status = err.status || 'fail';
-  
+
   res.status(err.statusCode).json({
     status: err.status,
     message: err.message,
     error: err,
   });
 };
+
+export { globalErrorHandler };

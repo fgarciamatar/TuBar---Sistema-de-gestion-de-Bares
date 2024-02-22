@@ -1,19 +1,43 @@
-import { BarModel } from '../database/models';
+import { BarModel, ProfileModel } from '../database/models';
 import { BarProps } from '../interfaces';
-import { encrypt } from '../utils';
+import { encrypt, generateRandomPin } from '../utils';
 import { AppError } from '../models';
+import db from '../database/db';
 
 class BarService {
   constructor() {}
-  async createAuthBar({ email, name, password, userName }: BarProps) {
+  async createAuthBar(
+    { email, name, password, userName }: BarProps,
+    pinCode: string
+  ) {
+    const t = await db.transaction();
     const hashedPassword = await encrypt(password);
-    const newAuthBar = await BarModel.create({
-      email,
-      name,
-      password: hashedPassword,
-      userName,
-    });
+    const newAuthBar = await BarModel.create(
+      {
+        email,
+        name,
+        password: hashedPassword,
+        userName,
+      },
+      { transaction: t }
+    );
+
+    const hashedPinCode = await encrypt(pinCode);
+    await ProfileModel.create(
+      {
+        name: userName + '-ADMIN',
+        role: 'ADMIN',
+        pinCode: hashedPinCode,
+        barId: newAuthBar.id,
+      },
+      { transaction: t }
+    );
+    await t.commit();
     return newAuthBar;
+  }
+  async findBarById(id: number) {
+    const bar = await BarModel.findByPk(id);
+    return bar;
   }
   async findBarByUserNameOr404(userName: string) {
     if (!userName)
