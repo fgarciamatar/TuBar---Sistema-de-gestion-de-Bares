@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { AuthService, BarService } from '../services';
-import { catchAsync } from '../utils';
+import { catchAsync, generateRandomPin } from '../utils';
 import { AppError } from '../models';
 import { tokenSign, verifyToken } from '../utils/jwt';
 import { BarModel } from '../database/models';
@@ -12,20 +12,20 @@ const protect = catchAsync(async (req, res, next) => {
   const { authorization } = req.headers;
   if (!authorization || !authorization.startsWith('Bearer'))
     return next(
-      new AppError('You are not logged in!  please log in to get access', 401)
+      new AppError(
+        '¡Usted no se ha identificado! por favor inicie sesión para obtener acceso',
+        401
+      )
     );
   const token = authorization.split(' ')[1];
   const decoded = verifyToken(token);
-  const bar = await BarModel.findOne({
-    where: {
-      id: decoded.id,
-    },
-  });
+  console.log({ decoded });
+  const bar = await barService.findBarById(decoded.id);
   if (!bar)
     return next(
-      new AppError('The owner of this token it not longer available', 401)
+      new AppError('El propietario de este token ya no está disponible.', 401)
     );
-  res.locals.sessionBar = bar;
+  res.locals.barSession = bar;
   next();
 });
 
@@ -43,8 +43,9 @@ const logIn = catchAsync(async (req, res, next) => {
 const signUp = catchAsync(async (req, res, next) => {
   const { body } = req;
   // throw new AppError('No se pudo editar el projecto', 400);
+  const pinCode = generateRandomPin(6);
 
-  const query = await barService.createAuthBar(body);
+  const query = await barService.createAuthBar(body, pinCode);
   // try {
   //   await sender.sendMail({
   //     from: process.env.MAIL_SEND,
@@ -56,7 +57,12 @@ const signUp = catchAsync(async (req, res, next) => {
   // } catch (error) {
   //   errors.push({errorName:'Error Sending Email', message:'Something went wrong with the Sender Email'})
   // }
-  res.status(201).json(query);
+  const result = {
+    bar: query,
+    pin: pinCode,
+  };
+  console.log('query', query);
+  res.status(201).json(result);
 });
 
 export { signUp, logIn, protect };

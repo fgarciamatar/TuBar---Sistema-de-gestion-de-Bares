@@ -13,3 +13,5 @@ export type ControllerFunction = (
   res: Response,
   next: NextFunction
 ) => Promise<void>;
+
+export type Role = 'ADMIN' | 'EMPLOYER';

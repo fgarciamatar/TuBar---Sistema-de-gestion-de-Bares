@@ -1,11 +1,14 @@
-import { BarModel } from '../database/models';
+import { BarModel, ProfileModel } from '../database/models';
 import { BarProps } from '../interfaces';
-import { encrypt } from '../utils';
+import { encrypt, generateRandomPin } from '../utils';
 import { AppError } from '../models';
 
 class BarService {
   constructor() {}
-  async createAuthBar({ email, name, password, userName }: BarProps) {
+  async createAuthBar(
+    { email, name, password, userName }: BarProps,
+    pinCode: string
+  ) {
     const hashedPassword = await encrypt(password);
     const newAuthBar = await BarModel.create({
       email,
@@ -13,7 +16,19 @@ class BarService {
       password: hashedPassword,
       userName,
     });
+
+    const hashedPinCode = await encrypt(pinCode);
+    await ProfileModel.create({
+      name: userName + '-ADMIN',
+      role: 'ADMIN',
+      pinCode: hashedPinCode,
+      barId: newAuthBar.id,
+    });
     return newAuthBar;
+  }
+  async findBarById(id: number) {
+    const bar = await BarModel.findByPk(id);
+    return bar;
   }
   async findBarByUserNameOr404(userName: string) {
     if (!userName)
