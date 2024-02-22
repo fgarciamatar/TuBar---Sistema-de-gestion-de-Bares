@@ -29,9 +29,7 @@ const editableForBar = catchAsync(async (req, res, next) => {
   const { id } = params;
   const data = { ...body, barId: profileSession.barId };
   const table = await tableService.updateTableForBar(+id, data);
-  res
-    .status(200)
-    .json({ status: true, msg: 'Mesa editado exitosamente.', table });
+  res.status(200).json({ status: true, table });
 });
 
 export {

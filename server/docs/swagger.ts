@@ -104,6 +104,13 @@ const swaggerDefinition: OAS3Definition = {
           location: { type: 'string', example: 'medio' },
         },
       },
+      productsCategoryGeneral: {
+        type: 'object',
+        required: ['name'],
+        properties: {
+          name: { type: 'string', example: 'Hamburgesas' },
+        },
+      },
       tableResponse: {
         type: 'object',
         example: {
@@ -117,6 +124,19 @@ const swaggerDefinition: OAS3Definition = {
             barId: 22,
             updatedAt: '2024-02-22T19:37:04.016Z',
             createdAt: '2024-02-22T19:37:04.016Z',
+          },
+        },
+      },
+      productsCategoryResponse: {
+        type: 'object',
+        example: {
+          status: true,
+          category: {
+            id: 1,
+            name: 'Hamburgesas',
+            barId: 22,
+            updatedAt: '2024-02-22T20:38:55.984Z',
+            createdAt: '2024-02-22T20:38:55.984Z',
           },
         },
       },

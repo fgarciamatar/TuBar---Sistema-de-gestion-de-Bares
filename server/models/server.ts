@@ -14,7 +14,12 @@ import swaggerSetup from '../docs/swagger';
 // import globalErrorHandler from '../controllers/error.controllers';
 import { TableModel, initModels } from '../database/models';
 import { globalErrorHandler } from '../controllers';
-import { authRoutes, profileRoutes, tableRoutes } from '../routes';
+import {
+  authRoutes,
+  profileRoutes,
+  tableRoutes,
+  productsCategoryRoutes,
+} from '../routes';
 
 class Server {
   private app: Application;
@@ -49,6 +54,7 @@ class Server {
     router.use('/auth', authRoutes);
     router.use('/profiles', profileRoutes);
     router.use('/tables', tableRoutes);
+    router.use('/product-categories', productsCategoryRoutes);
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 
     this.app.use(
