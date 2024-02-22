@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { ProfileAttributes } from '../../interfaces/profile';
+import { ProfileAttributes } from '../../interfaces/';
 import db from '../db';
 import BarModel from './bar.models';
 

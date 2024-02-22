@@ -4,7 +4,7 @@ import {
   InferCreationAttributes,
   Optional,
 } from 'sequelize';
-import { ModelSequlize } from './types';
+import { ModelSequlize, Role } from './types';
 
 export type Role = 'ADMIN' | 'EMPLOYER';
 
