@@ -9,10 +9,10 @@ function ProfileCards() {
   const navigation = useNavigation();
 
   const handleSalonWaiter = () => {
-    navigation.navigate('Salon');
+    navigation.navigate('Salon',"waiter");
   };
   const handleSalonAdm = () => {
-    navigation.navigate('AdminPinScreen');
+    navigation.navigate('AdminPinScreen',"admin");
   };
   
 
