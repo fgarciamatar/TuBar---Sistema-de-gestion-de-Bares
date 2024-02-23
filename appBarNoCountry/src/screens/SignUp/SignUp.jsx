@@ -53,7 +53,6 @@ function SignUp() {
           },
         },
       ]);
-      // Realizar acciones adicionales después de un registro exitoso, como navegar a otra pantalla
     } catch (error) {
       console.log('Error al registrar:', error);
       setloading(false)
@@ -64,7 +63,6 @@ function SignUp() {
           },
         },
       ]);
-      // Manejar errores, mostrar mensajes de error, etc.
     }
   };
 

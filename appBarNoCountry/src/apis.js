@@ -27,7 +27,7 @@ export const apiLogin = async (userData) => {
 
    //  console.log('Respuesta del servidor:', response.data);
 
-    return response.data; // Devuelve los datos de respuesta del servidor si es necesario
+    return response.data; 
   } catch (error) {
     throw error; // Puedes manejar el error según sea necesario en tu aplicación
    //  console.log(error);
@@ -36,12 +36,9 @@ export const apiLogin = async (userData) => {
 
 api.interceptors.request.use(
   async (config) => {
-    // Recupera el token de AsyncStorage
     const accessToken = await AsyncStorage.getItem('accessToken');
 
-    // Verifica si la ruta actual está exonerada del token de autorización
     if (!EXEMPTED_ROUTES.includes(config.url)) {
-      // Si hay un token y la ruta no está exonerada, agrega el encabezado de autorización con el token Bearer
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
       }

@@ -41,7 +41,6 @@ function Login() {
           },
         },
       ]);
-      // Realizar acciones adicionales después de un registro exitoso, como navegar a otra pantalla
     } catch (error) {
       console.log('Error al login:', error);
       setloading(false)
@@ -52,7 +51,6 @@ function Login() {
           },
         },
       ]);
-      // Manejar errores, mostrar mensajes de error, etc.
     }
   };
 
