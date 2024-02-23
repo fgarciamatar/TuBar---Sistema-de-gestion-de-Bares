@@ -1,6 +1,9 @@
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const API_BASE_URL = 'http://192.168.1.7:8088/api/v1';
+
+const EXEMPTED_ROUTES = ['/auth/sign-up', '/auth/login'];
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -30,5 +33,25 @@ export const apiLogin = async (userData) => {
    //  console.log(error);
   }
 };
+
+api.interceptors.request.use(
+  async (config) => {
+    // Recupera el token de AsyncStorage
+    const accessToken = await AsyncStorage.getItem('accessToken');
+
+    // Verifica si la ruta actual está exonerada del token de autorización
+    if (!EXEMPTED_ROUTES.includes(config.url)) {
+      // Si hay un token y la ruta no está exonerada, agrega el encabezado de autorización con el token Bearer
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      }
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export default api;

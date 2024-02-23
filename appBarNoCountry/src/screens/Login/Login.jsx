@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { Button, Spinner } from 'tamagui'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
 import {
   Alert,
@@ -29,6 +30,8 @@ function Login() {
     try {
       const resp = await apiLogin(userData);
       console.log('Respuesta del login:', resp);
+      await AsyncStorage.setItem('accessToken', resp.token);
+      console.log('Token guardado correctamente en AsyncStorage.');
       setloading(false)
       Alert.alert('Éxito', 'Sesion iniciada', [
         {
