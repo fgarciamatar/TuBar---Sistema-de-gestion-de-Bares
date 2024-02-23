@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { checkRole, protect } from '../controllers';
+import { checkRole, protect } from '../middlewares';
 import {
   createTableForBar,
   deleteTableForBar,

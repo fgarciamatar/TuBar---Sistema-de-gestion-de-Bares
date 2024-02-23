@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { checkRole, protect } from '../controllers';
 import {
   createProfileForBar,
   deleteProfileForBar,
   editProfileForBar,
   getProfilesForBar,
 } from '../controllers/profile.controllers';
+import { checkRole, protect } from '../middlewares/auth.middlewares';
 
 const router = Router();
 
