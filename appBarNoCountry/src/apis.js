@@ -1,42 +1,34 @@
 import axios from 'axios';
 
-const API = 'http://192.168.1.4:8089/api/v1';
+const API_BASE_URL = 'http://192.168.1.7:8088/api/v1';
 
-const apiRegister = async (name, userName, email, password) => {
+const api = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export const signUpApi = async (userData) => {
   try {
-    const response = await axios.post(`${API}/auth/sign-up`, {
-      name: name,
-      userName: userName,
-      email: email,
-      password: password,
-    });
-
-   //  console.log('Respuesta del servidor:', response.data);
-
-    return response.data; // Devuelve los datos de respuesta del servidor si es necesario
+    const response = await api.post('/auth/sign-up', userData);
+    return response.data;
   } catch (error) {
-   //  console.error('Error al realizar la solicitud:', error);
-    throw error; // Maneja el error según sea necesario en tu aplicación
+    throw error;
   }
 };
 
-const apiLogin = async (userName, password) => {
+export const apiLogin = async (userData) => {
   try {
-    const response = await axios.post(`${API}/auth/login`, {
-      userName: userName,
-      password: password,
-    });
+    const response = await api.post('/auth/login', userData);
 
    //  console.log('Respuesta del servidor:', response.data);
 
     return response.data; // Devuelve los datos de respuesta del servidor si es necesario
   } catch (error) {
-   //  throw error; // Puedes manejar el error según sea necesario en tu aplicación
+    throw error; // Puedes manejar el error según sea necesario en tu aplicación
    //  console.log(error);
   }
 };
 
-module.exports = {
-  apiRegister,
-  apiLogin,
-};
+export default api;

@@ -1,5 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
+import { Button, Spinner } from 'tamagui'
 import {
   Alert,
   Image,
@@ -9,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {apiRegister} from '../../apis';
+import { signUpApi } from '../../apis';
 import validation from '../../validation';
 
 function SignUp() {
@@ -17,6 +18,7 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [userName, setUserName] = useState('');
+  const [loading, setloading] = useState(false)
 
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
@@ -31,9 +33,18 @@ function SignUp() {
   const navigation = useNavigation();
 
   const handleSend = async () => {
-    const resp = await apiRegister(name, userName, email, password);
-    console.log('respuestaa:', resp);
-    if (resp.createdAt) {
+    setloading(true)
+    const userData = {
+      name: name,
+      userName: userName,
+      email: email,
+      password: password,
+    };
+
+    try {
+      const response = await signUpApi(userData);
+      console.log('Respuesta del registro:', response);
+      setloading(false)
       Alert.alert('Éxito', 'Usuario creado correctamente', [
         {
           text: 'OK',
@@ -42,15 +53,18 @@ function SignUp() {
           },
         },
       ]);
-    }else{
-      Alert.alert('Error', 'Usuario ya existe', [
+      // Realizar acciones adicionales después de un registro exitoso, como navegar a otra pantalla
+    } catch (error) {
+      console.log('Error al registrar:', error);
+      setloading(false)
+      Alert.alert('Error', 'Usuario ya Existe', [
         {
           text: 'OK',
           onPress: () => {
-            navigation.navigate('Login');
           },
         },
       ]);
+      // Manejar errores, mostrar mensajes de error, etc.
     }
   };
 
@@ -103,12 +117,16 @@ function SignUp() {
       </View>
 
       <View style={styles.sendContainer}>
-        <TouchableOpacity
+        { loading ?
+          <Spinner size="large" color="$orange10" />:
+          <TouchableOpacity
           onPress={handleSend}
           style={[styles.button, !isValid && styles.disabledButton]}
           disabled={!isValid}>
           <Text style={styles.textButton}>Regístrame</Text>
         </TouchableOpacity>
+        }
+        
 
         <View style={styles.logInContainer}>
           <Text>¿Ya tienes una cuenta?</Text>

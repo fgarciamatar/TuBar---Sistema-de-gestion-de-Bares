@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { Button, Spinner } from 'tamagui'
 import React, { useState } from 'react';
 import {
   Alert,
@@ -14,16 +15,41 @@ import { apiLogin } from '../../apis';
 function Login() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setloading] = useState(false)
 
   const navigation = useNavigation();
 
   const handleSend = async () => {
-    const resp = await apiLogin(userName, password);
-    if (resp.status === true) {
-      Alert.alert("Exito",'Sesion iniciada');
-      navigation.navigate('SelectPerfil');
-    } else  if (resp.status === true)  {
-      Alert.alert('Usuario no encontrado, por favor intentelo de nuevo.');
+    setloading(true)
+    const userData = {
+      userName: userName,
+      password: password,
+    };
+
+    try {
+      const resp = await apiLogin(userData);
+      console.log('Respuesta del login:', resp);
+      setloading(false)
+      Alert.alert('Éxito', 'Sesion iniciada', [
+        {
+          text: 'OK',
+          onPress: () => {
+            navigation.navigate('SelectPerfil');
+          },
+        },
+      ]);
+      // Realizar acciones adicionales después de un registro exitoso, como navegar a otra pantalla
+    } catch (error) {
+      console.log('Error al login:', error);
+      setloading(false)
+      Alert.alert('Error', 'Usuario no encontrado, por favor intentelo de nuevo', [
+        {
+          text: 'OK',
+          onPress: () => {
+          },
+        },
+      ]);
+      // Manejar errores, mostrar mensajes de error, etc.
     }
   };
 
@@ -59,10 +85,11 @@ function Login() {
           <Text style={styles.textPassword}>Olvide Mi contraseña</Text>
         </TouchableOpacity>
       </View>
-
+      { loading ?
+          <Spinner size="large" color="$orange10" />:
       <TouchableOpacity onPress={handleSend} style={styles.button}>
         <Text style={styles.textButton}>Inicia sesión</Text>
-      </TouchableOpacity>
+      </TouchableOpacity>}
 
       <View style={styles.createCountContainer}>
         <Text>¿Aún no tienes una cuenta?</Text>
