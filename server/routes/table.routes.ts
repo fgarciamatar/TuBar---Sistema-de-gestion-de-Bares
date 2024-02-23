@@ -28,6 +28,10 @@ router.use(protect(['profileSession']));
  *    responses:
  *       '200':
  *         description: Consulta exitosa.
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: "#/components/schemas/tablesResponse"
  *       '401':
  *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
  *       '500':
@@ -73,36 +77,7 @@ router.use(checkRole(['ADMIN']));
  *
  */
 router.post('/', createTableForBar);
-/**
- * @swagger
- * /tables/{id}:
- *  delete:
- *    tags: [Mesas]
- *    summary: Eliminar una mesa del bar, requiere sesion del perfil
- *    description: Endpoint para eliminar mesas del bar
- *    parameters:
- *       - name: id
- *         in: path
- *         description: Id de la mesa
- *         required: true
- *         schema:
- *           type: integer
- *    responses:
- *       '204':
- *         description: Mesa eliminado exitosamente.
- *       '401':
- *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
- *       '403':
- *         description: Este perfil no tiene permisos para acceder a esta ruta..
- *       '404':
- *         description: No se encontró ninguna mesa con el ID especificado.
- *       '500':
- *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
- *    security:
- *      - bearerAuth: []
- *
- */
-router.delete('/:id', deleteTableForBar);
+
 /**
  * @swagger
  * /tables/{id}:
@@ -147,4 +122,34 @@ router.delete('/:id', deleteTableForBar);
  */
 router.patch('/:id', editableForBar);
 
+/**
+ * @swagger
+ * /tables/{id}:
+ *  delete:
+ *    tags: [Mesas]
+ *    summary: Eliminar una mesa del bar, requiere sesion del perfil
+ *    description: Endpoint para eliminar mesas del bar
+ *    parameters:
+ *       - name: id
+ *         in: path
+ *         description: Id de la mesa
+ *         required: true
+ *         schema:
+ *           type: integer
+ *    responses:
+ *       '204':
+ *         description: Mesa eliminado exitosamente.
+ *       '401':
+ *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
+ *       '403':
+ *         description: Este perfil no tiene permisos para acceder a esta ruta..
+ *       '404':
+ *         description: No se encontró ninguna mesa con el ID especificado.
+ *       '500':
+ *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
+ *    security:
+ *      - bearerAuth: []
+ *
+ */
+router.delete('/:id', deleteTableForBar);
 export default router;
