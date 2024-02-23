@@ -11,14 +11,14 @@ import path from 'path';
 import AppError from './appError';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSetup from '../docs/swagger';
-// import globalErrorHandler from '../controllers/error.controllers';
-import { TableModel, initModels } from '../database/models';
+import { initModels } from '../database/models';
 import { globalErrorHandler } from '../controllers';
 import {
   authRoutes,
   profileRoutes,
   tableRoutes,
   productsCategoryRoutes,
+  productRoutes,
 } from '../routes';
 
 class Server {
@@ -55,6 +55,8 @@ class Server {
     router.use('/profiles', profileRoutes);
     router.use('/tables', tableRoutes);
     router.use('/product-categories', productsCategoryRoutes);
+    router.use('/products', productRoutes);
+
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 
     this.app.use(

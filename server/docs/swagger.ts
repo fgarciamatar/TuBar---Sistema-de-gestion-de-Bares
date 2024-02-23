@@ -140,6 +140,72 @@ const swaggerDefinition: OAS3Definition = {
           },
         },
       },
+      productGeneral: {
+        type: 'object',
+        required: ['name', 'description', 'price', 'productsCategoryId'],
+        properties: {
+          name: { type: 'string', example: 'Hamburguesa cheese' },
+          description: {
+            type: 'string',
+            example: 'Hamburguesa a la Parrilla Con Queso',
+          },
+          price: { type: 'float', example: 10.5 },
+          productsCategoryId: {
+            type: 'number',
+            example: 1,
+            description: 'Id de la categoria al que pertenece el producto',
+          },
+        },
+      },
+      productGeneralEdit: {
+        type: 'object',
+        required: ['name', 'description', 'price'],
+        properties: {
+          name: { type: 'string', example: 'Hamburguesa cheese' },
+          description: {
+            type: 'string',
+            example: 'Hamburguesa a la Parrilla Con Queso',
+          },
+          price: { type: 'float', example: 10.5 },
+        },
+      },
+      product: {
+        type: 'object',
+        example: {
+          id: 3,
+          name: 'Helado Mini Princesa',
+          price: 11.5,
+          description: 'Helado Mini Princesa',
+          productsCategoryId: 3,
+          createdAt: '2024-02-23T18:03:30.951Z',
+          updatedAt: '2024-02-23T18:03:30.951Z',
+        },
+      },
+      productResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          product: {
+            $ref: '#/components/schemas/product',
+          },
+        },
+      },
+      productsResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          products: {
+            type: 'array',
+            items: {
+              oneOf: [
+                { $ref: '#/components/schemas/product' },
+                { $ref: '#/components/schemas/product' },
+                { $ref: '#/components/schemas/product' },
+              ],
+            },
+          },
+        },
+      },
     },
   },
 };

@@ -6,10 +6,10 @@ import { encrypt } from '../utils';
 class TableService {
   constructor() {}
 
-  async findTablesForBar(id: number) {
+  async findTablesForBar(barId: number) {
     const tables = await TableModel.findAll({
       where: {
-        barId: id,
+        barId,
       },
     });
     return tables;
