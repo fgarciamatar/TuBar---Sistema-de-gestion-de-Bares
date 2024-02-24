@@ -1,7 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
-import { Button, Spinner } from 'tamagui'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
 import {
   Alert,
   Image,
@@ -11,9 +10,13 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { Spinner } from 'tamagui';
 import { apiLogin } from '../../apis';
+import { getProfile } from '../../redux/actions';
 
 function Login() {
+  const dispatch = useDispatch(); // Obtiene la función de despacho de Redux
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setloading] = useState(false)
@@ -54,6 +57,7 @@ function Login() {
     }
   };
 
+
   const handleSignUp = () => {
     navigation.navigate('SignUp');
   };
@@ -61,6 +65,11 @@ function Login() {
   const handlePassword = () => {
     navigation.navigate('Password');
   };
+
+  useEffect(() => {
+    dispatch(getProfile());
+    // Despacha la acción para obtener los perfiles
+  }, [dispatch]); // Dependencia dispatch, para asegurarse de que se ejecute solo una vez
 
   return (
     <View style={styles.container}>

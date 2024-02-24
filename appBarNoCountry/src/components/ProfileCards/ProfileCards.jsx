@@ -1,47 +1,33 @@
 import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
-import {ScrollView, TouchableOpacity, StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
 import {View} from 'tamagui';
-import AdminProfile from '../AdminProfile/AdminProfile';
-import WaiterProfile from '../WaiterProfile/WaiterProfile';
 
-function ProfileCards() {
+
+
+function ProfileCards({name, role, id}) {
   const navigation = useNavigation();
-
-  const handleSalonWaiter = () => {
-    navigation.navigate('Salon',"waiter");
-  };
+ 
   const handleSalonAdm = () => {
-    navigation.navigate('AdminPinScreen',"admin");
+    navigation.navigate('profilePinScreen',{idProfile: id, role, name});
   };
-  
+
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
-    <View style={styles.container}>
-      <TouchableOpacity onPress={handleSalonAdm} style={styles.cardContainer}>
-        <AdminProfile />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleSalonWaiter} style={styles.cardContainer}>
-        <WaiterProfile />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleSalonWaiter} style={styles.cardContainer}>
-        <WaiterProfile />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleSalonWaiter} style={styles.cardContainer}>
-        <WaiterProfile />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleSalonWaiter} style={styles.cardContainer}>
-        <WaiterProfile />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleSalonWaiter} style={styles.cardContainer}>
-        <WaiterProfile />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleSalonWaiter} style={styles.cardContainer}>
-        <WaiterProfile />
-      </TouchableOpacity>
-    </View>
-  </ScrollView>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={handleSalonAdm} style={styles.cardContainer}>
+          <View>
+            <Image
+              style={styles.image}
+              source={role === "ADMIN" ? require('../../assets/menu/addmin.png') : require('../../assets/menu/waiter.png')}
+            />
+            <Text style={[styles.titleName]}>{name}</Text>
+            <Text style={[styles.titleProfile]}>{role}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -50,27 +36,27 @@ export default ProfileCards;
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
+    backgroundColor: '#B5B2B2',
+    alignItems: 'center',
+    paddingVertical: 20,
   },
   container: {
-    flexDirection: 'row', // Mostrar los elementos en fila
-    flexWrap: 'wrap', // Permitir que los elementos se envuelvan en múltiples líneas
-    justifyContent: 'space-between', // Distribuir el espacio entre los elementos
-
-    padding: 6, // Padding general
+    alignItems: 'center', // Centrar elementos horizontalmente
   },
-  cardContainer: {
-    width: '48%', // Ancho del contenedor de tarjeta para que dos tarjetas se muestren en una fila
-    marginBottom: 12, // Espacio entre las tarjetas
-    backgroundColor: '#FFFF', // Fondo blanco de las tarjetas
-    borderRadius: 15, // Bordes redondeados de las tarjetas
-    padding: 12, // Padding dentro del contenedor de tarjeta
-    shadowColor: '#000000', // Color de la sombra
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.2, // Opacidad de la sombra
-    shadowRadius: 2, // Radio de la sombra
-    elevation: 3, // Elevación de la tarjeta
+  imageContainer: {
+    marginBottom: 10, // Espacio entre la imagen y el texto
+  },
+  image: {
+    width: 150,
+    height: 150,
+  },
+
+  titleName: {
+    fontWeight: 'bold', // Texto en negrita
+    textAlign: 'center', // Centrar texto horizontalmente
+    fontSize:20,
+  },
+  titleProfile: {
+    fontSize:14,
   },
 });
