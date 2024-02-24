@@ -9,7 +9,7 @@ function ProfileCards({name, role, id}) {
   const navigation = useNavigation();
  
   const handleSalonAdm = () => {
-    navigation.navigate('ProfilePinScreen',{idProfile: id,role: role,name: name});
+    navigation.navigate('ProfilePin',{idProfile: id,role: role,name: name});
   };
 
 
