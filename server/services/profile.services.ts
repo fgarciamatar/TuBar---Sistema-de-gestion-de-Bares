@@ -1,7 +1,7 @@
 import { ProfileModel } from '../database/models';
-import { ProfileAttributes, ProfileProps } from '../interfaces/profile';
+import { ProfileProps } from '../interfaces/profile';
 import { AppError } from '../models';
-import { compareEncrypt, encrypt } from '../utils';
+import { encrypt } from '../utils';
 
 class ProfileService {
   constructor() {}

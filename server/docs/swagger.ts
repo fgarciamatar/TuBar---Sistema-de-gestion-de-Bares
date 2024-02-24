@@ -5,7 +5,7 @@ const server = `http://${process.env.HOST}:${process.env.PORT}${process.env.ROUT
 const swaggerDefinition: OAS3Definition = {
   openapi: '3.0.0',
   info: {
-    title: 'Documentacion de mi API',
+    title: 'Documentacion BAR API',
     version: '1.0.0',
   },
   servers: [
@@ -61,20 +61,28 @@ const swaggerDefinition: OAS3Definition = {
           },
         },
       },
-      profileEditSuccess: {
+      profileResponse: {
         type: 'object',
-        example: {
-          status: true,
-          msg: 'Perfil editado exitosamente.',
+        properties: {
+          status: { type: 'boolean', example: true },
           profile: {
-            id: 4,
-            name: 'Mesero1',
-            role: 'EMPLOYEE',
-            pinCode:
-              '$2a$10$XyWLLX1dZFhUL6wi89d2XOqnDHGK2sFBC8r0MR3C20n07lMgS7Gkm',
-            barId: 22,
-            createdAt: '2024-02-22T03:54:21.177Z',
-            updatedAt: '2024-02-22T15:55:19.407Z',
+            $ref: '#/components/schemas/profile',
+          },
+        },
+      },
+      profilesResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          profiles: {
+            type: 'array',
+            items: {
+              oneOf: [
+                { $ref: '#/components/schemas/profile' },
+                { $ref: '#/components/schemas/profile' },
+                { $ref: '#/components/schemas/profile' },
+              ],
+            },
           },
         },
       },
@@ -89,6 +97,194 @@ const swaggerDefinition: OAS3Definition = {
             enum: ['ADMIN', 'EMPLOYEE'],
           },
           pinCode: { type: 'string', example: 'abcde12345' },
+        },
+      },
+      profile: {
+        type: 'object',
+        example: {
+          id: 1,
+          name: 'Mesero 1',
+          role: 'EMPLOYEE',
+          pinCode: 'unknow',
+          barId: 22,
+          updatedAt: '2024-02-23T23:14:39.342Z',
+          createdAt: '2024-02-23T23:14:39.342Z',
+        },
+      },
+      tableGeneral: {
+        type: 'object',
+        required: ['tableNumber', 'ability', 'location'],
+        properties: {
+          tableNumber: { type: 'num', example: 1 },
+          isOccupied: {
+            type: 'boolean',
+            example: false,
+            description: 'No es necesario enviarlo, el valor default de false',
+          },
+          ability: { type: 'num', example: 5 },
+          location: { type: 'string', example: 'medio' },
+        },
+      },
+      productsCategoryGeneral: {
+        type: 'object',
+        required: ['name'],
+        properties: {
+          name: { type: 'string', example: 'Hamburgesas' },
+        },
+      },
+      table: {
+        type: 'object',
+        example: {
+          isOccupied: false,
+          id: 1,
+          tableNumber: 1,
+          ability: 5,
+          location: 'medio',
+          barId: 22,
+          updatedAt: '2024-02-22T19:37:04.016Z',
+          createdAt: '2024-02-22T19:37:04.016Z',
+        },
+      },
+      tableResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          table: {
+            $ref: '#/components/schemas/table',
+          },
+        },
+      },
+      tablesResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          tables: {
+            type: 'array',
+            items: {
+              oneOf: [
+                { $ref: '#/components/schemas/table' },
+                { $ref: '#/components/schemas/table' },
+                { $ref: '#/components/schemas/table' },
+              ],
+            },
+          },
+        },
+      },
+      productsCategory: {
+        type: 'object',
+        properties: {
+          id: { type: 'number', example: 1 },
+          name: { type: 'string', example: 'Hamburgesas' },
+          barId: { type: 'number', example: '22' },
+          updatedAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
+          createdAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
+        },
+      },
+      productsCategories: {
+        type: 'object',
+        properties: {
+          id: { type: 'number', example: 1 },
+          name: { type: 'string', example: 'Hamburgesas' },
+          barId: { type: 'number', example: '22' },
+          updatedAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
+          createdAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
+          products: {
+            type: 'array',
+            items: {
+              oneOf: [
+                { $ref: '#/components/schemas/product' },
+                { $ref: '#/components/schemas/product' },
+                { $ref: '#/components/schemas/product' },
+              ],
+            },
+          },
+        },
+      },
+      productsCategoryResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          category: {
+            $ref: '#/components/schemas/productsCategory',
+          },
+        },
+      },
+      productsCategoriesResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          categories: {
+            type: 'array',
+            items: {
+              $ref: '#/components/schemas/productsCategories',
+            },
+          },
+        },
+      },
+      productGeneral: {
+        type: 'object',
+        required: ['name', 'description', 'price', 'productsCategoryId'],
+        properties: {
+          name: { type: 'string', example: 'Hamburguesa cheese' },
+          description: {
+            type: 'string',
+            example: 'Hamburguesa a la Parrilla Con Queso',
+          },
+          price: { type: 'float', example: 10.5 },
+          productsCategoryId: {
+            type: 'number',
+            example: 1,
+            description: 'Id de la categoria al que pertenece el producto',
+          },
+        },
+      },
+      productGeneralEdit: {
+        type: 'object',
+        required: ['name', 'description', 'price'],
+        properties: {
+          name: { type: 'string', example: 'Hamburguesa cheese' },
+          description: {
+            type: 'string',
+            example: 'Hamburguesa a la Parrilla Con Queso',
+          },
+          price: { type: 'float', example: 10.5 },
+        },
+      },
+      product: {
+        type: 'object',
+        example: {
+          id: 3,
+          name: 'Helado Mini Princesa',
+          price: 11.5,
+          description: 'Helado Mini Princesa',
+          productsCategoryId: 3,
+          createdAt: '2024-02-23T18:03:30.951Z',
+          updatedAt: '2024-02-23T18:03:30.951Z',
+        },
+      },
+      productResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          product: {
+            $ref: '#/components/schemas/product',
+          },
+        },
+      },
+      productsResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          products: {
+            type: 'array',
+            items: {
+              oneOf: [
+                { $ref: '#/components/schemas/product' },
+                { $ref: '#/components/schemas/product' },
+                { $ref: '#/components/schemas/product' },
+              ],
+            },
+          },
         },
       },
     },
