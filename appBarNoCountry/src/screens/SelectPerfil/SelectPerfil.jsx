@@ -1,17 +1,22 @@
 import * as React from 'react';
-import {View} from 'tamagui';
-import {Text} from 'react-native-elements';
+import { StyleSheet } from 'react-native';
+import { Text } from 'react-native-elements';
+import { useSelector } from 'react-redux';
+import { View } from 'tamagui';
 import ProfileCards from '../../components/ProfileCards/ProfileCards';
-import {StyleSheet} from 'react-native';
-
 
 function SelectPerfil() {
+  const profilesSelectPerfil = useSelector(state => state.reducers.profiles);
+
+  
+
   return (
-    
     <View style={styles.container}>
       <Text style={styles.title}>Selecciona tu perfil:</Text>
       <View>
-        <ProfileCards />
+        {profilesSelectPerfil?.profiles.map(profile => (
+          <ProfileCards name={profile.name} role={profile.role} key={profile.id} id={profile.id} />
+        ))}
       </View>
     </View>
   );
@@ -40,7 +45,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 26,
     textAlign: 'center',
-  }
+  },
 });
 
 export default SelectPerfil;
