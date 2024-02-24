@@ -22,6 +22,18 @@ const TableModel = db.define<TableAttributes>('tables', {
       },
     },
   },
+  isOccupied: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+    validate: {
+      isBoolean(value: unknown) {
+        if (typeof value !== 'boolean') {
+          throw new Error("El campo 'isOccupied' debe ser un valor booleano.");
+        }
+      },
+    },
+  },
   location: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -35,8 +47,8 @@ const TableModel = db.define<TableAttributes>('tables', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: BarModel, 
-      key: 'id', 
+      model: BarModel,
+      key: 'id',
     },
     validate: {
       notNull: {
