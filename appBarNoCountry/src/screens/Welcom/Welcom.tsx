@@ -30,7 +30,7 @@ function Welcom() {
 
       <View style={styles.continueContainer}>
         <Text style={styles.privacityText}>
-          Lee nuestra Política de Privacidad .Toca “Acepto y continúo” para
+          Lee nuestra Política de Privacidad .Toca “Aceptar y continuar” para
           aceptar los Términos de Servicio.
         </Text>
         <TouchableOpacity  onPress={handleSend}
@@ -100,10 +100,10 @@ const styles = StyleSheet.create({
     borderColor: '#AA84FC',
   },
   textButton:{
-    fontWeight: "700",
+    fontWeight: "600",
     color: "#4505D0",
     textAlign: "center",
-    fontSize: 17,
+    fontSize: 14,
   },
   fromContainer: {
     display: 'flex',
