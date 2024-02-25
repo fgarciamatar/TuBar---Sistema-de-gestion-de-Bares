@@ -1,7 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
-import { Button, Spinner } from 'tamagui'
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Alert,
   Image,
@@ -9,19 +6,25 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import { apiLogin } from '../../apis';
+import {useDispatch} from 'react-redux';
+import {Spinner} from 'tamagui';
+import {apiLogin} from '../../apis';
+import {getProfile} from '../../redux/actions';
+import { useNavigation } from '@react-navigation/native'; // Agregado para usar la navegación
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Login() {
+  const dispatch = useDispatch(); // Obtiene la función de despacho de Redux
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setloading] = useState(false)
-
-  const navigation = useNavigation();
-
+  const [loading, setloading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // Estado para controlar la visibilidad de la contraseña
+  const navigation = useNavigation(); // Instanciación de useNavigation
+  
   const handleSend = async () => {
-    setloading(true)
+    setloading(true);
     const userData = {
       userName: userName,
       password: password,
@@ -32,7 +35,7 @@ function Login() {
       console.log('Respuesta del login:', resp);
       await AsyncStorage.setItem('accessToken', resp.token);
       console.log('Token guardado correctamente en AsyncStorage.');
-      setloading(false)
+      setloading(false);
       Alert.alert('Éxito', 'Sesion iniciada', [
         {
           text: 'OK',
@@ -43,14 +46,17 @@ function Login() {
       ]);
     } catch (error) {
       console.log('Error al login:', error);
-      setloading(false)
-      Alert.alert('Error', 'Usuario no encontrado, por favor intentelo de nuevo', [
-        {
-          text: 'OK',
-          onPress: () => {
+      setloading(false);
+      Alert.alert(
+        'Error',
+        'Usuario no encontrado, por favor intentelo de nuevo',
+        [
+          {
+            text: 'OK',
+            onPress: () => {},
           },
-        },
-      ]);
+        ],
+      );
     }
   };
 
@@ -61,6 +67,15 @@ function Login() {
   const handlePassword = () => {
     navigation.navigate('Password');
   };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  useEffect(() => {
+    dispatch(getProfile());
+    // Despacha la acción para obtener los perfiles
+  }, [dispatch]); // Dependencia dispatch, para asegurarse de que se ejecute solo una vez
 
   return (
     <View style={styles.container}>
@@ -77,20 +92,28 @@ function Login() {
           onChangeText={setUserName}
         />
         <Text style={styles.label}>Contraseña</Text>
-        <TextInput
-          style={styles.input}
-          value={password}
-          onChangeText={setPassword}
-        />
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={!showPassword} // Oculta la contraseña si showPassword es falso
+          />
+          <TouchableOpacity onPress={toggleShowPassword}>
+            <Text style={styles.eyeIcon}>{showPassword ? '👁️' : '👁️'}</Text>
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity onPress={handlePassword}>
           <Text style={styles.textPassword}>Olvide Mi contraseña</Text>
         </TouchableOpacity>
       </View>
-      { loading ?
-          <Spinner size="large" color="$orange10" />:
-      <TouchableOpacity onPress={handleSend} style={styles.button}>
-        <Text style={styles.textButton}>Inicia sesión</Text>
-      </TouchableOpacity>}
+      {loading ? (
+        <Spinner size="large" color="$orange10" />
+      ) : (
+        <TouchableOpacity onPress={handleSend} style={styles.button}>
+          <Text style={styles.textButton}>Inicia sesión</Text>
+        </TouchableOpacity>
+      )}
 
       <View style={styles.createCountContainer}>
         <Text>¿Aún no tienes una cuenta?</Text>
@@ -133,6 +156,21 @@ const styles = StyleSheet.create({
     width: 288,
     height: 35,
   },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#000',
+  },
+  passwordInput: {
+    flex: 1,
+    height: 35,
+    padding: 10,
+    backgroundColor: '#D7D7D7',
+    borderRadius: 8,
+    borderTopRightRadius:0 ,
+    borderBottomRightRadius: 0
+  },
   textTitle: {
     fontSize: 30,
     marginBottom: 10,
@@ -170,6 +208,16 @@ const styles = StyleSheet.create({
   createCount: {
     color: '#3F86FC',
     lineHeight: 17.07,
+  },
+  eyeIcon: {
+    fontSize: 15,
+    paddingHorizontal: 10,
+    height: 35,
+    padding: 10,
+    backgroundColor: '#D7D7D7',
+    borderRadius: 8,
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
   },
 });
 

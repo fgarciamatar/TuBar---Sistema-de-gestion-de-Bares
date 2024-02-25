@@ -1,7 +1,8 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { urlApi } from './utils/definition';
 
-const API_BASE_URL = 'http://192.168.1.7:8088/api/v1';
+const API_BASE_URL = 'http://192.168.1.4:8088/api/v1';
 
 const EXEMPTED_ROUTES = ['/auth/sign-up', '/auth/login'];
 
@@ -13,6 +14,7 @@ const api = axios.create({
 });
 
 export const signUpApi = async (userData) => {
+
   try {
     const response = await api.post('/auth/sign-up', userData);
     return response.data;
@@ -22,6 +24,7 @@ export const signUpApi = async (userData) => {
 };
 
 export const apiLogin = async (userData) => {
+  console.log("USERDATA",userData);
   try {
     const response = await api.post('/auth/login', userData);
 
@@ -50,5 +53,30 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+export const postLoginProfile = async (pin, idProfile) => {
+
+    const token = await AsyncStorage.getItem('accessToken');
+    try {
+      const response = await axios.post(`${urlApi}/auth/login/profile`,{
+        pinCode: pin,
+        profileId: idProfile
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const newToken = response.data.token;
+      AsyncStorage.setItem('accessToken', newToken);
+
+      console.log("response",response.data);
+      return response.data;
+    } catch (error) {
+      
+      return {status: false}
+    }
+  
+};
+
 
 export default api;
