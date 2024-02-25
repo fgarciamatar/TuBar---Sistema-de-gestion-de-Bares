@@ -1,4 +1,4 @@
-import  React , {useEffect} from 'react';
+import  React , {useEffect, useState} from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
 import {Spinner} from 'tamagui';
@@ -7,7 +7,9 @@ import { View } from 'tamagui';
 import ProfileCards from '../../components/ProfileCards/ProfileCards';
 
 function SelectPerfil() {
+  const  [loading, setLoading] = useState( true)
   const profilesSelectPerfil = useSelector(state => state.reducers.profiles);
+  loading && setLoading(profilesSelectPerfil)
 
 
   return (
