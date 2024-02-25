@@ -1,22 +1,30 @@
-import * as React from 'react';
+import  React , {useEffect} from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
+import {Spinner} from 'tamagui';
 import { useSelector } from 'react-redux';
 import { View } from 'tamagui';
 import ProfileCards from '../../components/ProfileCards/ProfileCards';
 
 function SelectPerfil() {
-  const profilesSelectPerfil = useSelector(state => state.reducers.profiles);
-
+  const [profilesSelectPerfil, setprofilesSelectPerfil] = useState({profiles:[]})
   
+
+  useEffect(() => {
+    const profiles = useSelector(state => state.reducers.profiles);
+    setprofilesSelectPerfil(profiles)
+    return () => {
+      
+    };
+  }, [])
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Selecciona tu perfil:</Text>
       <View>
-        {profilesSelectPerfil?.profiles.map(profile => (
+        {profilesSelectPerfil.profile !== undefined && profilesSelectPerfil.profile.length >0 ? profilesSelectPerfil?.profiles.map(profile => (
           <ProfileCards name={profile.name} role={profile.role} key={profile.id} id={profile.id} />
-        ))}
+        )): <Spinner size="large" color="$orange10" />}
       </View>
     </View>
   );
