@@ -7,16 +7,15 @@ import { View } from 'tamagui';
 import ProfileCards from '../../components/ProfileCards/ProfileCards';
 
 function SelectPerfil() {
-  const  [loading, setLoading] = useState( true)
+
   const profilesSelectPerfil = useSelector(state => state.reducers.profiles);
-  loading && setLoading(profilesSelectPerfil)
 
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Selecciona tu perfil:</Text>
       <View>
-        {profilesSelectPerfil.profile !== undefined && profilesSelectPerfil.profile ? profilesSelectPerfil?.profiles.map(profile => (
+        {profilesSelectPerfil.profiles !== undefined && profilesSelectPerfil.profiles ? profilesSelectPerfil?.profiles.map(profile => (
           <ProfileCards name={profile.name} role={profile.role} key={profile.id} id={profile.id} />
         )): <Spinner size="large" color="$orange10" />}
       </View>
