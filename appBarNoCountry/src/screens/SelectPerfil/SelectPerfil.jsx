@@ -7,16 +7,8 @@ import { View } from 'tamagui';
 import ProfileCards from '../../components/ProfileCards/ProfileCards';
 
 function SelectPerfil() {
-  const [profilesSelectPerfil, setprofilesSelectPerfil] = useState({profiles:[]})
-  
+  const profilesSelectPerfil = useSelector(state => state.reducers.profiles);
 
-  useEffect(() => {
-    const profiles = useSelector(state => state.reducers.profiles);
-    setprofilesSelectPerfil(profiles)
-    return () => {
-      
-    };
-  }, [])
 
   return (
     <View style={styles.container}>
