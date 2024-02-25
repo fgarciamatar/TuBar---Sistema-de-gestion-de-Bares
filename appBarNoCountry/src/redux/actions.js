@@ -1,22 +1,9 @@
 //actions.js
 import axios from 'axios';
 import {urlApi} from '../utils/definition';
-import {GET_PROFILES} from './types';
+import {GET_PROFILES, GET_TABLES} from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
-//products
-// export const getProducts = () => {
-//   return async function (dispatch) {
-//     const apiData = await axios.get(`${apiUrl}/product`);
-//     const product = apiData.data;
-//     return dispatch({
-//       type: GET_PRODUCTS,
-//       payload: product,
-//     });
-//   };
-// };
 export const getProfile =  () => {
   return async function (dispatch) {
     const token = await AsyncStorage.getItem('accessToken');
@@ -32,6 +19,28 @@ export const getProfile =  () => {
       return dispatch({
         type: GET_PROFILES,
         payload: profiles,
+      });
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+};
+
+export const getTables =  () => {
+  return async function (dispatch) {
+    const token = await AsyncStorage.getItem('accessToken');
+   console.log("token" ,token);
+    try {
+      const apiData = await axios.get(`${urlApi}/tables`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("apiData TABLES",apiData.data);
+      const tables = apiData.data;
+      return dispatch({
+        type: GET_TABLES,
+        payload: tables,
       });
     } catch (error) {
       console.log('error', error);
