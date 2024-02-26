@@ -5,7 +5,6 @@ import Navbar from '../../components/Navbar/Navbar';
 import Tables from '../../components/Tables/Tables';
 
 function Salon() {
-  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>

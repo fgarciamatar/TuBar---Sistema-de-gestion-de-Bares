@@ -63,17 +63,26 @@ const swaggerDefinition: OAS3Definition = {
       },
       profileResponse: {
         type: 'object',
-        example: {
-          status: true,
+        properties: {
+          status: { type: 'boolean', example: true },
           profile: {
-            id: 4,
-            name: 'Mesero1',
-            role: 'EMPLOYEE',
-            pinCode:
-              '$2a$10$XyWLLX1dZFhUL6wi89d2XOqnDHGK2sFBC8r0MR3C20n07lMgS7Gkm',
-            barId: 22,
-            createdAt: '2024-02-22T03:54:21.177Z',
-            updatedAt: '2024-02-22T15:55:19.407Z',
+            $ref: '#/components/schemas/profile',
+          },
+        },
+      },
+      profilesResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          profiles: {
+            type: 'array',
+            items: {
+              oneOf: [
+                { $ref: '#/components/schemas/profile' },
+                { $ref: '#/components/schemas/profile' },
+                { $ref: '#/components/schemas/profile' },
+              ],
+            },
           },
         },
       },
@@ -88,6 +97,18 @@ const swaggerDefinition: OAS3Definition = {
             enum: ['ADMIN', 'EMPLOYEE'],
           },
           pinCode: { type: 'string', example: 'abcde12345' },
+        },
+      },
+      profile: {
+        type: 'object',
+        example: {
+          id: 1,
+          name: 'Mesero 1',
+          role: 'EMPLOYEE',
+          pinCode: 'unknow',
+          barId: 22,
+          updatedAt: '2024-02-23T23:14:39.342Z',
+          createdAt: '2024-02-23T23:14:39.342Z',
         },
       },
       barResponse: {
@@ -111,6 +132,14 @@ const swaggerDefinition: OAS3Definition = {
           password: { type: 'string', example: 'abcde12345' },
           },
         },
+      bar: {
+        type: 'object',
+        example: {
+            email: 'correo@gmail.com',
+            name: 'Bar la unica',
+            password: 'abcde12345',
+        }
+      },
       tableGeneral: {
         type: 'object',
         required: ['tableNumber', 'ability', 'location'],
@@ -132,32 +161,92 @@ const swaggerDefinition: OAS3Definition = {
           name: { type: 'string', example: 'Hamburgesas' },
         },
       },
-      tableResponse: {
+      table: {
         type: 'object',
         example: {
-          status: true,
-          profile: {
-            isOccupied: false,
-            id: 1,
-            tableNumber: 1,
-            ability: 5,
-            location: 'medio',
-            barId: 22,
-            updatedAt: '2024-02-22T19:37:04.016Z',
-            createdAt: '2024-02-22T19:37:04.016Z',
+          isOccupied: false,
+          id: 1,
+          tableNumber: 1,
+          ability: 5,
+          location: 'medio',
+          barId: 22,
+          updatedAt: '2024-02-22T19:37:04.016Z',
+          createdAt: '2024-02-22T19:37:04.016Z',
+        },
+      },
+      tableResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          table: {
+            $ref: '#/components/schemas/table',
+          },
+        },
+      },
+      tablesResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          tables: {
+            type: 'array',
+            items: {
+              oneOf: [
+                { $ref: '#/components/schemas/table' },
+                { $ref: '#/components/schemas/table' },
+                { $ref: '#/components/schemas/table' },
+              ],
+            },
+          },
+        },
+      },
+      productsCategory: {
+        type: 'object',
+        properties: {
+          id: { type: 'number', example: 1 },
+          name: { type: 'string', example: 'Hamburgesas' },
+          barId: { type: 'number', example: '22' },
+          updatedAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
+          createdAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
+        },
+      },
+      productsCategories: {
+        type: 'object',
+        properties: {
+          id: { type: 'number', example: 1 },
+          name: { type: 'string', example: 'Hamburgesas' },
+          barId: { type: 'number', example: '22' },
+          updatedAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
+          createdAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
+          products: {
+            type: 'array',
+            items: {
+              oneOf: [
+                { $ref: '#/components/schemas/product' },
+                { $ref: '#/components/schemas/product' },
+                { $ref: '#/components/schemas/product' },
+              ],
+            },
           },
         },
       },
       productsCategoryResponse: {
         type: 'object',
-        example: {
-          status: true,
+        properties: {
+          status: { type: 'boolean', example: true },
           category: {
-            id: 1,
-            name: 'Hamburgesas',
-            barId: 22,
-            updatedAt: '2024-02-22T20:38:55.984Z',
-            createdAt: '2024-02-22T20:38:55.984Z',
+            $ref: '#/components/schemas/productsCategory',
+          },
+        },
+      },
+      productsCategoriesResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          categories: {
+            type: 'array',
+            items: {
+              $ref: '#/components/schemas/productsCategories',
+            },
           },
         },
       },

@@ -28,6 +28,10 @@ router.use(protect(['profileSession']));
  *    responses:
  *       '200':
  *         description: Consulta exitosa.
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: "#/components/schemas/productsCategoriesResponse"
  *       '401':
  *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
  *       '500':
@@ -76,36 +80,6 @@ router.post('/', createProductsCategoryForBar);
 /**
  * @swagger
  * /product-categories/{id}:
- *  delete:
- *    tags: [Categorias]
- *    summary: Eliminar una categoria del bar, requiere sesion del perfil
- *    description: Endpoint para eliminar categorias del bar
- *    parameters:
- *       - name: id
- *         in: path
- *         description: Id de la categoria
- *         required: true
- *         schema:
- *           type: integer
- *    responses:
- *       '204':
- *         description: Categoria eliminado exitosamente.
- *       '401':
- *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
- *       '403':
- *         description: Este perfil no tiene permisos para acceder a esta ruta..
- *       '404':
- *         description: No se encontró ninguna categoria con el ID especificado.
- *       '500':
- *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
- *    security:
- *      - bearerAuth: []
- *
- */
-router.delete('/:id', deleteProductsCategoryForBar);
-/**
- * @swagger
- * /product-categories/{id}:
  *  patch:
  *    tags: [Categorias]
  *    summary: Editar una categoria del Bar, requiere sesion del perfil
@@ -146,5 +120,35 @@ router.delete('/:id', deleteProductsCategoryForBar);
  *
  */
 router.patch('/:id', editProductsCategoryForBar);
+/**
+ * @swagger
+ * /product-categories/{id}:
+ *  delete:
+ *    tags: [Categorias]
+ *    summary: Eliminar una categoria del bar, requiere sesion del perfil
+ *    description: Endpoint para eliminar categorias del bar
+ *    parameters:
+ *       - name: id
+ *         in: path
+ *         description: Id de la categoria
+ *         required: true
+ *         schema:
+ *           type: integer
+ *    responses:
+ *       '204':
+ *         description: Categoria eliminado exitosamente.
+ *       '401':
+ *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
+ *       '403':
+ *         description: Este perfil no tiene permisos para acceder a esta ruta..
+ *       '404':
+ *         description: No se encontró ninguna categoria con el ID especificado.
+ *       '500':
+ *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
+ *    security:
+ *      - bearerAuth: []
+ *
+ */
+router.delete('/:id', deleteProductsCategoryForBar);
 
 export default router;
