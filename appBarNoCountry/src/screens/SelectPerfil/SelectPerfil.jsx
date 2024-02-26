@@ -1,5 +1,5 @@
 import  React , {useEffect, useState} from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, ScrollView ,  SafeAreaView} from 'react-native';
 import { Text } from 'react-native-elements';
 import {Spinner} from 'tamagui';
 import { View } from 'tamagui';
@@ -12,14 +12,16 @@ function SelectPerfil() {
 const profilesSelectPerfil = useSelector(state => state.reducers.profiles);
 
   return (
+    <SafeAreaView>
     <View style={styles.container}>
       <Text style={styles.title}>Selecciona tu perfil:</Text>
-      <View>
+      <ScrollView>
         {profilesSelectPerfil.profiles !== undefined && profilesSelectPerfil.profiles ? profilesSelectPerfil?.profiles.map(profile => (
           <ProfileCards name={profile.name} role={profile.role} key={profile.id} id={profile.id} />
         )): <Spinner size="large" color="$orange10" />}
-      </View>
+      </ScrollView>
     </View>
+    </SafeAreaView>
   );
 }
 
