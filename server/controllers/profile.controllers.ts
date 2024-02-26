@@ -15,7 +15,9 @@ const createProfileForBar = catchAsync(async (req, res, next) => {
   const { profileSession } = res.locals;
   const data = { ...body, barId: profileSession.barId };
   const profile = await profileService.createProfileForBar(data);
-  res.status(200).json({ status: true, profile });
+  res
+    .status(200)
+    .json({ status: true, profile: { ...profile.get(), pinCode: 'unknow' } });
 });
 
 const deleteProfileForBar = catchAsync(async (req, res, next) => {
@@ -30,7 +32,9 @@ const editProfileForBar = catchAsync(async (req, res, next) => {
   const { id } = params;
   const data = { ...body, barId: profileSession.barId };
   const profile = await profileService.updateProfileForBar(+id, data);
-  res.status(200).json({ status: true, profile });
+  res
+    .status(200)
+    .json({ status: true, profile: { ...profile.get(), pinCode: 'unknow' } });
 });
 
 export {

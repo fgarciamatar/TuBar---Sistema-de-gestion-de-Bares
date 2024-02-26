@@ -7,48 +7,64 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useSelector } from 'react-redux';
 
 function Tables() {
   const navigation = useNavigation();
-  const mesas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  const mesas = useSelector(state => state.reducers.tables);
 
   const handleSend = () => {
-    navigation.navigate('Comanda');
+    navigation.navigate('Order');
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {mesas.map((mesa, index) => (
-        <View key={index} style={styles.mesa}>
-          <TouchableOpacity onPress={handleSend}>
-            <Text style={styles.mesaText}>{mesa}</Text>
-          </TouchableOpacity>
-        </View>
-      ))}
+      <View style={styles.tablesContainer}>
+        {mesas.tables !== undefined && mesas.tables ? (
+          mesas?.tables.map((table, index) => (
+            <TouchableOpacity
+              key={table.id}
+              style={styles.table}
+              onPress={handleSend}
+            >
+              <Text style={styles.tableText}>{table.tableNumber}</Text>
+            </TouchableOpacity>
+          ))
+        ) : (
+          <Spinner size="large" color="$orange10" />
+        )}
+      </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 10,
+    paddingBottom: 20,
+    paddingHorizontal: 10,
+  },
+  tablesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    paddingHorizontal: 10,
-    paddingTop: 10,
   },
-  mesa: {
-    width: '30%', // Para tener tres mesas por fila
-    aspectRatio: 1, // Para que la mesa tenga una relación de aspecto cuadrada
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'lightgray',
-    borderRadius: 10, // Borde redondeado
-    marginBottom: 20,
+  table: {
+    width: '30%', // Ajusta el tamaño para que entren tres mesas por fila
+    aspectRatio: 1, // Hace que el elemento sea cuadrado
+    backgroundColor: 'white', // Cambiado a fondo blanco
+    borderWidth: 2, // Ancho del borde
+    borderColor: 'black', // Color del borde
+    borderRadius: 10, // Bordes redondeados
+    alignItems: 'center', // Centra el contenido horizontalmente
+    justifyContent: 'center', // Centra el contenido verticalmente
+    marginVertical: 10, // Espacio vertical entre mesas
   },
-  mesaText: {
-    fontSize: 24, // Tamaño de texto más grande
+  tableText: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
 export default Tables;
+
