@@ -90,6 +90,27 @@ const swaggerDefinition: OAS3Definition = {
           pinCode: { type: 'string', example: 'abcde12345' },
         },
       },
+      barResponse: {
+        type: 'object',
+        example: {
+          status: true,
+          bar: {
+            email: 'correo@gmail.com',
+            name: 'Bar la unica',
+            password: 'abcde12345',
+            userName: 'uniqueBar',
+          },
+        },
+      },
+      barGeneral: {
+        type: 'object',
+        required: ['email', 'name', 'password'],
+        properties: {
+          email: { type: 'string', example: 'correo@gmail.com' },
+          name: { type: 'string', example: 'Bar la unica' },
+          password: { type: 'string', example: 'abcde12345' },
+          },
+        },
       tableGeneral: {
         type: 'object',
         required: ['tableNumber', 'ability', 'location'],
