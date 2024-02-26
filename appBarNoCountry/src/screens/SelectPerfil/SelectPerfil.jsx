@@ -8,14 +8,12 @@ import ProfileCards from '../../components/ProfileCards/ProfileCards';
 import { getTables } from '../../redux/actions';
 
 function SelectPerfil() {
-const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getTables());
-  }, [dispatch]); // Dependencia dispatch, para asegurarse de que se ejecute solo una vez
-
   const profilesSelectPerfil = useSelector(state => state.reducers.profiles);
+// const dispatch = useDispatch();
 
+//   useEffect(() => {
+//     dispatch(getTables());
+//   }, []); // Dependencia dispatch, para asegurarse de que se ejecute solo una vez
 
   return (
     <View style={styles.container}>
