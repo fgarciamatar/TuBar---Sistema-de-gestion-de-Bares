@@ -1,5 +1,5 @@
 import  React , {useEffect, useState} from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-elements';
 import {Spinner} from 'tamagui';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,13 +7,15 @@ import { View } from 'tamagui';
 import ProfileCards from '../../components/ProfileCards/ProfileCards';
 import { getTables } from '../../redux/actions';
 
-function SelectPerfil() {
-  const profilesSelectPerfil = useSelector(state => state.reducers.profiles);
-// const dispatch = useDispatch();
 
-//   useEffect(() => {
-//     dispatch(getTables());
-//   }, []); // Dependencia dispatch, para asegurarse de que se ejecute solo una vez
+function SelectPerfil() {
+
+const profilesSelectPerfil = useSelector(state => state.reducers.profiles);
+const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTables());
+  }, []); 
 
   return (
     <View style={styles.container}>
