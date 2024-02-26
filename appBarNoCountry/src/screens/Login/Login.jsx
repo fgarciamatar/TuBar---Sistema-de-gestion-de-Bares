@@ -40,6 +40,7 @@ function Login() {
         {
           text: 'OK',
           onPress: () => {
+            dispatch(getProfile());
             navigation.navigate('SelectPerfil');
           },
         },
@@ -72,10 +73,10 @@ function Login() {
     setShowPassword(!showPassword);
   };
 
-  useEffect(() => {
-    dispatch(getProfile());
-    // Despacha la acción para obtener los perfiles
-  }, [dispatch]); // Dependencia dispatch, para asegurarse de que se ejecute solo una vez
+  // useEffect(() => {
+  //   dispatch(getProfile());
+  //   // Despacha la acción para obtener los perfiles
+  // }, [dispatch]); // Dependencia dispatch, para asegurarse de que se ejecute solo una vez
 
   return (
     <View style={styles.container}>
