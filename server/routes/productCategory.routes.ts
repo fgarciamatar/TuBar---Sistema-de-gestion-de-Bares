@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { checkRole, protect } from '../middlewares';
 import {
-  createProductsCategoryForBar,
-  deleteProductsCategoryForBar,
-  editProductsCategoryForBar,
+  createProductCategoryForBar,
+  deleteProductCategoryForBar,
+  editProductCategoryForBar,
   getProductsCategoriesForBar,
-} from '../controllers/productsCategory.controllers';
+} from '../controllers/productCategory.controllers';
 
 const router = Router();
 
@@ -76,7 +76,7 @@ router.use(checkRole(['ADMIN']));
  *      - bearerAuth: []
  *
  */
-router.post('/', createProductsCategoryForBar);
+router.post('/', createProductCategoryForBar);
 /**
  * @swagger
  * /product-categories/{id}:
@@ -119,7 +119,7 @@ router.post('/', createProductsCategoryForBar);
  *      - bearerAuth: []
  *
  */
-router.patch('/:id', editProductsCategoryForBar);
+router.patch('/:id', editProductCategoryForBar);
 /**
  * @swagger
  * /product-categories/{id}:
@@ -149,6 +149,6 @@ router.patch('/:id', editProductsCategoryForBar);
  *      - bearerAuth: []
  *
  */
-router.delete('/:id', deleteProductsCategoryForBar);
+router.delete('/:id', deleteProductCategoryForBar);
 
 export default router;

@@ -153,7 +153,7 @@ const swaggerDefinition: OAS3Definition = {
           location: { type: 'string', example: 'medio' },
         },
       },
-      productsCategoryGeneral: {
+      productCategoryGeneral: {
         type: 'object',
         required: ['name', 'category'],
         properties: {
@@ -199,7 +199,7 @@ const swaggerDefinition: OAS3Definition = {
           },
         },
       },
-      productsCategory: {
+      productCategory: {
         type: 'object',
         properties: {
           id: { type: 'number', example: 1 },
@@ -231,12 +231,12 @@ const swaggerDefinition: OAS3Definition = {
           },
         },
       },
-      productsCategoryResponse: {
+      productCategoryResponse: {
         type: 'object',
         properties: {
           status: { type: 'boolean', example: true },
           category: {
-            $ref: '#/components/schemas/productsCategory',
+            $ref: '#/components/schemas/productCategory',
           },
         },
       },
@@ -254,7 +254,7 @@ const swaggerDefinition: OAS3Definition = {
       },
       productGeneral: {
         type: 'object',
-        required: ['name', 'description', 'price', 'productsCategoryId'],
+        required: ['name', 'description', 'price', 'productCategoryId'],
         properties: {
           name: { type: 'string', example: 'Hamburguesa cheese' },
           description: {
@@ -262,7 +262,7 @@ const swaggerDefinition: OAS3Definition = {
             example: 'Hamburguesa a la Parrilla Con Queso',
           },
           price: { type: 'float', example: 10.5 },
-          productsCategoryId: {
+          productCategoryId: {
             type: 'number',
             example: 1,
             description: 'Id de la categoria al que pertenece el producto',
@@ -288,7 +288,7 @@ const swaggerDefinition: OAS3Definition = {
           name: 'Helado Mini Princesa',
           price: 11.5,
           description: 'Helado Mini Princesa',
-          productsCategoryId: 3,
+          productCategoryId: 3,
           createdAt: '2024-02-23T18:03:30.951Z',
           updatedAt: '2024-02-23T18:03:30.951Z',
         },

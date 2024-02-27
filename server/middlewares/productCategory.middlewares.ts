@@ -1,16 +1,15 @@
 import { AppError } from '../models';
-import { ProductsCategoryService } from '../services';
+import { ProductCategoryService } from '../services';
 import { catchAsync } from '../utils';
 
-const productsCategoryService = new ProductsCategoryService();
+const productsCategoryService = new ProductCategoryService();
 
 const isExistCategoryInBar = catchAsync(async (req, res, next) => {
   const { profileSession } = res.locals;
-  const { productsCategoryId } = req.body;
+  const { productCategoryId } = req.body;
   const category = await productsCategoryService.findCategoryForBar(
     profileSession.barId,
-    productsCategoryId,
-    
+    productCategoryId
   );
   if (!category) throw new AppError('Esta categoria no existe en el bar.', 404);
   next();

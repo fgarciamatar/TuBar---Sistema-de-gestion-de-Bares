@@ -1,7 +1,7 @@
 import { DataTypes, Optional } from 'sequelize';
 import db from '../db';
 import { ProductAttributes } from '../../interfaces';
-import ProductsCategoryModel from './productsCategory.models';
+import ProductCategoryModel from './productCategory.models';
 
 const ProductModel = db.define<ProductAttributes>('product', {
   name: {
@@ -31,16 +31,16 @@ const ProductModel = db.define<ProductAttributes>('product', {
       },
     },
   },
-  productsCategoryId: {
+  productCategoryId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: ProductsCategoryModel, 
+      model: ProductCategoryModel, 
       key: 'id', 
     },
     validate: {
       notNull: {
-        msg: "El campo 'productsCategoryId' es obligatorio y debe ser proporcionado.",
+        msg: "El campo 'productCategoryId' es obligatorio y debe ser proporcionado.",
       },
     },
   },
