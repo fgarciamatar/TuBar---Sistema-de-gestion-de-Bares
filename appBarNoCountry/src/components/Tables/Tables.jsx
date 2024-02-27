@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Spinner} from 'tamagui';
+import { Spinner } from 'tamagui';
 
 function Tables({mesas}) {
   const navigation = useNavigation();
