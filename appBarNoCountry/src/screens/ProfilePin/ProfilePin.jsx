@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import { getTables } from '../../redux/actions';
 
 function ProfilePin({route}) {
-  const [pin, setPin] = useState(' ');
+  const [pin, setPin] = useState('');
   const navigation = useNavigation();
   const {idProfile, role, name} = route.params;
 
