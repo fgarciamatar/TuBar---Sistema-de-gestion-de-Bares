@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import { useSelector } from 'react-redux';
+import { Spinner } from 'tamagui';
 
 function Tables() {
   const navigation = useNavigation();
