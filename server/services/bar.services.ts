@@ -53,6 +53,32 @@ class BarService {
       );
     return bar;
   }
+  async removeBar(barId: number) {
+
+    const bar = await BarModel.findByPk(barId);
+
+    if (!bar)
+      throw new AppError(
+        'No se encontró ningún bar con el ID especificado.',
+        404
+      );
+    bar.destroy();
+    return bar;
+  }
+  async updateBar(
+    barId: number,
+    { email, name, password }: BarProps,
+  ) {
+    const bar = await BarModel.findByPk(barId);
+    if (!bar)
+      throw new AppError(
+        'No se encontró ningún bar con el ID especificado.',
+        404
+      );
+    bar.update({ email, name, password });
+    return bar;
+  }
+
 }
 
 export default BarService;

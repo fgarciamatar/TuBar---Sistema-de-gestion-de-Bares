@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import { useAppSelector } from "../../hooks/hooks";
+import { table } from '../../reducers/tableReducer';
 
 function Order() {
+  const [tableSeleced, settableSelected] = useState(
+    useAppSelector((state) => state.table)
+  );
   const navigation = useNavigation();
 
   const handleMenu = () => {
@@ -11,7 +16,7 @@ function Order() {
   return (
     <View style={styles.orderContainer}>
       <View style={styles.orderBar}>
-        <Text style={styles.text}>Mesa 1</Text>
+        <Text style={styles.text}>Mesa {tableSeleced.tableNumber}</Text>
 
         <TouchableOpacity onPress={handleMenu}>
           <Image

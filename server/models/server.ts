@@ -19,6 +19,7 @@ import {
   tableRoutes,
   productsCategoryRoutes,
   productRoutes,
+  barRoutes,
 } from '../routes';
 
 class Server {
@@ -52,6 +53,7 @@ class Server {
     const router = Router();
     this.app.use(this.ROUTE, router);
     router.use('/auth', authRoutes);
+    router.use('/bar', barRoutes)
     router.use('/profiles', profileRoutes);
     router.use('/tables', tableRoutes);
     router.use('/product-categories', productsCategoryRoutes);
