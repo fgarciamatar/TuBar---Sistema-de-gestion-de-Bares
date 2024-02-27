@@ -7,12 +7,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useSelector } from 'react-redux';
 import {Spinner} from 'tamagui';
 
-function Tables() {
+function Tables({mesas}) {
   const navigation = useNavigation();
-  const mesas = useSelector(state => state.reducers.tables);
 
   const handleSend = () => {
     navigation.navigate('Order');
@@ -25,7 +23,7 @@ function Tables() {
           mesas?.tables.map((table, index) => (
             <TouchableOpacity
               key={table.id}
-              style={styles.table}
+              style={[styles.table, {backgroundColor: table.isOccupied ? 'red' : 'green'}]}
               onPress={handleSend}
             >
               <Text style={styles.tableText}>{table.tableNumber}</Text>
