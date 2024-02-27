@@ -6,8 +6,6 @@ import Tables from '../../components/Tables/Tables';
 import { useSelector } from 'react-redux';
 
 function Salon() {
-<<<<<<< HEAD
-=======
   const mesas = useSelector(state => state.reducers.tables);
   const [mesasOcupadas, setmesasOcupadas] = useState([])
   const [mesasDesocupadas, setmesasDesocupadas] = useState([])
@@ -26,7 +24,6 @@ function Salon() {
       setmesasDesocupadas([])
     }
   }, [mesas])
->>>>>>> develop
 
   return (
     <View style={styles.container}>

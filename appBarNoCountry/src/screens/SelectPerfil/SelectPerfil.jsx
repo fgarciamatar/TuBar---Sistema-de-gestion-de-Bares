@@ -1,41 +1,15 @@
 import  React , {useEffect, useState} from 'react';
-<<<<<<< HEAD
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Text } from 'react-native-elements';
-import {Spinner} from 'tamagui';
-import { useDispatch, useSelector } from 'react-redux';
-import { View } from 'tamagui';
-import ProfileCards from '../../components/ProfileCards/ProfileCards';
-import { getTables } from '../../redux/actions';
-=======
 import { StyleSheet, ScrollView ,  SafeAreaView} from 'react-native';
 import { Text } from 'react-native-elements';
 import {Spinner} from 'tamagui';
 import { View } from 'tamagui';
 import ProfileCards from '../../components/ProfileCards/ProfileCards';
 import {  useSelector } from 'react-redux';
->>>>>>> develop
 
 
 function SelectPerfil() {
 
 const profilesSelectPerfil = useSelector(state => state.reducers.profiles);
-<<<<<<< HEAD
-const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getTables());
-  }, []); 
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Selecciona tu perfil:</Text>
-      <View>
-        {profilesSelectPerfil.profiles !== undefined && profilesSelectPerfil.profiles ? profilesSelectPerfil?.profiles.map(profile => (
-          <ProfileCards name={profile.name} role={profile.role} key={profile.id} id={profile.id} />
-        )): <Spinner size="large" color="$orange10" />}
-      </View>
-=======
 
   return (
     <SafeAreaView>
@@ -46,7 +20,6 @@ const dispatch = useDispatch();
           <ProfileCards name={profile.name} role={profile.role} key={profile.id} id={profile.id} />
         )): <Spinner size="large" color="$orange10" />}
       </ScrollView>
->>>>>>> develop
     </View>
     </SafeAreaView>
   );
