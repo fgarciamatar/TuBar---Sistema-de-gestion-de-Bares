@@ -11,13 +11,18 @@ function Salon() {
   const [mesasDesocupadas, setmesasDesocupadas] = useState([])
 
   useEffect(() => {
-   mesas.tables.map(mesa=>{
-    if(mesa.isOccupied){
-      mesasOcupadas.push(mesa)
+    if (mesas.tables !== undefined && mesas.tables){
+      mesas.tables.map(mesa=>{
+        if(mesa.isOccupied){
+          mesasOcupadas.push(mesa)
+        }else{
+          mesasDesocupadas.push(mesa)
+        }
+       })
     }else{
-      mesasDesocupadas.push(mesa)
+      setmesasOcupadas([])
+      setmesasDesocupadas([])
     }
-   })
   }, [mesas])
 
   return (
