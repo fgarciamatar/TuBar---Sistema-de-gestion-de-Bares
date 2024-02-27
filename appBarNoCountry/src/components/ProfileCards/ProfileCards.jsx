@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
+import { StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
 import {View} from 'tamagui';
 
 
@@ -14,7 +14,6 @@ function ProfileCards({name, role, id}) {
 
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
         <TouchableOpacity onPress={handleSalonAdm} style={styles.cardContainer}>
           <View>
@@ -27,21 +26,18 @@ function ProfileCards({name, role, id}) {
           </View>
         </TouchableOpacity>
       </View>
-    </ScrollView>
   );
 }
 
 export default ProfileCards;
 
 const styles = StyleSheet.create({
-  scrollViewContent: {
-    flexGrow: 1,
-    backgroundColor: '#B5B2B2',
-    alignItems: 'center',
-    paddingVertical: 20,
-  },
   container: {
-    alignItems: 'center', // Centrar elementos horizontalmente
+    flexGrow: 1,
+    alignItems: 'center', 
+    paddingVertical: 20,
+    backgroundColor: '#B5B2B2',
+    marginBottom:30// Centrar elementos horizontalmente
   },
   imageContainer: {
     marginBottom: 10, // Espacio entre la imagen y el texto

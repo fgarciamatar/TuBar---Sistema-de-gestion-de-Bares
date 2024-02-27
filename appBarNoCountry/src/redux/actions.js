@@ -28,7 +28,7 @@ export const getProfile =  () => {
 
 export const getTables =  () => {
   return async function (dispatch) {
-    const token = await AsyncStorage.getItem('accessToken');
+    const token = await AsyncStorage.getItem('accessTokenProfile');
    console.log("token" ,token);
     try {
       const apiData = await axios.get(`${urlApi}/tables`, {
