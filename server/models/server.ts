@@ -5,6 +5,7 @@ import express, {
   Response,
   Router,
 } from 'express';
+//import { ProductsCategoryModel } from '../database/models';
 import cors from 'cors';
 import db from '../database/db';
 import path from 'path';
@@ -48,6 +49,10 @@ class Server {
     db.sync({ alter: true })
       .then(() => console.log('Database synced'))
       .catch(error => console.log(error));
+//usar esto para sync
+//    ProductsCategoryModel.sync({ alter: true })
+//    .then(() => console.log('table synced'))
+//    .catch(error => console.log(error));
   }
   routes() {
     const router = Router();

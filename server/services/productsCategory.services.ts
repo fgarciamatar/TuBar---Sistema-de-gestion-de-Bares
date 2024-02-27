@@ -28,16 +28,17 @@ class ProductsCategoryService {
     return category;
   }
 
-  async createCategoryForBar({ name, barId }: ProductsCategoryProps) {
+  async createCategoryForBar({ name, description, barId }: ProductsCategoryProps) {
     const category = await ProductsCategoryModel.create({
       name,
+      description,
       barId,
     });
     return category;
   }
   async updateCategoryForBar(
     categoryId: number,
-    { name, barId }: ProductsCategoryProps
+    { name, description, barId }: ProductsCategoryProps
   ) {
     const category = await ProductsCategoryModel.findOne({
       where: {
@@ -50,7 +51,7 @@ class ProductsCategoryService {
         'No se encontró ninguna categoria en el bar con el ID especificado.',
         404
       );
-    category.update({ name });
+    category.update({ name, description });
     return category;
   }
   async removeCategoryForBar(categoryId: number, barId: number) {

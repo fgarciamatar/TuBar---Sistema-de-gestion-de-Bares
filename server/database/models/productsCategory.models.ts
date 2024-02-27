@@ -13,6 +13,15 @@ const ProductsCategoryModel = db.define<ProductsCategoryAttributes>('productsCat
       },
     },
   },
+  description: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notNull: {
+        msg: "El campo 'description' es obligatorio y debe ser proporcionado.",
+      },
+    },
+  },
   barId: {
     type: DataTypes.INTEGER,
     allowNull: false,

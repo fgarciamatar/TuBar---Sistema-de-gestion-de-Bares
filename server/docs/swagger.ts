@@ -142,9 +142,8 @@ const swaggerDefinition: OAS3Definition = {
       },
       tableGeneral: {
         type: 'object',
-        required: ['tableNumber', 'ability', 'location'],
+        required: ['ability', 'location'],
         properties: {
-          tableNumber: { type: 'num', example: 1 },
           isOccupied: {
             type: 'boolean',
             example: false,
@@ -156,9 +155,10 @@ const swaggerDefinition: OAS3Definition = {
       },
       productsCategoryGeneral: {
         type: 'object',
-        required: ['name'],
+        required: ['name', 'category'],
         properties: {
           name: { type: 'string', example: 'Hamburgesas' },
+          description: { type: 'string', example: 'sandwiches con medallones de carne' },
         },
       },
       table: {
@@ -204,6 +204,7 @@ const swaggerDefinition: OAS3Definition = {
         properties: {
           id: { type: 'number', example: 1 },
           name: { type: 'string', example: 'Hamburgesas' },
+          description: { type: 'string', example: 'sandwiches con medallones de carne' },
           barId: { type: 'number', example: '22' },
           updatedAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
           createdAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
@@ -214,6 +215,7 @@ const swaggerDefinition: OAS3Definition = {
         properties: {
           id: { type: 'number', example: 1 },
           name: { type: 'string', example: 'Hamburgesas' },
+          description: { type: 'string', example: 'sandwiches con medallones de carne' },
           barId: { type: 'number', example: '22' },
           updatedAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
           createdAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },

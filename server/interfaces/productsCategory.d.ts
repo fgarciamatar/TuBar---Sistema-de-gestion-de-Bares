@@ -10,6 +10,7 @@ export interface ProductsCategoryAttributes
   extends ModelSequlize<ProductsCategoryAttributes> {
   id?: CreationOptional<number>;
   name: string;
+  description: string;
   barId: number;
   createdAt?: CreationOptional<Date>;
   updatedAt?: CreationOptional<Date>;
@@ -17,5 +18,5 @@ export interface ProductsCategoryAttributes
 
 export type ProductsCategoryProps = Pick<
   ProductsCategoryAttributes,
-  'name' | 'barId'
+  'name' | 'description' | 'barId'
 >;
