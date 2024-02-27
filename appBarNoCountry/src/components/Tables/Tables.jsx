@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {
   ScrollView,
@@ -7,13 +7,34 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+<<<<<<< HEAD
 import { useSelector } from 'react-redux';
+=======
+import {Spinner} from 'tamagui';
+import {useAppDispatch} from '../../hooks/hooks';
+import {table, tableSet} from '../../reducers/tableReducer';
+>>>>>>> develop
 
-function Tables() {
+function Tables({mesas}) {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
+<<<<<<< HEAD
   const mesas = useSelector(state => state.reducers.tables);
 
   const handleSend = () => {
+=======
+
+  const handleSend = mesa => {
+    let item = {
+      ability: mesa.ability,
+      barId: mesa.barId,
+      id: mesa.id,
+      isOccupied: mesa.isOccupied,
+      location: mesa.location,
+      tableNumber: mesa.tableNumber,
+    };
+    dispatch(tableSet(item));
+>>>>>>> develop
     navigation.navigate('Order');
   };
 
@@ -24,9 +45,17 @@ function Tables() {
           mesas?.tables.map((table, index) => (
             <TouchableOpacity
               key={table.id}
+<<<<<<< HEAD
               style={styles.table}
               onPress={handleSend}
             >
+=======
+              style={[
+                styles.table,
+                {backgroundColor: table.isOccupied ? 'red' : 'green'},
+              ]}
+              onPress={()=>{handleSend(table)}}>
+>>>>>>> develop
               <Text style={styles.tableText}>{table.tableNumber}</Text>
             </TouchableOpacity>
           ))

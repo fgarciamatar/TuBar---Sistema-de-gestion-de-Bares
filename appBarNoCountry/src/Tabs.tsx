@@ -11,7 +11,11 @@ import Password from './screens/Password/Password';
 
 import Order from './screens/Order/Order.jsx';
 import ProfilePin from './screens/ProfilePin/ProfilePin.jsx';
+<<<<<<< HEAD
 import Menu from './screens/Menu/Menu.tsx';
+=======
+// import Menu from './screens/Menu/Menu';
+>>>>>>> develop
 const Stack = createStackNavigator();
 
 function Tabs() {
@@ -53,7 +57,11 @@ function Tabs() {
       />
       <Stack.Screen name="SelectPerfil" component={SelectPerfil} />
       <Stack.Screen name="Salon" component={Salon} />
+<<<<<<< HEAD
       <Stack.Screen
+=======
+      {/* <Stack.Screen
+>>>>>>> develop
         options={{
           headerStyle: styles.headerScreen,
           headerTintColor: '#000',
@@ -63,7 +71,11 @@ function Tabs() {
         }}
         name="Menu"
         component={Menu}
+<<<<<<< HEAD
       />
+=======
+      /> */}
+>>>>>>> develop
       <Stack.Screen
         options={{
           headerStyle: styles.headerScreen,

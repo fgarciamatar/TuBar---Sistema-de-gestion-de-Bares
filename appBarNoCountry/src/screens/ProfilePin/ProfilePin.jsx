@@ -10,18 +10,36 @@ import {
 } from 'react-native';
 import {postLoginProfile} from '../../apis';
 import { useNavigation } from '@react-navigation/native';
+<<<<<<< HEAD
 
 function ProfilePin({route}) {
   const [pin, setPin] = useState(' ');
   const navigation = useNavigation();
   const {idProfile, role, name} = route.params;
 
+=======
+import { useDispatch } from 'react-redux';
+import { getTables } from '../../redux/actions';
+
+function ProfilePin({route}) {
+  const [pin, setPin] = useState('');
+  const navigation = useNavigation();
+  const {idProfile, role, name} = route.params;
+
+  const dispatch = useDispatch();
+
+
+>>>>>>> develop
 
  const handleLogin = async () => {
     const profileLogin = await postLoginProfile(pin, idProfile);
     // console.log(profileLogin.status);
     if (profileLogin.status) {
       Alert.alert('Exito', 'PIN correcto.');
+<<<<<<< HEAD
+=======
+      dispatch(getTables());
+>>>>>>> develop
       navigation.navigate('Salon');
     } else if (!profileLogin.status) {
       Alert.alert('Error', 'PIN incorrecto. Por favor, inténtalo de nuevo.');

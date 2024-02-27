@@ -1,10 +1,32 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React , {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Navbar from '../../components/Navbar/Navbar';
 import Tables from '../../components/Tables/Tables';
+import { useSelector } from 'react-redux';
 
 function Salon() {
+<<<<<<< HEAD
+=======
+  const mesas = useSelector(state => state.reducers.tables);
+  const [mesasOcupadas, setmesasOcupadas] = useState([])
+  const [mesasDesocupadas, setmesasDesocupadas] = useState([])
+
+  useEffect(() => {
+    if (mesas.tables !== undefined && mesas.tables){
+      mesas.tables.map(mesa=>{
+        if(mesa.isOccupied){
+          mesasOcupadas.push(mesa)
+        }else{
+          mesasDesocupadas.push(mesa)
+        }
+       })
+    }else{
+      setmesasOcupadas([])
+      setmesasDesocupadas([])
+    }
+  }, [mesas])
+>>>>>>> develop
 
   return (
     <View style={styles.container}>
@@ -12,11 +34,11 @@ function Salon() {
         <Navbar />
       </View>
       <View style={styles.textContainer}>
-        <Text>Mesas ocupadas:</Text>
-        <Text>Mesas desocupadas:</Text>
+        <Text>Mesas ocupadas: {mesasOcupadas.length}</Text>
+        <Text>Mesas desocupadas: {mesasDesocupadas.length}</Text>
       </View>
 
-      <Tables />
+      <Tables mesas={mesas} />
     </View>
   );
 }
