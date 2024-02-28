@@ -2,11 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { urlApi } from './utils/definition';
 
-<<<<<<< HEAD
-const API_BASE_URL = 'http://192.168.1.4:8088/api/v1';
-=======
 const API_BASE_URL = urlApi;
->>>>>>> develop
 
 const EXEMPTED_ROUTES = ['/auth/sign-up', '/auth/login'];
 
@@ -71,11 +67,7 @@ export const postLoginProfile = async (pin, idProfile) => {
         },
       });
       const newToken = response.data.token;
-<<<<<<< HEAD
-      AsyncStorage.setItem('accessToken', newToken);
-=======
       AsyncStorage.setItem('accessTokenProfile', newToken);
->>>>>>> develop
 
       console.log("response",response.data);
       return response.data;
