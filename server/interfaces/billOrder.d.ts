@@ -9,7 +9,7 @@ import { ModelSequlize } from './types';
 export interface BillOrderAttributes
   extends ModelSequlize<BillOrderAttributes> {
   id?: CreationOptional<number>;
-  total: number;
+  total?: CreationOptional<number>;
   isBilled: CreationOptional<boolean>;
   profileId: number;
   tableId: number;

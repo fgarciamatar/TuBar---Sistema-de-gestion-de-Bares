@@ -18,5 +18,5 @@ export interface OrderDetailAttributes
 
 export type OrderDetailProps = Pick<
   OrderDetailAttributes,
-  'tableNumber' | 'ability' | 'location' | 'orderId'
+  'quantity' | 'productId'
 >;

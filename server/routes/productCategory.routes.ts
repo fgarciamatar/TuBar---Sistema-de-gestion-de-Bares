@@ -54,14 +54,14 @@ router.use(checkRole(['ADMIN']));
  *       content:
  *         application/json:
  *          schema:
- *            $ref: "#/components/schemas/productsCategoryGeneral"
+ *            $ref: "#/components/schemas/productCategoryGeneral"
  *    responses:
  *       '200':
  *         description: Categoria creado exitosamente.
  *         content:
  *          application/json:
  *            schema:
- *              $ref: "#/components/schemas/productsCategoryResponse"
+ *              $ref: "#/components/schemas/productCategoryResponse"
  *       '400':
  *         description: No se pudo crear la Categoria. Verifique los datos proporcionados.
  *       '401':
@@ -95,14 +95,14 @@ router.post('/', createProductCategoryForBar);
  *       content:
  *         application/json:
  *          schema:
- *            $ref: "#/components/schemas/productsCategoryGeneral"
+ *            $ref: "#/components/schemas/productCategoryGeneral"
  *    responses:
  *       '200':
  *         description: Categoria editado exitosamente.
  *         content:
  *          application/json:
  *            schema:
- *              $ref: "#/components/schemas/productsCategoryResponse"
+ *              $ref: "#/components/schemas/productCategoryResponse"
  *       '400':
  *         description: No se pudo editar la categoria. Verifique los datos proporcionados.
  *       '401':

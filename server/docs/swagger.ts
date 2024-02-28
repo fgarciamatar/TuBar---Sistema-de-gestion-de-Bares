@@ -130,15 +130,15 @@ const swaggerDefinition: OAS3Definition = {
           email: { type: 'string', example: 'correo@gmail.com' },
           name: { type: 'string', example: 'Bar la unica' },
           password: { type: 'string', example: 'abcde12345' },
-          },
         },
+      },
       bar: {
         type: 'object',
         example: {
-            email: 'correo@gmail.com',
-            name: 'Bar la unica',
-            password: 'abcde12345',
-        }
+          email: 'correo@gmail.com',
+          name: 'Bar la unica',
+          password: 'abcde12345',
+        },
       },
       tableGeneral: {
         type: 'object',
@@ -158,7 +158,10 @@ const swaggerDefinition: OAS3Definition = {
         required: ['name', 'category'],
         properties: {
           name: { type: 'string', example: 'Hamburgesas' },
-          description: { type: 'string', example: 'sandwiches con medallones de carne' },
+          description: {
+            type: 'string',
+            example: 'sandwiches con medallones de carne',
+          },
         },
       },
       table: {
@@ -204,7 +207,10 @@ const swaggerDefinition: OAS3Definition = {
         properties: {
           id: { type: 'number', example: 1 },
           name: { type: 'string', example: 'Hamburgesas' },
-          description: { type: 'string', example: 'sandwiches con medallones de carne' },
+          description: {
+            type: 'string',
+            example: 'sandwiches con medallones de carne',
+          },
           barId: { type: 'number', example: '22' },
           updatedAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
           createdAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
@@ -215,7 +221,10 @@ const swaggerDefinition: OAS3Definition = {
         properties: {
           id: { type: 'number', example: 1 },
           name: { type: 'string', example: 'Hamburgesas' },
-          description: { type: 'string', example: 'sandwiches con medallones de carne' },
+          description: {
+            type: 'string',
+            example: 'sandwiches con medallones de carne',
+          },
           barId: { type: 'number', example: '22' },
           updatedAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
           createdAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
@@ -316,6 +325,31 @@ const swaggerDefinition: OAS3Definition = {
               ],
             },
           },
+        },
+      },
+      order: {
+        type: 'object',
+        required: ['quantity', 'productId'],
+        properties: {
+          quantity: { type: 'number', example: 3 },
+          productId: { type: 'number', example: 1 },
+        },
+      },
+      order2: {
+        type: 'object',
+        required: ['quantity', 'productId'],
+        properties: {
+          quantity: { type: 'number', example: 5 },
+          productId: { type: 'number', example: 2 },
+        },
+      },
+      billOrderGeneral: {
+        type: 'array',
+        items: {
+          oneOf: [
+            { $ref: '#/components/schemas/order' },
+            { $ref: '#/components/schemas/order2' },
+          ],
         },
       },
     },

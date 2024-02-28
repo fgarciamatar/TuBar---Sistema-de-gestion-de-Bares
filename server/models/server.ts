@@ -20,6 +20,7 @@ import {
   productCategoryRoutes,
   productRoutes,
   barRoutes,
+  billOrderRoutes,
 } from '../routes';
 
 class Server {
@@ -62,6 +63,7 @@ class Server {
     router.use('/tables', tableRoutes);
     router.use('/product-categories', productCategoryRoutes);
     router.use('/products', productRoutes);
+    router.use('/bill-orders', billOrderRoutes);
 
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 

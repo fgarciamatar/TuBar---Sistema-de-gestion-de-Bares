@@ -7,6 +7,7 @@ import TableModel from './table.models';
 const BillOrderModel = db.define<BillOrderAttributes>('billOrders', {
   total: {
     type: DataTypes.DOUBLE,
+    defaultValue: 0,
     allowNull: false,
     validate: {
       notNull: {
