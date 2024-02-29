@@ -1,7 +1,7 @@
 import { TableModel } from '../database/models';
 import { TableProps } from '../interfaces';
 import { AppError } from '../models';
-import { encrypt } from '../utils';
+import { Op } from 'sequelize';
 
 class TableService {
   constructor() {}
@@ -14,15 +14,36 @@ class TableService {
     });
     return tables;
   }
+  async findTableForBarOr404(barId: number, tableId: number) {
+    const table = await TableModel.findOne({
+      where: {
+        id: tableId,
+        barId,
+      },
+    });
+    if (!table) {
+      throw new AppError(
+        'No se encontró ninguna mesa en el bar con el ID especificado.',
+        404
+      );
+    }
+    return table;
+  }
 
   async createTableForBar({
-    tableNumber,
     ability,
     location,
     barId,
-  }: TableProps) {
+  }: Omit<TableProps, 'tableNumber'>) {
+    const lastTable = await TableModel.findOne({
+      where: {
+        barId,
+      },
+      order: [['tableNumber', 'DESC']],
+    });
+    const newTableNumber = lastTable ? lastTable.tableNumber + 1 : 1;
     const table = await TableModel.create({
-      tableNumber,
+      tableNumber: newTableNumber,
       ability,
       location,
       barId,
@@ -31,35 +52,51 @@ class TableService {
   }
   async updateTableForBar(
     tableId: number,
-    { ability, isOccupied, location, tableNumber, barId }: TableProps
+    {
+      tableNumber: newTableNumber,
+      ability,
+      isOccupied,
+      location,
+      barId,
+    }: TableProps
   ) {
-    const table = await TableModel.findOne({
+    const tableToUpdate = await this.findTableForBarOr404(tableId, barId);
+    const tableWithNewNumber = await TableModel.findOne({
       where: {
-        id: tableId,
+        tableNumber: newTableNumber,
         barId,
       },
     });
-    if (!table)
-      throw new AppError(
-        'No se encontró ninguna en el bar con el ID especificado.',
-        404
-      );
-    table.update({ ability, isOccupied, location, tableNumber });
-    return table;
+    if (tableToUpdate.tableNumber === newTableNumber || !tableWithNewNumber) {
+      await tableToUpdate.update({ ability, isOccupied, location });
+      return tableToUpdate;
+    }
+    await Promise.all([
+      tableToUpdate.update({ tableNumber: tableWithNewNumber.tableNumber }),
+      tableWithNewNumber.update({ tableNumber: newTableNumber }),
+    ]);
+    await tableToUpdate.update({ ability, isOccupied, location });
+    return tableToUpdate;
   }
+
   async removeTableForBar(tableId: number, barId: number) {
-    const table = await TableModel.findOne({
+    const table = await this.findTableForBarOr404(tableId, barId);
+    table.destroy();
+    const remainingTables = await TableModel.findAll({
       where: {
-        id: tableId,
         barId,
+        tableNumber: {
+          [Op.gt]: table.tableNumber,
+        },
       },
     });
-    if (!table)
-      throw new AppError(
-        'No se encontró ninguna mesa en el bar con el ID especificado.',
-        404
-      );
-    table.destroy();
+    await Promise.all(
+      remainingTables.map(async t => {
+        t.tableNumber -= 1;
+        await t.save();
+      })
+    );
+
     return table;
   }
 }

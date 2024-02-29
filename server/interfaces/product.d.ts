@@ -11,12 +11,12 @@ export interface ProductAttributes extends ModelSequlize<ProductAttributes> {
   name: string;
   price: number;
   description: string;
-  productsCategoryId: number;
+  productCategoryId: number;
   createdAt?: CreationOptional<Date>;
   updatedAt?: CreationOptional<Date>;
 }
 
 export type ProductProps = Pick<
   ProductAttributes,
-  'name' | 'price' | 'description' | 'productsCategoryId'
+  'name' | 'price' | 'description' | 'productCategoryId'
 >;
