@@ -1,38 +1,38 @@
-import { ProductsCategoryService } from '../services';
+import { ProductCategoryService } from '../services';
 import { catchAsync } from '../utils';
 
-const productsCategoryService = new ProductsCategoryService();
+const productCategoryService = new ProductCategoryService();
 
 const getProductsCategoriesForBar = catchAsync(async (req, res, next) => {
   const { profileSession } = res.locals;
-  const categories = await productsCategoryService.findCategoriesForBar(
+  const categories = await productCategoryService.findCategoriesForBar(
     profileSession.barId
   );
   res.status(200).json({ status: true, categories });
 });
 
-const createProductsCategoryForBar = catchAsync(async (req, res, next) => {
+const createProductCategoryForBar = catchAsync(async (req, res, next) => {
   const { body } = req;
   const { profileSession } = res.locals;
   const data = { ...body, barId: profileSession.barId };
-  const category = await productsCategoryService.createCategoryForBar(data);
+  const category = await productCategoryService.createCategoryForBar(data);
   res.status(200).json({ status: true, category });
 });
 
-const deleteProductsCategoryForBar = catchAsync(async (req, res, next) => {
+const deleteProductCategoryForBar = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const { profileSession } = res.locals;
-  await productsCategoryService.removeCategoryForBar(+id, profileSession.barId);
+  await productCategoryService.removeCategoryForBar(+id, profileSession.barId);
   res
     .status(204)
     .json({ status: true, msg: 'Categoria eliminado exitosamente.' });
 });
-const editProductsCategoryForBar = catchAsync(async (req, res, next) => {
+const editProductCategoryForBar = catchAsync(async (req, res, next) => {
   const { body, params } = req;
   const { profileSession } = res.locals;
   const { id } = params;
   const data = { ...body, barId: profileSession.barId };
-  const category = await productsCategoryService.updateCategoryForBar(
+  const category = await productCategoryService.updateCategoryForBar(
     +id,
     data
   );
@@ -41,7 +41,7 @@ const editProductsCategoryForBar = catchAsync(async (req, res, next) => {
 
 export {
   getProductsCategoriesForBar,
-  createProductsCategoryForBar,
-  deleteProductsCategoryForBar,
-  editProductsCategoryForBar,
+  createProductCategoryForBar,
+  deleteProductCategoryForBar,
+  editProductCategoryForBar,
 };

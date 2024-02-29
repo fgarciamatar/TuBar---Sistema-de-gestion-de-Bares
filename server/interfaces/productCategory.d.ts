@@ -6,8 +6,8 @@ import {
 } from 'sequelize';
 import { ModelSequlize } from './types';
 
-export interface ProductsCategoryAttributes
-  extends ModelSequlize<ProductsCategoryAttributes> {
+export interface ProductCategoryAttributes
+  extends ModelSequlize<ProductCategoryAttributes> {
   id?: CreationOptional<number>;
   name: string;
   description: string;
@@ -16,7 +16,7 @@ export interface ProductsCategoryAttributes
   updatedAt?: CreationOptional<Date>;
 }
 
-export type ProductsCategoryProps = Pick<
-  ProductsCategoryAttributes,
+export type ProductCategoryProps = Pick<
+  ProductCategoryAttributes,
   'name' | 'description' | 'barId'
 >;

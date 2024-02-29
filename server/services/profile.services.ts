@@ -6,13 +6,24 @@ import { encrypt } from '../utils';
 class ProfileService {
   constructor() {}
 
-  async findProfilesForBar(id: number) {
+  async findProfilesForBar(barId: number) {
     const profiles = await ProfileModel.findAll({
       where: {
-        barId: id,
+        barId,
       },
     });
     return profiles;
+  }
+
+  async profileIdsForBar(barId: number) {
+    const profiles = await ProfileModel.findAll({
+      where: {
+        barId,
+      },
+      attributes: ['id'],
+    });
+    const profileIds = profiles.map(profile => profile.id);
+    return profileIds;
   }
 
   async createProfileForBar({ name, role, pinCode, barId }: ProfileProps) {
@@ -65,6 +76,16 @@ class ProfileService {
     return profile;
   }
 
+  async findProfileForBar(profileId: number, barId: number) {
+    if (!profileId) throw new AppError('Verifique sus datos.', 401);
+    const profile = await ProfileModel.findOne({
+      where: {
+        barId,
+        id: profileId,
+      },
+    });
+    return profile;
+  }
   async findProfileByIdAndBarIdOr404(profileId: number, barId: number) {
     if (!profileId || !barId)
       throw new AppError('Credenciales incorrectas. Verifique sus datos.', 401);

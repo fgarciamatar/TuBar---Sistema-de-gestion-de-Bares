@@ -130,15 +130,15 @@ const swaggerDefinition: OAS3Definition = {
           email: { type: 'string', example: 'correo@gmail.com' },
           name: { type: 'string', example: 'Bar la unica' },
           password: { type: 'string', example: 'abcde12345' },
-          },
         },
+      },
       bar: {
         type: 'object',
         example: {
-            email: 'correo@gmail.com',
-            name: 'Bar la unica',
-            password: 'abcde12345',
-        }
+          email: 'correo@gmail.com',
+          name: 'Bar la unica',
+          password: 'abcde12345',
+        },
       },
       tableGeneral: {
         type: 'object',
@@ -153,12 +153,15 @@ const swaggerDefinition: OAS3Definition = {
           location: { type: 'string', example: 'medio' },
         },
       },
-      productsCategoryGeneral: {
+      productCategoryGeneral: {
         type: 'object',
         required: ['name', 'category'],
         properties: {
           name: { type: 'string', example: 'Hamburgesas' },
-          description: { type: 'string', example: 'sandwiches con medallones de carne' },
+          description: {
+            type: 'string',
+            example: 'sandwiches con medallones de carne',
+          },
         },
       },
       table: {
@@ -199,12 +202,15 @@ const swaggerDefinition: OAS3Definition = {
           },
         },
       },
-      productsCategory: {
+      productCategory: {
         type: 'object',
         properties: {
           id: { type: 'number', example: 1 },
           name: { type: 'string', example: 'Hamburgesas' },
-          description: { type: 'string', example: 'sandwiches con medallones de carne' },
+          description: {
+            type: 'string',
+            example: 'sandwiches con medallones de carne',
+          },
           barId: { type: 'number', example: '22' },
           updatedAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
           createdAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
@@ -215,7 +221,10 @@ const swaggerDefinition: OAS3Definition = {
         properties: {
           id: { type: 'number', example: 1 },
           name: { type: 'string', example: 'Hamburgesas' },
-          description: { type: 'string', example: 'sandwiches con medallones de carne' },
+          description: {
+            type: 'string',
+            example: 'sandwiches con medallones de carne',
+          },
           barId: { type: 'number', example: '22' },
           updatedAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
           createdAt: { type: 'date', example: '2024-02-22T20:38:55.984Z' },
@@ -231,12 +240,12 @@ const swaggerDefinition: OAS3Definition = {
           },
         },
       },
-      productsCategoryResponse: {
+      productCategoryResponse: {
         type: 'object',
         properties: {
           status: { type: 'boolean', example: true },
           category: {
-            $ref: '#/components/schemas/productsCategory',
+            $ref: '#/components/schemas/productCategory',
           },
         },
       },
@@ -254,7 +263,7 @@ const swaggerDefinition: OAS3Definition = {
       },
       productGeneral: {
         type: 'object',
-        required: ['name', 'description', 'price', 'productsCategoryId'],
+        required: ['name', 'description', 'price', 'productCategoryId'],
         properties: {
           name: { type: 'string', example: 'Hamburguesa cheese' },
           description: {
@@ -262,7 +271,7 @@ const swaggerDefinition: OAS3Definition = {
             example: 'Hamburguesa a la Parrilla Con Queso',
           },
           price: { type: 'float', example: 10.5 },
-          productsCategoryId: {
+          productCategoryId: {
             type: 'number',
             example: 1,
             description: 'Id de la categoria al que pertenece el producto',
@@ -288,7 +297,7 @@ const swaggerDefinition: OAS3Definition = {
           name: 'Helado Mini Princesa',
           price: 11.5,
           description: 'Helado Mini Princesa',
-          productsCategoryId: 3,
+          productCategoryId: 3,
           createdAt: '2024-02-23T18:03:30.951Z',
           updatedAt: '2024-02-23T18:03:30.951Z',
         },
@@ -316,6 +325,31 @@ const swaggerDefinition: OAS3Definition = {
               ],
             },
           },
+        },
+      },
+      order: {
+        type: 'object',
+        required: ['quantity', 'productId'],
+        properties: {
+          quantity: { type: 'number', example: 3 },
+          productId: { type: 'number', example: 1 },
+        },
+      },
+      order2: {
+        type: 'object',
+        required: ['quantity', 'productId'],
+        properties: {
+          quantity: { type: 'number', example: 5 },
+          productId: { type: 'number', example: 2 },
+        },
+      },
+      billOrderGeneral: {
+        type: 'array',
+        items: {
+          oneOf: [
+            { $ref: '#/components/schemas/order' },
+            { $ref: '#/components/schemas/order2' },
+          ],
         },
       },
     },

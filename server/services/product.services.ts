@@ -1,14 +1,14 @@
-import { ProductModel, ProductsCategoryModel } from '../database/models';
+import { ProductModel, ProductCategoryModel } from '../database/models';
 import { ProductProps } from '../interfaces';
 import { AppError } from '../models';
-import ProductsCategoryService from './productsCategory.services';
+import ProductCategoryService from './productCategory.services';
 
-const productsCategoryService = new ProductsCategoryService();
+const productCategoryService = new ProductCategoryService();
 class ProductService {
   constructor() {}
 
   async findProductsForBar(barId: number) {
-    const categories = await ProductsCategoryModel.findAll({
+    const categories = await ProductCategoryModel.findAll({
       where: {
         barId,
       },
@@ -17,19 +17,33 @@ class ProductService {
     const categoryIds = categories.map(category => category.id);
     const products = await ProductModel.findAll({
       where: {
-        productsCategoryId: categoryIds,
+        productCategoryId: categoryIds,
       },
     });
     return products;
   }
 
+  async findProductForBarOr404(productId: number, barId: number) {
+    const product = await this.findProductOr404(productId);
+    const findProductInCategory =
+      await productCategoryService.findCategoryForBar(
+        barId,
+        product.productCategoryId
+      );
+    if (!findProductInCategory)
+      throw new AppError(
+        'No se encontró ningun producto en el bar con el ID especificado.',
+        404
+      );
+    return product;
+  }
   async createProductForBar(
     barId: number,
-    { name, description, price, productsCategoryId }: ProductProps
+    { name, description, price, productCategoryId }: ProductProps
   ) {
-    const category = await productsCategoryService.findCategoryForBar(
+    const category = await productCategoryService.findCategoryForBar(
       barId,
-      productsCategoryId
+      productCategoryId
     );
     if (!category)
       throw new AppError('Esta categoria no existe en el bar.', 404);
@@ -37,12 +51,12 @@ class ProductService {
       name,
       description,
       price,
-      productsCategoryId,
+      productCategoryId,
     });
     return product;
   }
 
-  async findProductForBarOr404(productId: number) {
+  async findProductOr404(productId: number) {
     const product = await ProductModel.findOne({
       where: {
         id: productId,
@@ -50,7 +64,7 @@ class ProductService {
     });
     if (!product)
       throw new AppError(
-        'No se encontró ningun producto en el bar con el ID especificado.',
+        'No se encontró ningun producto con el ID especificado.',
         404
       );
     return product;
@@ -61,33 +75,13 @@ class ProductService {
     barId: number,
     { name, description, price }: ProductProps
   ) {
-    const product = await this.findProductForBarOr404(productId);
-    const findProductInCategory =
-      await productsCategoryService.findCategoryForBar(
-        barId,
-        product.productsCategoryId
-      );
-    if (!findProductInCategory)
-      throw new AppError(
-        'No se encontró ningun producto en el bar con el ID especificado.',
-        404
-      );
+    const product = await this.findProductForBarOr404(productId, barId);
     product.update({ name, description, price });
     return product;
   }
 
   async removeProductForBar(productId: number, barId: number) {
-    const product = await this.findProductForBarOr404(productId);
-    const findProductInCategory =
-      await productsCategoryService.findCategoryForBar(
-        barId,
-        product.productsCategoryId
-      );
-    if (!findProductInCategory)
-      throw new AppError(
-        'No se encontró ningun producto en el bar con el ID especificado.',
-        404
-      );
+    const product = await this.findProductForBarOr404(productId, barId);
     product.destroy();
     return product;
   }

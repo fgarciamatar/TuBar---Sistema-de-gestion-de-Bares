@@ -5,22 +5,22 @@ import express, {
   Response,
   Router,
 } from 'express';
-//import { ProductsCategoryModel } from '../database/models';
 import cors from 'cors';
 import db from '../database/db';
 import path from 'path';
 import AppError from './appError';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSetup from '../docs/swagger';
-import { initModels } from '../database/models';
+import { ProductCategoryModel, initModels } from '../database/models';
 import { globalErrorHandler } from '../controllers';
 import {
   authRoutes,
   profileRoutes,
   tableRoutes,
-  productsCategoryRoutes,
+  productCategoryRoutes,
   productRoutes,
   barRoutes,
+  billOrderRoutes,
 } from '../routes';
 
 class Server {
@@ -49,20 +49,21 @@ class Server {
     db.sync({ alter: true })
       .then(() => console.log('Database synced'))
       .catch(error => console.log(error));
-//usar esto para sync
-//    ProductsCategoryModel.sync({ alter: true })
-//    .then(() => console.log('table synced'))
-//    .catch(error => console.log(error));
+    //usar esto para sync
+    // ProductCategoryModel.sync({ alter: true })
+    //   .then(() => console.log('category synced'))
+    //   .catch(error => console.log(error));
   }
   routes() {
     const router = Router();
     this.app.use(this.ROUTE, router);
     router.use('/auth', authRoutes);
-    router.use('/bar', barRoutes)
+    router.use('/bar', barRoutes);
     router.use('/profiles', profileRoutes);
     router.use('/tables', tableRoutes);
-    router.use('/product-categories', productsCategoryRoutes);
+    router.use('/product-categories', productCategoryRoutes);
     router.use('/products', productRoutes);
+    router.use('/bill-orders', billOrderRoutes);
 
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 

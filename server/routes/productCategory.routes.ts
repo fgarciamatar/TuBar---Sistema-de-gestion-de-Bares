@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { checkRole, protect } from '../middlewares';
 import {
-  createProductsCategoryForBar,
-  deleteProductsCategoryForBar,
-  editProductsCategoryForBar,
+  createProductCategoryForBar,
+  deleteProductCategoryForBar,
+  editProductCategoryForBar,
   getProductsCategoriesForBar,
-} from '../controllers/productsCategory.controllers';
+} from '../controllers/productCategory.controllers';
 
 const router = Router();
 
@@ -54,14 +54,14 @@ router.use(checkRole(['ADMIN']));
  *       content:
  *         application/json:
  *          schema:
- *            $ref: "#/components/schemas/productsCategoryGeneral"
+ *            $ref: "#/components/schemas/productCategoryGeneral"
  *    responses:
  *       '200':
  *         description: Categoria creado exitosamente.
  *         content:
  *          application/json:
  *            schema:
- *              $ref: "#/components/schemas/productsCategoryResponse"
+ *              $ref: "#/components/schemas/productCategoryResponse"
  *       '400':
  *         description: No se pudo crear la Categoria. Verifique los datos proporcionados.
  *       '401':
@@ -76,7 +76,7 @@ router.use(checkRole(['ADMIN']));
  *      - bearerAuth: []
  *
  */
-router.post('/', createProductsCategoryForBar);
+router.post('/', createProductCategoryForBar);
 /**
  * @swagger
  * /product-categories/{id}:
@@ -95,14 +95,14 @@ router.post('/', createProductsCategoryForBar);
  *       content:
  *         application/json:
  *          schema:
- *            $ref: "#/components/schemas/productsCategoryGeneral"
+ *            $ref: "#/components/schemas/productCategoryGeneral"
  *    responses:
  *       '200':
  *         description: Categoria editado exitosamente.
  *         content:
  *          application/json:
  *            schema:
- *              $ref: "#/components/schemas/productsCategoryResponse"
+ *              $ref: "#/components/schemas/productCategoryResponse"
  *       '400':
  *         description: No se pudo editar la categoria. Verifique los datos proporcionados.
  *       '401':
@@ -119,7 +119,7 @@ router.post('/', createProductsCategoryForBar);
  *      - bearerAuth: []
  *
  */
-router.patch('/:id', editProductsCategoryForBar);
+router.patch('/:id', editProductCategoryForBar);
 /**
  * @swagger
  * /product-categories/{id}:
@@ -149,6 +149,6 @@ router.patch('/:id', editProductsCategoryForBar);
  *      - bearerAuth: []
  *
  */
-router.delete('/:id', deleteProductsCategoryForBar);
+router.delete('/:id', deleteProductCategoryForBar);
 
 export default router;

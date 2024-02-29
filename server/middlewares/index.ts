@@ -1,2 +1,2 @@
 export * from './auth.middlewares';
-export * from './productsCategory.middlewares';
+export * from './productCategory.middlewares';
