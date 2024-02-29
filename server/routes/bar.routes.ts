@@ -22,6 +22,13 @@ const router = Router();
  *    tags: [Bares]
  *    summary: Obtener los bares, requiere sesion del perfil o del bar
  *    description: Endpoint para listar los bares.
+ *    parameters:
+ *       - name: id
+ *         in: path
+ *         description: Id del bar
+ *         required: true
+ *         schema:
+ *           type: integer
  *    responses:
  *       '200':
  *         description: Consulta exitosa.

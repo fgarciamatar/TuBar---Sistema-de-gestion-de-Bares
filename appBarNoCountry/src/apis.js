@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { urlApi } from './utils/definition';
 
-const API_BASE_URL = 'http://192.168.1.4:8088/api/v1';
+const API_BASE_URL = urlApi;
 
 const EXEMPTED_ROUTES = ['/auth/sign-up', '/auth/login'];
 
