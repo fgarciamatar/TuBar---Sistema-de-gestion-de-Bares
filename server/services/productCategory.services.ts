@@ -18,7 +18,7 @@ class ProductCategoryService {
   }
 
   async findCategoryForBar(barId: number, productCategoryId: number) {
-    if (!productCategoryId) throw new AppError('Verifique sus datos.', 401);
+    if (!productCategoryId) throw new AppError('Verifique sus datos.', 409);
     const category = await ProductCategoryModel.findOne({
       where: {
         barId,

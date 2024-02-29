@@ -56,7 +56,11 @@ class BillOrderService {
       orderDetails,
       t
     );
-    billOrder.update({ total: OrderDetails.totalPrice }, { transaction: t });
+    await billOrder.update(
+      { total: OrderDetails.totalPrice },
+      { transaction: t }
+    );
+    await t.commit();
     return billOrder;
   }
 
@@ -75,6 +79,7 @@ class BillOrderService {
     );
     billOrder.total += OrderDetails.totalPrice;
     await billOrder.save({ transaction: t });
+    await t.commit();
     return billOrder;
   }
 

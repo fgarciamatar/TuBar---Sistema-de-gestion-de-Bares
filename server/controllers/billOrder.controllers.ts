@@ -57,7 +57,7 @@ const payBillOrder = catchAsync(async (req, res) => {
     +billOrderId,
     profileSession.barId
   );
-  res.status(204).json({ status: true, billOrder });
+  res.status(200).json({ status: true, billOrder });
 });
 
 export {

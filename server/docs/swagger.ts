@@ -343,6 +343,84 @@ const swaggerDefinition: OAS3Definition = {
           productId: { type: 'number', example: 2 },
         },
       },
+      billOrder: {
+        type: 'object',
+        example: {
+          status: true,
+          billOrder: {
+            total: 84,
+            isBilled: false,
+            id: 26,
+            profileId: 9,
+            tableId: 13,
+            updatedAt: '2024-02-29T17:24:34.630Z',
+            createdAt: '2024-02-29T17:24:32.995Z',
+          },
+        },
+      },
+      billOrderPay: {
+        type: 'object',
+        example: {
+          status: true,
+          billOrder: {
+            total: 84,
+            isBilled: true,
+            id: 26,
+            profileId: 9,
+            tableId: 13,
+            updatedAt: '2024-02-29T17:24:34.630Z',
+            createdAt: '2024-02-29T17:24:32.995Z',
+          },
+        },
+      },
+      billOrderDetail: {
+        type: 'object',
+        example: {
+          id: 24,
+          total: 84,
+          isBilled: false,
+          profileId: 9,
+          tableId: 13,
+          createdAt: '2024-02-29T07:34:23.771Z',
+          updatedAt: '2024-02-29T07:35:07.434Z',
+          orderDetails: [
+            {
+              id: 41,
+              quantity: 3,
+              billOrderId: 24,
+              productId: 1,
+              createdAt: '2024-02-29T07:34:24.982Z',
+              updatedAt: '2024-02-29T07:34:24.982Z',
+              product: {
+                id: 1,
+                name: 'Hamburguesa cheese',
+                price: 10.5,
+                description: 'Hamburguesa a la Parrilla Con Queso',
+                productCategoryId: 10,
+                createdAt: '2024-02-29T06:48:04.137Z',
+                updatedAt: '2024-02-29T06:48:04.137Z',
+              },
+            },
+            {
+              id: 42,
+              quantity: 5,
+              billOrderId: 24,
+              productId: 2,
+              createdAt: '2024-02-29T07:34:25.033Z',
+              updatedAt: '2024-02-29T07:34:25.033Z',
+              product: {
+                id: 2,
+                name: 'Hamburguesa carne',
+                price: 10.5,
+                description: 'Hamburguesa a la Parrilla',
+                productCategoryId: 10,
+                createdAt: '2024-02-29T06:48:10.503Z',
+                updatedAt: '2024-02-29T06:48:10.503Z',
+              },
+            },
+          ],
+        },
+      },
       billOrderGeneral: {
         type: 'array',
         items: {
@@ -350,6 +428,30 @@ const swaggerDefinition: OAS3Definition = {
             { $ref: '#/components/schemas/order' },
             { $ref: '#/components/schemas/order2' },
           ],
+        },
+      },
+      billOrdersResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          billOrders: {
+            type: 'array',
+            items: {
+              oneOf: [
+                { $ref: '#/components/schemas/billOrderDetail' },
+                { $ref: '#/components/schemas/billOrderDetail' },
+              ],
+            },
+          },
+        },
+      },
+      billOrderResponse: {
+        type: 'object',
+        properties: {
+          status: { type: 'boolean', example: true },
+          billOrder: {
+            $ref: '#/components/schemas/billOrderDetail',
+          },
         },
       },
     },

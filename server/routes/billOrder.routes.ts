@@ -32,7 +32,7 @@ router.use(protect(['profileSession']));
  *         content:
  *          application/json:
  *            schema:
- *              $ref: "#/components/schemas/productsResponse"
+ *              $ref: "#/components/schemas/billOrdersResponse"
  *       '401':
  *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
  *       '500':
@@ -65,11 +65,11 @@ router.use(checkRole(['ADMIN']));
  *            $ref: "#/components/schemas/billOrderGeneral"
  *    responses:
  *       '200':
- *         description: Producto creado exitosamente.
+ *         description: Factura creado exitosamente.
  *         content:
  *          application/json:
  *            schema:
- *              $ref: "#/components/schemas/productResponse"
+ *              $ref: "#/components/schemas/billOrder"
  *       '400':
  *         description: No se pudo crear la factura. Verifique los datos proporcionados.
  *       '401':
@@ -77,7 +77,7 @@ router.use(checkRole(['ADMIN']));
  *       '403':
  *         description: Este perfil no tiene permisos para acceder a esta ruta.
  *       '404':
- *         description: No se encontró ninguna categoria con el ID especificado.
+ *         description: No se encontró ninguna mesa con el ID especificado.
  *       '409':
  *         description: Error de validación, revise que los campos enviados son los correctos.
  *       '500':
@@ -104,19 +104,17 @@ router.post('/table/:tableId', createBillOrderForBar);
  *           type: integer
  *    responses:
  *       '200':
- *         description: Producto editado exitosamente.
+ *         description: Consulta exitosa.
  *         content:
  *          application/json:
  *            schema:
- *              $ref: "#/components/schemas/productResponse"
- *       '400':
- *         description: No se pudo editar el producto. Verifique los datos proporcionados.
+ *              $ref: "#/components/schemas/billOrderResponse"
  *       '401':
  *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
  *       '403':
  *         description: Este perfil no tiene permisos para acceder a esta ruta..
  *       '404':
- *         description: No se encontró ningun producto con el ID especificado.
+ *         description: No se encontró ninguna factura con el ID especificado.
  *       '409':
  *         description: Error de validación, revise que los campos enviados son los correctos.
  *       '500':
@@ -147,14 +145,18 @@ router.patch('/:billOrderId', getBillOrderForBar);
  *          schema:
  *            $ref: "#/components/schemas/billOrderGeneral"
  *    responses:
- *       '204':
- *         description: Producto eliminado exitosamente.
+ *       '200':
+ *         description: Orden agregado a la factura exitosamente.
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: "#/components/schemas/billOrder"
  *       '401':
  *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
  *       '403':
  *         description: Este perfil no tiene permisos para acceder a esta ruta..
  *       '404':
- *         description: No se encontró ninguna producto con el ID especificado.
+ *         description: No se encontró ninguna factura con el ID especificado.
  *       '500':
  *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
  *    security:
@@ -178,14 +180,18 @@ router.patch('/:billOrderId/addOrder', addOrderInBillOrderForBar);
  *         schema:
  *           type: integer
  *    responses:
- *       '204':
- *         description: Producto eliminado exitosamente.
+ *       '200':
+ *         description: Factura marcada como pagada exitosamente.
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: "#/components/schemas/billOrderPay"
  *       '401':
  *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
  *       '403':
  *         description: Este perfil no tiene permisos para acceder a esta ruta..
  *       '404':
- *         description: No se encontró ninguna producto con el ID especificado.
+ *         description: No se encontró ninguna factura con el ID especificado.
  *       '500':
  *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
  *    security:
