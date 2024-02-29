@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { useAppSelector } from "../../hooks/hooks";
-import { table } from '../../reducers/tableReducer';
+import { getCategories } from '../../redux/actions';
 
 function Order() {
+  const dispatch = useDispatch();
   const [tableSeleced, settableSelected] = useState(
     useAppSelector((state) => state.table)
   );
@@ -13,6 +15,13 @@ function Order() {
   const handleMenu = () => {
     navigation.navigate('Menu');
   };
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]); // Dependencia dispatch, para asegurarse de que se ejecute solo una vez
+
+
+
   return (
     <View style={styles.orderContainer}>
       <View style={styles.orderBar}>

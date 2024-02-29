@@ -1,7 +1,7 @@
 //actions.js
 import axios from 'axios';
 import {urlApi} from '../utils/definition';
-import {GET_PROFILES, GET_TABLES} from './types';
+import {GET_PROFILES, GET_TABLES, GET_CATEGORIES} from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const getProfile =  () => {
@@ -41,6 +41,28 @@ export const getTables =  () => {
       return dispatch({
         type: GET_TABLES,
         payload: tables,
+      });
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+};
+
+export const getCategories =  () => {
+  return async function (dispatch) {
+    const token = await AsyncStorage.getItem('accessToken');
+   
+    try {
+      const apiCategorias = await axios.get(`${urlApi}/product-categories`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // console.log("apiData",apiData.data);
+      const categories = apiCategorias.data;
+      return dispatch({
+        type: GET_PROFILES,
+        payload: categories,
       });
     } catch (error) {
       console.log('error', error);

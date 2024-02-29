@@ -1,10 +1,10 @@
 //reducer.js
-import {GET_PROFILES, GET_TABLES, } from './types';
+import {GET_PROFILES, GET_TABLES, GET_CATEGORIES } from './types';
 
 const initialState = {
   profiles: [],
   tables: [],
-  
+  categories: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -19,6 +19,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         tables: action.payload,
       };
+      case GET_CATEGORIES:
+        return {
+          ...state,
+          categories: action.payload,
+        };
 
 
     default:
