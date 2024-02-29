@@ -378,7 +378,7 @@ const swaggerDefinition: OAS3Definition = {
         example: {
           id: 24,
           total: 84,
-          isBilled: false,
+          isBilled: true,
           profileId: 9,
           tableId: 13,
           createdAt: '2024-02-29T07:34:23.771Z',
@@ -419,6 +419,7 @@ const swaggerDefinition: OAS3Definition = {
               },
             },
           ],
+          billOrderNumber: '00004',
         },
       },
       billOrderGeneral: {

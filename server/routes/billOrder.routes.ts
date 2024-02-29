@@ -123,7 +123,7 @@ router.post('/table/:tableId', createBillOrderForBar);
  *      - bearerAuth: []
  *
  */
-router.patch('/:billOrderId', getBillOrderForBar);
+router.get('/:billOrderId', getBillOrderForBar);
 
 /**
  * @swagger
@@ -150,7 +150,7 @@ router.patch('/:billOrderId', getBillOrderForBar);
  *         content:
  *          application/json:
  *            schema:
- *              $ref: "#/components/schemas/billOrder"
+ *              $ref: "#/components/schemas/billOrderResponse"
  *       '401':
  *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
  *       '403':
@@ -185,7 +185,7 @@ router.patch('/:billOrderId/addOrder', addOrderInBillOrderForBar);
  *         content:
  *          application/json:
  *            schema:
- *              $ref: "#/components/schemas/billOrderPay"
+ *              $ref: "#/components/schemas/billOrderResponse"
  *       '401':
  *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
  *       '403':

@@ -14,7 +14,7 @@ const getBillOrdersForBar = catchAsync(async (_req, res) => {
 const getBillOrderForBar = catchAsync(async (req, res) => {
   const { billOrderId } = req.params;
   const { profileSession } = res.locals;
-  const billOrder = await billOrderService.findBillOrderForBarOr404(
+  const billOrder = await billOrderService.findBillOrderForBar(
     +billOrderId,
     profileSession.barId
   );

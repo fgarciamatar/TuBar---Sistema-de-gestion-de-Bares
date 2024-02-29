@@ -32,8 +32,14 @@ class BillOrderService {
           },
         ],
       },
+      order: [['createdAt', 'ASC']],
     });
-    return billOrders;
+
+    const billOrdersTransform = billOrders.map((billOrder, i) => ({
+      ...billOrder.get(),
+      billOrderNumber: String(i + 1).padStart(7, '0'),
+    }));
+    return billOrdersTransform.reverse();
   }
 
   async createBillOrderForBar(
@@ -56,8 +62,8 @@ class BillOrderService {
       orderDetails,
       t
     );
-    await billOrder.update(
-      { total: OrderDetails.totalPrice },
+    await billOrder.increment(
+      { total: +OrderDetails.totalPrice },
       { transaction: t }
     );
     await t.commit();
@@ -77,8 +83,10 @@ class BillOrderService {
       orderDetails,
       t
     );
-    billOrder.total += OrderDetails.totalPrice;
-    await billOrder.save({ transaction: t });
+    await billOrder.increment(
+      { total: OrderDetails.totalPrice },
+      { transaction: t }
+    );
     await t.commit();
     return billOrder;
   }
@@ -87,6 +95,14 @@ class BillOrderService {
     const billOrder = await BillOrderModel.findOne({
       where: {
         id: billOrderId,
+      },
+      include: {
+        model: OrderDetailModel,
+        include: [
+          {
+            model: ProductModel,
+          },
+        ],
       },
     });
     if (!billOrder)
@@ -108,7 +124,24 @@ class BillOrderService {
         'No se encontró ningun factura en el bar con el ID especificado.',
         404
       );
+
     return billOrder;
+  }
+
+  async findBillOrderForBar(billOrderId: number, barId: number) {
+    const billOrder = await this.findBillOrderForBarOr404(billOrderId, barId);
+    const profileIds = await profileService.profileIdsForBar(barId);
+    const { count } = await BillOrderModel.findAndCountAll({
+      order: [['createdAt', 'ASC']],
+      where: {
+        profileId: { [Sequelize.Op.in]: profileIds },
+        createdAt: { [Sequelize.Op.lte]: billOrder.createdAt },
+      },
+    });
+    return {
+      ...billOrder.get(),
+      billOrderNumber: String(count).padStart(7, '0'),
+    };
   }
 
   async payBillOrder(billOrderId: number, barId: number) {
