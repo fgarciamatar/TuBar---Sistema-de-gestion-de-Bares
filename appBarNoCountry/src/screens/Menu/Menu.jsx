@@ -1,104 +1,93 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-
+import {useSelector} from 'react-redux';
 import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
   ScrollView,
   Image,
-  Button,
+  StyleSheet,
 } from 'react-native';
-import { FoodItem } from './MenuType';
+
 
 function Menu() {
-  const [food, setFood] = useState<FoodItem[]>([
-    {type: 'Clasicos', name: 'Hamburguesa', price: '$10.67', quantity: 0},
-    {type: 'Bebida', name: 'Refresco', price: '$2.55', quantity: 0},
-    {type: 'Aperitivo', name: 'Papas fritas', price: '$5.45', quantity: 0},
-    {type: 'Desayuno', name: 'salmón', price: '$15', quantity: 0},
-  ]);
+  const {categories} = useSelector(state => state.reducers.categories);
+  const {products} = useSelector(state => state.reducers.products);
 
   const [selectedType, setSelectedType] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const navigation = useNavigation();
 
-  const incrementCounter = (foodItem: FoodItem) => {
+  const incrementCounter = foodItem => {
     const newFood = food.map(item =>
-      item === foodItem ? { ...item, quantity: item.quantity + 1 } : item
+      item === foodItem ? {...item, quantity: item.quantity + 1} : item,
     );
     setFood(newFood);
   };
-  
-  const decrementCounter = (foodItem: FoodItem) => {
+
+  const decrementCounter = foodItem => {
     const newFood = food.map(item =>
       item === foodItem && item.quantity > 0
-        ? { ...item, quantity: item.quantity - 1 }
-        : item
+        ? {...item, quantity: item.quantity - 1}
+        : item,
     );
     setFood(newFood);
   };
   
+  const handleCategoryClick = (id) => {
+    // setSelectedType(type);
+    setSelectedCategory(id);
+    // console.log("iDFILTER",id);
+  }
+  
+  const filteredProducts = products.filter(
+    product => product.productCategoryId === selectedCategory
+  );
+  
 
-  const handleFoodContainerClick = (type: string) => {
-    setSelectedType(type);
-  };
 
   const handleOrder = () => {
-
-    navigation.navigate('Order' as never);
+    navigation.navigate('Order');
   };
-
+ 
   return (
     <View style={styles.menuContainer}>
       <ScrollView style={styles.foodContainer} horizontal={true}>
-        {food.map((foodItem, index) => (
+        {categories.map((category, index) => (
           <TouchableOpacity
             key={index}
             style={[
-                styles.foodItem,
-                index === food.length - 1 ? { marginRight: 60 } : null 
-              ]}
-            onPress={() => handleFoodContainerClick(foodItem.type)} 
-          >
-            <Text style={styles.foodName}>{foodItem.type}</Text>
+              styles.foodItem,
+              index === category.name.length - 1 ? {marginRight: 60} : null,
+            ]}
+            onPress={() => handleCategoryClick(category.id)}>
+            <Text style={styles.foodName}>{category.name}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
 
       <ScrollView style={styles.menuItemContainer}>
-        {food
-          .filter(foodItem => foodItem.type === selectedType) 
-          .map((foodItem, index) => (
-            <TouchableOpacity  key={index} style={styles.menuItem}>
-              <Image
-                style={styles.images}
-                source={require('../../assets/menu/burguer.png')}
-              />
-              <View>
-                <View>
-                  <Text style={styles.typeFood}>{foodItem.type}</Text>
-                  <Text style={styles.category}>{foodItem.name}</Text>
-                </View>
-                <View>
-                  <Text style={styles.price}>{foodItem.price}</Text>
-                  <View style={styles.quantity}>
-                    <TouchableOpacity onPress={() => incrementCounter(foodItem)}>
-                      <Text style={styles.signs}>+</Text>
-                    </TouchableOpacity>
-
-                    <Text style={styles.showQuantity}>{foodItem.quantity}</Text>
-
-                    <TouchableOpacity onPress={() => decrementCounter(foodItem)}>
-                      <Text style={styles.signs}>-</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-          ))}
+        <View style={styles.itemContainer}>
+          <View style={styles.orderItem}>
+            {filteredProducts.map((producto, index) => (
+              <TouchableOpacity
+                key={index}
+                // onPress={() => handleCategoryClick(category.name)}
+              >
+                <Image
+                  style={styles.imageOrder}
+                  source={require('../../assets/menu/burguer.png')}
+                />
+                <Text style={styles.typeFood}>{producto.name}</Text>
+                <Text style={styles.category}>{producto.description}</Text>
+                <Text style={styles.price}>{producto.price}</Text>
+                <Text style={styles.category}>Cantidad: 3</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
       </ScrollView>
-
 
       <View style={styles.fixedButtonContainer}>
         <TouchableOpacity onPress={handleOrder} style={styles.Button}>
@@ -121,17 +110,29 @@ const styles = StyleSheet.create({
     padding: 20,
     width: 'auto',
   },
+  itemContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 10,
+  },
+  orderText: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+  },
   foodItem: {
     backgroundColor: '#8586FF',
     borderRadius: 16,
     padding: 10,
     marginLeft: 10,
     width: 100,
-    display: "flex",
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: "#3032FC"
+    borderColor: '#3032FC',
   },
   foodName: {
     color: '#fff',
@@ -210,6 +211,10 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold',
     fontSize: 20,
+  },
+  imageOrder: {
+    width: 80,
+    height: 80,
   },
 });
 

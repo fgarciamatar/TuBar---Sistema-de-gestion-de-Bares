@@ -46,7 +46,7 @@ function ProfilePin({route}) {
         }
       />
       <Text>{name}</Text>
-      <Text style={styles.title}>Ingrese el Pin (de4871)</Text>
+      <Text style={styles.title}>Ingrese el Pin (2bc6e8)</Text>
       <TextInput
         style={styles.input}
         placeholder="PIN"
