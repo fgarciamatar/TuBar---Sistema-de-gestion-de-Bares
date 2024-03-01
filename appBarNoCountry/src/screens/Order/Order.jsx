@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from "../../hooks/hooks";
-import { getCategories } from '../../redux/actions';
+import { getCategories, getProducts } from '../../redux/actions';
 
 function Order() {
   const dispatch = useDispatch();
@@ -19,7 +19,10 @@ function Order() {
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]); // Dependencia dispatch, para asegurarse de que se ejecute solo una vez
-
+  
+  useEffect(() => {
+    dispatch(getProducts())
+  }, [dispatch]);
 
 
   return (
