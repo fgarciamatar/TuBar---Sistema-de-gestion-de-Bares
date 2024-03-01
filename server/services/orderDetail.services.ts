@@ -19,7 +19,7 @@ class OrderDetailService {
           barId
         );
         price += product.price * quantity;
-        const orderDetail = OrderDetailModel.create(
+        const orderDetail = await OrderDetailModel.create(
           {
             productId,
             quantity,

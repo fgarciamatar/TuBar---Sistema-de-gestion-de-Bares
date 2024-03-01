@@ -10,6 +10,7 @@ function Order() {
   const [tableSeleced, settableSelected] = useState(
     useAppSelector((state) => state.table)
   );
+
   const navigation = useNavigation();
 
   const handleMenu = () => {
