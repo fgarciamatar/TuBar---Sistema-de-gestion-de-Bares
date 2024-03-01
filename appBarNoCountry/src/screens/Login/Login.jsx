@@ -62,7 +62,7 @@ function Login() {
   };
 
   const handleSignUp = () => {
-    navigation.navigate('SignUp');
+    navigation.navigate('MenuSalon');
   };
 
   const handlePassword = () => {

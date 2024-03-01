@@ -8,14 +8,9 @@ import SignUp from './screens/SignUp/SignUp';
 import SelectPerfil from './screens/SelectPerfil/SelectPerfil.jsx';
 import Salon from './screens/Salon/Salon.jsx';
 import Password from './screens/Password/Password';
-import Menu from './screens/Menu/Menu.tsx';
 import Order from './screens/Order/Order.jsx';
 import ProfilePin from './screens/ProfilePin/ProfilePin.jsx';
-<<<<<<< HEAD
-
-=======
-import Menu from './screens/Menu/Menu.tsx';
->>>>>>> c4fff0ff09dc3b59701077d0eb657a8bf1ff2542
+import Menu from './screens/Menu/Menu';
 const Stack = createStackNavigator();
 
 function Tabs() {
@@ -81,7 +76,7 @@ function Tabs() {
       />
 
       <Stack.Screen name="ProfilePin" component={ProfilePin} />
-      <Stack.Screen name="Menu" component={Menu} />
+    
     </Stack.Navigator>
   );
 }
