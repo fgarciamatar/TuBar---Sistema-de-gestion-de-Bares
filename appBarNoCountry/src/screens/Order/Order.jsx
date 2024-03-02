@@ -1,17 +1,32 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from "../../hooks/hooks";
-import { getCategories, getProducts } from '../../redux/actions';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {useAppSelector} from '../../hooks/hooks';
+import {getCategories, getProducts} from '../../redux/actions';
 
 function Order() {
   const dispatch = useDispatch();
-  const [tableSeleced, settableSelected] = useState(
-    useAppSelector((state) => state.table)
-  );
 
   const navigation = useNavigation();
+
+  const {products} = useSelector(state => state.reducers.products);
+  const selectedProducts = useSelector(
+    state => state.reducers.selectedProducts,
+  );
+
+  const [tableSeleced, settableSelected] = useState(
+    useAppSelector(state => state.table),
+  );
+  const [totalCuenta, setTotalCuenta] = useState(0);
+
+  const filteredProducts =
+    products &&
+    products.filter(product => selectedProducts[product.id.toString()] > 0);
+ 
+    console.log("filteredProducts", filteredProducts);
+
+    
 
   const handleMenu = () => {
     navigation.navigate('Menu');
@@ -19,12 +34,24 @@ function Order() {
 
   useEffect(() => {
     dispatch(getCategories());
-  }, [dispatch]); // Dependencia dispatch, para asegurarse de que se ejecute solo una vez
-  
-  useEffect(() => {
-    dispatch(getProducts())
+    dispatch(getProducts());
   }, [dispatch]);
 
+  useEffect(() => {
+    let total = 0;
+    if (filteredProducts) {
+      for (const productId in selectedProducts) {
+        const cantidad = selectedProducts[productId];
+        if (cantidad > 0) {
+          const productoSeleccionado = filteredProducts.find(producto => producto.id === parseInt(productId));
+          if (productoSeleccionado) {
+            total += productoSeleccionado.price * cantidad;
+          }
+        }
+      }
+    }
+    setTotalCuenta(total);
+  }, [filteredProducts, selectedProducts]);
 
   return (
     <View style={styles.orderContainer}>
@@ -43,29 +70,26 @@ function Order() {
         <Text style={styles.text}>Pedidos</Text>
       </View>
 
-      <View style={styles.itemContainer}>
-        <View style={styles.orderItem}>
+      {filteredProducts && filteredProducts.map((producto, index) => (
+        <TouchableOpacity
+          key={index}
+        >
           <Image
             style={styles.imageOrder}
             source={require('../../assets/menu/burguer.png')}
           />
-          <View>
-            <View>
-              <Text style={styles.typeFood}>hamburguer</Text>
-              <Text style={styles.category}>papas</Text>
-            </View>
-            <View>
-              <Text style={styles.price}>23.00</Text>
-              <Text style={styles.category}>Cantidad: 3</Text>
-            </View>
-          </View>
-        </View>
-        
-      </View>
+          <Text style={styles.typeFood}>{producto.name}</Text>
+          <Text style={styles.category}>{producto.description}</Text>
+          <Text style={styles.price}>${producto.price}</Text>
+          <View><Text>cantidad: {selectedProducts[producto.id]}</Text></View>
+        </TouchableOpacity>
+      ))}
+
+     
 
       <View style={styles.footerContainer}>
         <TouchableOpacity style={styles.total}>
-          <Text style={styles.textTotal}>Total: $ --</Text>
+          <Text style={styles.textTotal}>Total: ${totalCuenta}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.sendButton}>
