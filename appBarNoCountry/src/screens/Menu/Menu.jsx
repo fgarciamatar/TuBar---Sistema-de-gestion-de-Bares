@@ -32,6 +32,7 @@ function Menu() {
   const filteredProducts = products.filter(
     product => product.productCategoryId === selectedCategory
   );
+  
   const handleAdd = (productId) => {
     setQuantity(prevState => ({
       ...prevState,
