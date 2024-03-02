@@ -18,6 +18,7 @@ const router = Router();
  */
 
 router.use(protect(['profileSession']));
+router.use(checkRole(['EMPLOYEE', 'ADMIN']));
 
 /**
  * @swagger
@@ -43,7 +44,6 @@ router.use(protect(['profileSession']));
  */
 
 router.get('/', getBillOrdersForBar);
-router.use(checkRole(['EMPLOYEE']));
 /**
  * @swagger
  * /bill-orders/table/{tableId}:
