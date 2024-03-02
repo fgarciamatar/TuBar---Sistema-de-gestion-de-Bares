@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   View,
   Text,
@@ -9,48 +9,51 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
+import {selectedProducts} from "./../../redux/actions"
 
 
 function Menu() {
+  const selecProductGlobal = useSelector(state => state.reducers.selectedProducts);
+  const dispatch = useDispatch(); 
   const {categories} = useSelector(state => state.reducers.categories);
   const {products} = useSelector(state => state.reducers.products);
 
-  const [selectedType, setSelectedType] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [quantity, setQuantity] = useState(selecProductGlobal);
   const navigation = useNavigation();
 
-  const incrementCounter = foodItem => {
-    const newFood = food.map(item =>
-      item === foodItem ? {...item, quantity: item.quantity + 1} : item,
-    );
-    setFood(newFood);
-  };
-
-  const decrementCounter = foodItem => {
-    const newFood = food.map(item =>
-      item === foodItem && item.quantity > 0
-        ? {...item, quantity: item.quantity - 1}
-        : item,
-    );
-    setFood(newFood);
-  };
+ 
   
   const handleCategoryClick = (id) => {
-    // setSelectedType(type);
     setSelectedCategory(id);
     // console.log("iDFILTER",id);
   }
   
-  const filteredProducts = products.filter(
+  const filteredProducts = products && products.filter(
     product => product.productCategoryId === selectedCategory
   );
+
+  const handleAdd = (productId) => {
+    setQuantity(prevState => ({
+      ...prevState,
+      [productId]: (prevState[productId] || 0) + 1
+    }));
+  };
+
+  const handleSubtract = (productId) => {
+    if (quantity[productId] > 0) {
+      setQuantity(prevState => ({
+        ...prevState,
+        [productId]: prevState[productId] - 1
+      }));
+    }
+  };
   
-
-
   const handleOrder = () => {
+    dispatch(selectedProducts(quantity))
     navigation.navigate('Order');
   };
- 
+//  console.log("menu", selecProductGlobal);
   return (
     <View style={styles.menuContainer}>
       <ScrollView style={styles.foodContainer} horizontal={true}>
@@ -82,7 +85,15 @@ function Menu() {
                 <Text style={styles.typeFood}>{producto.name}</Text>
                 <Text style={styles.category}>{producto.description}</Text>
                 <Text style={styles.price}>{producto.price}</Text>
-                <Text style={styles.category}>Cantidad: 3</Text>
+                <View style={styles.quantity}>
+                    <TouchableOpacity onPress={() => handleSubtract(producto.id)}>
+                      <Text style={styles.signs}>-</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.showQuantity}>{quantity[producto.id] || 0}</Text>
+                    <TouchableOpacity onPress={() => handleAdd(producto.id)}>
+                      <Text style={styles.signs}>+</Text>
+                    </TouchableOpacity>
+                  </View>
               </TouchableOpacity>
             ))}
           </View>
