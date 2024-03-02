@@ -29,10 +29,10 @@ function Menu() {
     // console.log("iDFILTER",id);
   }
   
-  const filteredProducts = products.filter(
+  const filteredProducts = products && products.filter(
     product => product.productCategoryId === selectedCategory
   );
-  
+
   const handleAdd = (productId) => {
     setQuantity(prevState => ({
       ...prevState,
@@ -53,7 +53,7 @@ function Menu() {
     dispatch(selectedProducts(quantity))
     navigation.navigate('Order');
   };
- console.log("menu", selecProductGlobal);
+//  console.log("menu", selecProductGlobal);
   return (
     <View style={styles.menuContainer}>
       <ScrollView style={styles.foodContainer} horizontal={true}>

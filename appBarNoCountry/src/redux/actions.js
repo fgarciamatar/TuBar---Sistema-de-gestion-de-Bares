@@ -21,7 +21,7 @@ export const getProfile = () => {
         payload: profiles,
       });
     } catch (error) {
-      console.log('error', error);
+      console.log('error', error.response.data.message);
     }
   };
 };
@@ -36,7 +36,7 @@ export const getTables = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log('apiData TABLES', apiData.data);
+      // console.log('apiData TABLES', apiData.data);
       const tables = apiData.data;
       return dispatch({
         type: GET_TABLES,
