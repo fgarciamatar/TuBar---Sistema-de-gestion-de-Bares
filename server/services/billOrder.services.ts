@@ -4,7 +4,11 @@ import {
   OrderDetailModel,
   ProductModel,
 } from '../database/models';
-import { BillOrderProps, OrderDetailProps } from '../interfaces';
+import {
+  BillOrderAttributes,
+  BillOrderProps,
+  OrderDetailProps,
+} from '../interfaces';
 import { AppError } from '../models';
 import OrderDetailService from './orderDetail.services';
 import ProfileService from './profile.services';
@@ -47,7 +51,18 @@ class BillOrderService {
     { profileId, tableId }: BillOrderProps,
     orderDetails: OrderDetailProps[]
   ) {
-    await tableService.findTableForBarOr404(barId, tableId);
+    const table = await tableService.findTableForBarOr404(barId, tableId);
+    const billOrderActive = await BillOrderModel.findOne({
+      where: {
+        isBilled: false,
+        tableId: table.id,
+      },
+    });
+    if (billOrderActive)
+      throw new AppError(
+        'Ya hay una factura activa en el sistema. Completa  la factura actual antes de crear una nueva.',
+        409
+      );
     const t = await db.transaction();
     const billOrder = await BillOrderModel.create(
       {
@@ -77,6 +92,11 @@ class BillOrderService {
   ) {
     const t = await db.transaction();
     const billOrder = await this.findBillOrderForBarOr404(billOrderId, barId);
+    if (billOrder.isBilled)
+      throw new AppError(
+        'Esta factura ya se pagó, no se puede agregar mas ordenes.',
+        409
+      );
     const OrderDetails = await orderDetailService.createManyOrders(
       billOrder.id,
       barId,
@@ -128,8 +148,10 @@ class BillOrderService {
     return billOrder;
   }
 
-  async findBillOrderForBar(billOrderId: number, barId: number) {
-    const billOrder = await this.findBillOrderForBarOr404(billOrderId, barId);
+  async getBillOrderWithBillOrderNumber(
+    billOrder: BillOrderAttributes,
+    barId: number
+  ) {
     const profileIds = await profileService.profileIdsForBar(barId);
     const { count } = await BillOrderModel.findAndCountAll({
       order: [['createdAt', 'ASC']],
@@ -142,6 +164,35 @@ class BillOrderService {
       ...billOrder.get(),
       billOrderNumber: String(count).padStart(7, '0'),
     };
+  }
+
+  async findBillOrderForBar(billOrderId: number, barId: number) {
+    const billOrder = await this.findBillOrderForBarOr404(billOrderId, barId);
+    const billOrderWithBillOrderNumber =
+      await this.getBillOrderWithBillOrderNumber(billOrder, barId);
+    return billOrderWithBillOrderNumber;
+  }
+  async findBillOrderByTableForBar(tableId: number, barId: number) {
+    const billOrderByTable = await BillOrderModel.findOne({
+      where: {
+        tableId,
+        isBilled: false,
+      },
+      include: {
+        model: OrderDetailModel,
+        include: [
+          {
+            model: ProductModel,
+          },
+        ],
+      },
+    });
+    if (!billOrderByTable)
+      throw new AppError('No hay ninguna factura activa en esta mesa', 404);
+    await this.findBillOrderForBarOr404(billOrderByTable.id, barId);
+    const billOrderWithBillOrderNumber =
+      await this.getBillOrderWithBillOrderNumber(billOrderByTable, barId);
+    return billOrderWithBillOrderNumber;
   }
 
   async payBillOrder(billOrderId: number, barId: number) {

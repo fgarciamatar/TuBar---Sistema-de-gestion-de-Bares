@@ -20,10 +20,18 @@ const getBillOrderForBar = catchAsync(async (req, res) => {
   );
   res.status(200).json({ status: true, billOrder });
 });
+const getBillOrderByTableForBar = catchAsync(async (req, res) => {
+  const { tableId } = req.params;
+  const { profileSession } = res.locals;
+  const billOrder = await billOrderService.findBillOrderByTableForBar(
+    +tableId,
+    profileSession.barId
+  );
+  res.status(200).json({ status: true, billOrder });
+});
 
 const createBillOrderForBar = catchAsync(async (req, res) => {
   const { body } = req;
-  console.log('body', req.params);
   const tableId = +req.params.tableId;
   const { profileSession } = res.locals;
   const billOrderBody: BillOrderProps = {
@@ -66,4 +74,5 @@ export {
   addOrderInBillOrderForBar,
   payBillOrder,
   getBillOrderForBar,
+  getBillOrderByTableForBar,
 };

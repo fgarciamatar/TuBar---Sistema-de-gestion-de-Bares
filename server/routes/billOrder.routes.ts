@@ -6,6 +6,7 @@ import {
   getBillOrdersForBar,
   payBillOrder,
   getBillOrderForBar,
+  getBillOrderByTableForBar,
 } from '../controllers/billOrder.controllers';
 
 const router = Router();
@@ -88,6 +89,42 @@ router.get('/', getBillOrdersForBar);
  */
 router.post('/table/:tableId', createBillOrderForBar);
 
+/**
+ * @swagger
+ * /bill-orders/table/{tableId}:
+ *  get:
+ *    tags: [Factura]
+ *    summary: Optener una factura activa de la mesa del Bar, requiere sesion del perfil
+ *    description: Endpoint para obtener una factura de la mesa selecciona en el bar
+ *    parameters:
+ *       - name: tableId
+ *         in: path
+ *         description: Id de la mesa
+ *         required: true
+ *         schema:
+ *           type: integer
+ *    responses:
+ *       '200':
+ *         description: Consulta exitosa.
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: "#/components/schemas/billOrderResponse"
+ *       '401':
+ *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
+ *       '403':
+ *         description: Este perfil no tiene permisos para acceder a esta ruta..
+ *       '404':
+ *         description: No se encontró ninguna factura activa en la mesa con el ID especificado.
+ *       '409':
+ *         description: Error de validación, revise que los campos enviados son los correctos.
+ *       '500':
+ *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
+ *    security:
+ *      - bearerAuth: []
+ *
+ */
+router.get('/table/:tableId', getBillOrderByTableForBar);
 /**
  * @swagger
  * /bill-orders/{billOrderId}:
