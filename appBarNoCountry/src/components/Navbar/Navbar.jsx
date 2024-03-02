@@ -9,6 +9,7 @@ function Navbar({role}) {
     <View style={styles.navbar}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Salon</Text>
+        <Text style={styles.title}>{role}</Text>
       </View>
       <TouchableOpacity onPress={() => navigation.navigate('SelectPerfil')}>
         <View style={styles.imageContainer}>
