@@ -67,9 +67,11 @@ export const postLoginProfile = async (pin, idProfile) => {
         },
       });
       const newToken = response.data.token;
+      const role = response.data.profile.role
       AsyncStorage.setItem('accessTokenProfile', newToken);
+      AsyncStorage.setItem('role', role );
 
-      console.log("response",response.data);
+      console.log("response",response.data, 'ROL',role);
       return response.data;
     } catch (error) {
       

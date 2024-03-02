@@ -2,13 +2,14 @@ import * as React from 'react';
 import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-function Navbar() {
+function Navbar({role}) {
   const navigation = useNavigation();
 
   return (
     <View style={styles.navbar}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Salon</Text>
+        <Text style={styles.title}>{role}</Text>
       </View>
       <TouchableOpacity onPress={() => navigation.navigate('SelectPerfil')}>
         <View style={styles.imageContainer}>
