@@ -9,12 +9,13 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import {selectedProducts} from "./../../redux/actions"
-
+import {selectedProducts} from './../../redux/actions';
 
 function Menu() {
-  const selecProductGlobal = useSelector(state => state.reducers.selectedProducts);
-  const dispatch = useDispatch(); 
+  const selecProductGlobal = useSelector(
+    state => state.reducers.selectedProducts,
+  );
+  const dispatch = useDispatch();
   const {categories} = useSelector(state => state.reducers.categories);
   const {products} = useSelector(state => state.reducers.products);
 
@@ -22,38 +23,45 @@ function Menu() {
   const [quantity, setQuantity] = useState(selecProductGlobal);
   const navigation = useNavigation();
 
- 
-  
-  const handleCategoryClick = (id) => {
+  const handleCategoryClick = id => {
     setSelectedCategory(id);
     // console.log("iDFILTER",id);
-  }
-  
-  const filteredProducts = products && products.filter(
-    product => product.productCategoryId === selectedCategory
-  );
+  };
 
-  const handleAdd = (productId) => {
+  const filteredProducts =
+    products &&
+    products.filter(product => product.productCategoryId === selectedCategory);
+
+  const handleAdd = productId => {
     setQuantity(prevState => ({
       ...prevState,
-      [productId]: (prevState[productId] || 0) + 1
+      [productId]: (prevState[productId] || 0) + 1,
     }));
   };
 
-  const handleSubtract = (productId) => {
+  const handleSubtract = productId => {
     if (quantity[productId] > 0) {
       setQuantity(prevState => ({
         ...prevState,
-        [productId]: prevState[productId] - 1
+        [productId]: prevState[productId] - 1,
       }));
     }
   };
-  
+
+  const handleDelete = productId => {
+    if (quantity[productId] > 0) {
+      setQuantity(prevState => ({
+        ...prevState,
+        [productId]: 0,
+      }));
+    }
+  };
+
   const handleOrder = () => {
-    dispatch(selectedProducts(quantity))
+    dispatch(selectedProducts(quantity));
     navigation.navigate('Order');
   };
-//  console.log("menu", selecProductGlobal);
+  //  console.log("menu", selecProductGlobal);
   return (
     <View style={styles.menuContainer}>
       <ScrollView style={styles.foodContainer} horizontal={true}>
@@ -86,14 +94,21 @@ function Menu() {
                 <Text style={styles.category}>{producto.description}</Text>
                 <Text style={styles.price}>{producto.price}</Text>
                 <View style={styles.quantity}>
-                    <TouchableOpacity onPress={() => handleSubtract(producto.id)}>
-                      <Text style={styles.signs}>-</Text>
+                  <TouchableOpacity onPress={() => handleSubtract(producto.id)}>
+                    <Text style={styles.signs}>-</Text>
+                  </TouchableOpacity>
+                  <Text style={styles.showQuantity}>
+                    {quantity[producto.id] || 0}
+                  </Text>
+                  <TouchableOpacity onPress={() => handleAdd(producto.id)}>
+                    <Text style={styles.signs}>+</Text>
+                  </TouchableOpacity>
+                  {quantity[producto.id] > 0 && (
+                    <TouchableOpacity onPress={() => handleDelete(producto.id)}>
+                      <Text style={styles.signs}>Delete</Text>
                     </TouchableOpacity>
-                    <Text style={styles.showQuantity}>{quantity[producto.id] || 0}</Text>
-                    <TouchableOpacity onPress={() => handleAdd(producto.id)}>
-                      <Text style={styles.signs}>+</Text>
-                    </TouchableOpacity>
-                  </View>
+                  )}
+                </View>
               </TouchableOpacity>
             ))}
           </View>

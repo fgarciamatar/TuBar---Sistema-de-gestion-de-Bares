@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-function Navbar() {
+function Navbar({role}) {
   const navigation = useNavigation();
-
+// console.log(role);
   return (
     <View style={styles.navbar}>
       <View style={styles.titleContainer}>
@@ -12,10 +12,10 @@ function Navbar() {
       </View>
       <TouchableOpacity onPress={() => navigation.navigate('SelectPerfil')}>
         <View style={styles.imageContainer}>
-          <Image 
-            style={styles.image}
-            source={require('../../assets/user.png')}
-          />
+        <Image
+              style={styles.image}
+              source={role === "ADMIN" ? require('../../assets/menu/addmin.png') : require('../../assets/menu/waiter.png')}
+            />
         </View>
       </TouchableOpacity>
     </View>

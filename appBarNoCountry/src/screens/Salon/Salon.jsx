@@ -5,11 +5,13 @@ import Navbar from '../../components/Navbar/Navbar';
 import Tables from '../../components/Tables/Tables';
 import { useSelector } from 'react-redux';
 
-function Salon() {
+function Salon({route}) {
   const mesas = useSelector(state => state.reducers.tables);
   const [mesasOcupadas, setmesasOcupadas] = useState([])
   const [mesasDesocupadas, setmesasDesocupadas] = useState([])
 
+  const {role} = route.params;
+console.log("mesas",mesas);
   useEffect(() => {
     if (mesas.tables !== undefined && mesas.tables){
       mesas.tables.map(mesa=>{
@@ -28,7 +30,7 @@ function Salon() {
   return (
     <View style={styles.container}>
       <View>
-        <Navbar />
+        <Navbar role={role}/>
       </View>
       <View style={styles.textContainer}>
         <Text>Mesas ocupadas: {mesasOcupadas.length}</Text>
