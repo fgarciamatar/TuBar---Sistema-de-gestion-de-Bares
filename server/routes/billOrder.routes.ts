@@ -43,7 +43,7 @@ router.use(protect(['profileSession']));
  */
 
 router.get('/', getBillOrdersForBar);
-router.use(checkRole(['ADMIN']));
+router.use(checkRole(['EMPLOYEE']));
 /**
  * @swagger
  * /bill-orders/table/{tableId}:
