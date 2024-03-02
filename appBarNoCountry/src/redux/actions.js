@@ -1,13 +1,13 @@
 //actions.js
 import axios from 'axios';
 import {urlApi} from '../utils/definition';
-import {GET_PROFILES, GET_TABLES, GET_CATEGORIES, GET_PRODUCTS} from './types';
+import {GET_PROFILES, GET_TABLES, GET_CATEGORIES, GET_PRODUCTS, SELECTED_PRODUCTS} from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const getProfile =  () => {
+export const getProfile = () => {
   return async function (dispatch) {
     const token = await AsyncStorage.getItem('accessToken');
-   
+
     try {
       const apiData = await axios.get(`${urlApi}/profiles`, {
         headers: {
@@ -26,17 +26,17 @@ export const getProfile =  () => {
   };
 };
 
-export const getTables =  () => {
+export const getTables = () => {
   return async function (dispatch) {
     const token = await AsyncStorage.getItem('accessTokenProfile');
-  //  console.log("token" ,token);
+    //  console.log("token" ,token);
     try {
       const apiData = await axios.get(`${urlApi}/tables`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("apiData TABLES",apiData.data);
+      console.log('apiData TABLES', apiData.data);
       const tables = apiData.data;
       return dispatch({
         type: GET_TABLES,
@@ -48,10 +48,10 @@ export const getTables =  () => {
   };
 };
 
-export const getCategories =  () => {
+export const getCategories = () => {
   return async function (dispatch) {
     const token = await AsyncStorage.getItem('accessTokenProfile');
-   
+
     try {
       const apiCategorias = await axios.get(`${urlApi}/product-categories`, {
         headers: {
@@ -70,7 +70,7 @@ export const getCategories =  () => {
   };
 };
 
-export const getProducts =  () => {
+export const getProducts = () => {
   return async function (dispatch) {
     const token = await AsyncStorage.getItem('accessTokenProfile');
     try {
@@ -91,3 +91,10 @@ export const getProducts =  () => {
   };
 };
 
+export const selectedProducts = (productosSeleccionados) => {
+  // console.log(productosSeleccionados);
+    return ({
+      type: SELECTED_PRODUCTS,
+      payload: productosSeleccionados,
+    });
+};

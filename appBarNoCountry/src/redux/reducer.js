@@ -1,11 +1,12 @@
 //reducer.js
-import {GET_PROFILES, GET_TABLES, GET_CATEGORIES, GET_PRODUCTS } from './types';
+import {GET_PROFILES, GET_TABLES, GET_CATEGORIES, GET_PRODUCTS, SELECTED_PRODUCTS } from './types';
 
 const initialState = {
   profiles: [],
   tables: [],
   categories: [],
   products: [],
+  selectedProducts: {},
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -30,6 +31,11 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             products: action.payload,
           };
+          case SELECTED_PRODUCTS:
+        return {
+          ...state,
+            selectedProducts: action.payload,
+        };
 
 
     default:

@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAppSelector } from "../../hooks/hooks";
 import { getCategories, getProducts } from '../../redux/actions';
 
@@ -10,6 +10,9 @@ function Order() {
   const [tableSeleced, settableSelected] = useState(
     useAppSelector((state) => state.table)
   );
+  const selectedProducts = useSelector(state => state.reducers.selectedProducts);
+
+
 
   const navigation = useNavigation();
 
