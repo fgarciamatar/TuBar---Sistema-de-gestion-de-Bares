@@ -23,10 +23,8 @@ function Order() {
   const filteredProducts =
     products &&
     products.filter(product => selectedProducts[product.id.toString()] > 0);
- 
-    console.log("filteredProducts", filteredProducts);
 
-    
+  console.log('filteredProducts', filteredProducts);
 
   const handleMenu = () => {
     navigation.navigate('Menu');
@@ -43,7 +41,9 @@ function Order() {
       for (const productId in selectedProducts) {
         const cantidad = selectedProducts[productId];
         if (cantidad > 0) {
-          const productoSeleccionado = filteredProducts.find(producto => producto.id === parseInt(productId));
+          const productoSeleccionado = filteredProducts.find(
+            producto => producto.id === parseInt(productId),
+          );
           if (productoSeleccionado) {
             total += productoSeleccionado.price * cantidad;
           }
@@ -70,30 +70,37 @@ function Order() {
         <Text style={styles.text}>Pedidos</Text>
       </View>
 
-      {filteredProducts && filteredProducts.map((producto, index) => (
-        <TouchableOpacity
-          key={index}
-        >
-          <Image
-            style={styles.imageOrder}
-            source={require('../../assets/menu/burguer.png')}
-          />
-          <Text style={styles.typeFood}>{producto.name}</Text>
-          <Text style={styles.category}>{producto.description}</Text>
-          <Text style={styles.price}>${producto.price}</Text>
-          <View><Text>cantidad: {selectedProducts[producto.id]}</Text></View>
-        </TouchableOpacity>
-      ))}
-
-     
+      {filteredProducts &&
+        filteredProducts.map((producto, index) => (
+          <TouchableOpacity key={index}>
+            <Image
+              style={styles.imageOrder}
+              source={require('../../assets/menu/burguer.png')}
+            />
+            <Text style={styles.typeFood}>{producto.name}</Text>
+            <Text style={styles.category}>{producto.description}</Text>
+            <Text style={styles.price}>${producto.price}</Text>
+            <View>
+              <Text>cantidad: {selectedProducts[producto.id]}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
 
       <View style={styles.footerContainer}>
         <TouchableOpacity style={styles.total}>
           <Text style={styles.textTotal}>Total: ${totalCuenta}</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.sendButton}>
-          <Text style={styles.textButton}>Enviar</Text>
+        <TouchableOpacity
+          style={styles.sendButton}
+          onPress={() =>
+            navigation.navigate('Detalle del Pedido', {
+              totalCuenta: totalCuenta,
+              filteredProducts: filteredProducts,
+              numberTable: tableSeleced.tableNumber,
+            })
+          }>
+          <Text style={styles.textButton}>Detalle del pedido</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -199,8 +206,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   sendButton: {
-    height: 40,
-    width: 85,
+    height: 60,
+    width: 120,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

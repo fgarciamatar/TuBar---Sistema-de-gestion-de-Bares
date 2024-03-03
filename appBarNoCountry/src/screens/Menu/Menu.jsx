@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {
@@ -9,93 +11,167 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import {selectedProducts} from "./../../redux/actions"
-
+import {Icon, ListItem, Avatar} from '@rneui/themed';
+import {Button, XGroup, XStack, YStack} from 'tamagui';
+import {selectedProducts} from './../../redux/actions';
 
 function Menu() {
-  const selecProductGlobal = useSelector(state => state.reducers.selectedProducts);
-  const dispatch = useDispatch(); 
+  const selecProductGlobal = useSelector(
+    state => state.reducers.selectedProducts,
+  );
+  const dispatch = useDispatch();
   const {categories} = useSelector(state => state.reducers.categories);
   const {products} = useSelector(state => state.reducers.products);
 
   const [selectedCategory, setSelectedCategory] = useState('');
   const [quantity, setQuantity] = useState(selecProductGlobal);
+  const [role, setRole] = useState('');
   const navigation = useNavigation();
 
- 
-  
-  const handleCategoryClick = (id) => {
+  const handleCategoryClick = id => {
     setSelectedCategory(id);
     // console.log("iDFILTER",id);
-  }
-  
-  const filteredProducts = products && products.filter(
-    product => product.productCategoryId === selectedCategory
-  );
+  };
 
-  const handleAdd = (productId) => {
+  const filteredProducts =
+    products &&
+    products.filter(product => product.productCategoryId === selectedCategory);
+
+  const handleAdd = productId => {
     setQuantity(prevState => ({
       ...prevState,
-      [productId]: (prevState[productId] || 0) + 1
+      [productId]: (prevState[productId] || 0) + 1,
     }));
   };
 
-  const handleSubtract = (productId) => {
+  const handleSubtract = productId => {
     if (quantity[productId] > 0) {
       setQuantity(prevState => ({
         ...prevState,
-        [productId]: prevState[productId] - 1
+        [productId]: prevState[productId] - 1,
       }));
     }
   };
-  
+
+  const handleDelete = productId => {
+    if (quantity[productId] > 0) {
+      setQuantity(prevState => ({
+        ...prevState,
+        [productId]: 0,
+      }));
+    }
+  };
+
   const handleOrder = () => {
-    dispatch(selectedProducts(quantity))
+    dispatch(selectedProducts(quantity));
     navigation.navigate('Order');
   };
-//  console.log("menu", selecProductGlobal);
+  //  console.log("menu", selecProductGlobal);
+
+  useEffect(() => {
+    // Función asincrónica para obtener el rol de usuario desde AsyncStorage
+    const getRole = async () => {
+      try {
+        const roleAsync = await AsyncStorage.getItem('role');
+        setRole(roleAsync); // Actualiza el estado con el rol de usuario obtenido
+      } catch (error) {
+        console.log('Error al obtener el rol del usuario:', error);
+      }
+    };
+    getRole(); // Llama a la función para obtener el rol de usuario al cargar el componente
+  }, []); // El segundo argumento [] indica que este efecto solo se ejecuta una vez al montar el componente
+
   return (
     <View style={styles.menuContainer}>
       <ScrollView style={styles.foodContainer} horizontal={true}>
-        {categories.map((category, index) => (
-          <TouchableOpacity
-            key={index}
-            style={[
-              styles.foodItem,
-              index === category.name.length - 1 ? {marginRight: 60} : null,
-            ]}
-            onPress={() => handleCategoryClick(category.id)}>
-            <Text style={styles.foodName}>{category.name}</Text>
-          </TouchableOpacity>
-        ))}
+        {role === 'ADMIN' ? (
+          <XStack
+            gap="$1"
+            justifyContent="center"
+            style={{
+              marginRight: 5,
+              backgroundColor: '#8586FF',
+              borderRadius: 16,
+              padding: 10,
+            }}>
+            <Button size="$3" chromeless>
+              <Icon name="add-circle" color={'green'} />
+            </Button>
+          </XStack>
+        ) : null}
+        {categories &&
+          categories.map((category, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.foodItem,
+                index === category.name.length - 1 ? {marginRight: 60} : null,
+              ]}
+              onPress={() => handleCategoryClick(category.id)}>
+              <Text style={styles.foodName}>{category.name}</Text>
+              {role === 'ADMIN' ? (
+                <XStack
+                  gap="$1"
+                  justifyContent="center"
+                  style={{marginRight: 5}}>
+                  <Button size="$3" chromeless>
+                    <Icon name="edit" />
+                  </Button>
+                </XStack>
+              ) : null}
+            </TouchableOpacity>
+          ))}
       </ScrollView>
 
       <ScrollView style={styles.menuItemContainer}>
         <View style={styles.itemContainer}>
           <View style={styles.orderItem}>
-            {filteredProducts.map((producto, index) => (
-              <TouchableOpacity
-                key={index}
-                // onPress={() => handleCategoryClick(category.name)}
-              >
-                <Image
-                  style={styles.imageOrder}
-                  source={require('../../assets/menu/burguer.png')}
-                />
-                <Text style={styles.typeFood}>{producto.name}</Text>
-                <Text style={styles.category}>{producto.description}</Text>
-                <Text style={styles.price}>{producto.price}</Text>
-                <View style={styles.quantity}>
-                    <TouchableOpacity onPress={() => handleSubtract(producto.id)}>
+            {filteredProducts &&
+              filteredProducts.map((producto, index) => (
+                <TouchableOpacity
+                  key={index}
+                  // onPress={() => handleCategoryClick(category.name)}
+                >
+                  <Image
+                    style={styles.imageOrder}
+                    source={require('../../assets/menu/burguer.png')}
+                  />
+                  {role === 'ADMIN' ? (
+                    <XStack
+                      gap="$1"
+                      justifyContent="center"
+                      style={{marginRight: 5}}>
+                      <Button size="$3" chromeless>
+                        <Icon name="add-circle" color={'green'} />
+                      </Button>
+                      <Button size="$3" chromeless>
+                        <Icon name="edit" />
+                      </Button>
+                    </XStack>
+                  ) : null}
+                  <Text style={styles.typeFood}>{producto.name}</Text>
+                  <Text style={styles.category}>{producto.description}</Text>
+                  <Text style={styles.price}>{producto.price}</Text>
+                  <View style={styles.quantity}>
+                    <TouchableOpacity
+                      onPress={() => handleSubtract(producto.id)}>
                       <Text style={styles.signs}>-</Text>
                     </TouchableOpacity>
-                    <Text style={styles.showQuantity}>{quantity[producto.id] || 0}</Text>
+                    <Text style={styles.showQuantity}>
+                      {quantity[producto.id] || 0}
+                    </Text>
                     <TouchableOpacity onPress={() => handleAdd(producto.id)}>
                       <Text style={styles.signs}>+</Text>
                     </TouchableOpacity>
+                    {quantity[producto.id] > 0 && (
+                      <TouchableOpacity
+                        onPress={() => handleDelete(producto.id)}>
+                        <Text style={styles.signs}>Delete</Text>
+                      </TouchableOpacity>
+                    )}
                   </View>
-              </TouchableOpacity>
-            ))}
+                </TouchableOpacity>
+              ))}
           </View>
         </View>
       </ScrollView>

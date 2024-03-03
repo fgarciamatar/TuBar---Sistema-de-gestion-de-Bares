@@ -27,10 +27,10 @@ function Navbar({role, onPressAdd, onPressEdit}) {
 
       <TouchableOpacity onPress={() => navigation.navigate('SelectPerfil')}>
         <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={require('../../assets/user.png')}
-          />
+        <Image
+              style={styles.image}
+              source={role === "ADMIN" ? require('../../assets/menu/addmin.png') : require('../../assets/menu/waiter.png')}
+            />
         </View>
       </TouchableOpacity>
       

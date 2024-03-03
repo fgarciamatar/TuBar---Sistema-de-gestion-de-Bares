@@ -28,7 +28,7 @@ function ProfilePin({route}) {
     if (profileLogin.status) {
       Alert.alert('Exito', 'PIN correcto.');
       dispatch(getTables());
-      navigation.navigate('Salon');
+      navigation.navigate('Salon',{role: role});
     } else if (!profileLogin.status) {
       Alert.alert('Error', 'PIN incorrecto. Por favor, inténtalo de nuevo.');
       setPin('');
