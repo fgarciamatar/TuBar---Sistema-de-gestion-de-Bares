@@ -41,14 +41,18 @@ api.interceptors.request.use(
   async config => {
     const accessToken = await AsyncStorage.getItem('accessToken');
     const accessTokenProfile = await AsyncStorage.getItem('accessTokenProfile');
-
+    console.log('INTERCEPTO', config)
     if (!EXEMPTED_ROUTES.includes(config.url)) {
+      console.log('INTERCEPTO2', accessToken)
       if (!EXEMPTED_ROUTES2.includes(config.url)) {
+        console.log('INTERCEPTO3')
         if (accessTokenProfile) {
+          console.log('INTERCEPTO4', accessTokenProfile);
           config.headers.Authorization = `Bearer ${accessTokenProfile}`;
         }
       }
-      if (accessToken) {
+      if (EXEMPTED_ROUTES2.includes(config.url)) {
+        console.log('INTERCEPTO2b')
         config.headers.Authorization = `Bearer ${accessToken}`;
       }
     }
@@ -59,6 +63,75 @@ api.interceptors.request.use(
     return Promise.reject(error);
   },
 );
+
+export const apiCreateProfile = async userData => {
+  console.log('USERDATA', userData);
+  const token = await AsyncStorage.getItem('accessTokenProfile');
+  try {
+    const response = await axios.post(`${urlApi}/profiles`, userData,  {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+      console.log('Respuesta del servidor:', response.data);
+
+    return response.data;
+  } catch (error) {
+    console.log('ERROR PERFIL', error)
+    return {status: false}
+    throw error; // Puedes manejar el error según sea necesario en tu aplicación
+    //  console.log(error);
+  }
+};
+
+export const apiEditProfile = async userData => {
+  console.log('USERDATA', userData);
+  const data = {
+    "name": userData.name,
+    "role": userData.role,
+    "pinCode":userData.pinCode
+  }
+  const token = await AsyncStorage.getItem('accessTokenProfile');
+  try {
+    const response = await axios.patch(`${urlApi}/profiles/${userData.id}`, data,  {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+      console.log('Respuesta del servidor:', response.data);
+
+    return response.data;
+  } catch (error) {
+    console.log('ERROR PERFIL', error)
+    return {status: false}
+    throw error; // Puedes manejar el error según sea necesario en tu aplicación
+    //  console.log(error);
+  }
+};
+
+export const apiDeleteProfile = async id => {
+  console.log('ID', id);
+
+  const token = await AsyncStorage.getItem('accessTokenProfile');
+  try {
+    const response = await axios.delete(`${urlApi}/profiles/${id}`,   {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+      console.log('Respuesta del servidor:', response.data);
+
+    return {status: true};
+  } catch (error) {
+    console.log('ERROR PERFIL', error)
+    return {status: false}
+    throw error; // Puedes manejar el error según sea necesario en tu aplicación
+    //  console.log(error);
+  }
+};
 
 export const createTables = async numTables => {
   const token = await AsyncStorage.getItem('accessTokenProfile');

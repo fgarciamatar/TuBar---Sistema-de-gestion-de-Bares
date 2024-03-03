@@ -16,7 +16,7 @@ import {getTables} from '../../redux/actions';
 import {createTables, deleteTables} from '../../apis';
 import {Button, YStack, ZStack} from 'tamagui';
 
-function Salon({route}) {
+function Salon({route, navigation}) {
   const mesas = useSelector(state => state.reducers.tables);
   const [mesasOcupadas, setmesasOcupadas] = useState([]);
   const [mesasDesocupadas, setmesasDesocupadas] = useState([]);
@@ -79,6 +79,11 @@ console.log("mesas",mesas);
     setCount(count + 1);
   };
 
+  const handleManageProfiles = ()=>{
+    setopenMenu(!openMenu);
+    navigation.navigate('ManageProfile');
+  }
+
   const handleDecrement = () => {
     console.log('ACTUAL COUNT', count);
     if (count > 0) {
@@ -89,6 +94,13 @@ console.log("mesas",mesas);
       setCount(0);
     }
   };
+
+  const handleCloseSession= async () => {
+    await AsyncStorage.removeItem('role');
+    await AsyncStorage.removeItem('accessToken');
+    await AsyncStorage.removeItem('accessTokenProfile');
+    navigation.navigate('Login');
+  }
 
   const handleConfirmAdd = () => {
     Alert.alert(
@@ -138,6 +150,10 @@ console.log("mesas",mesas);
     );
   };
 
+  const prueba=()=>{
+    console.log('prueba');
+  }
+
   const handleEditTables = async () => {
     if (mesas.tables !== undefined && mesas.tables) {
       let eliminarMesas = mesas.tables.length - tableLength;
@@ -182,8 +198,7 @@ console.log("mesas",mesas);
 
   return (
     <View style={styles.container}>
-      {openMenu ? (
-        <View
+      {openMenu && rol =='ADMIN'? <View
           style={{
             position: 'absolute',
             top: 0,
@@ -206,23 +221,19 @@ console.log("mesas",mesas);
               borderWidth={2}
               borderRadius="$4"
               padding="$2">
-              <Button size="$3" backgroundColor={'#AA84FC'} onPress={() => {}}>
-                Categorias
-              </Button>
-              <Button size="$3" backgroundColor={'#AA84FC'} onPress={() => {}}>
+              <Button size="$3" backgroundColor={'#AA84FC'} onPress={prueba}>
                 Reportes
               </Button>
-              <Button size="$3" backgroundColor={'#AA84FC'} onPress={() => {}}>
+              <Button size="$3" backgroundColor={'#AA84FC'} onPress={handleManageProfiles}>
                 Empleados
               </Button>
-              <Button size="$3" backgroundColor={'#AA84FC'} onPress={() => {}}>
+              <Button size="$3" backgroundColor={'#AA84FC'} onPress={handleCloseSession}>
                 Cerrar Sesion
               </Button>
             </YStack>
             </ZStack>
           </TouchableWithoutFeedback>
-        </View>
-      ) : null}
+        </View>: null}
 
       <View>
         <Navbar

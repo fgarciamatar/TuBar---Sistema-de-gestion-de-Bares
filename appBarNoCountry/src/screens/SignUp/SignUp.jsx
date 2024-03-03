@@ -7,6 +7,8 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  ScrollView,
+  SafeAreaView,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -72,6 +74,7 @@ function SignUp() {
 
   return (
     <View style={styles.signUpContainer}>
+      <ScrollView>
       <View style={styles.acountContainer}>
         <Image
           style={styles.image}
@@ -133,6 +136,7 @@ function SignUp() {
           </TouchableOpacity>
         </View>
       </View>
+      </ScrollView>
     </View>
   );
 }

@@ -6,6 +6,7 @@ import Login from './screens/Login/Login';
 import Welcom from './screens/Welcom/Welcom';
 import SignUp from './screens/SignUp/SignUp';
 import SelectPerfil from './screens/SelectPerfil/SelectPerfil.jsx';
+import ManageProfiles from './screens/ManageProfiles/ManageProfiles.jsx';
 import Salon from './screens/Salon/Salon.jsx';
 import Password from './screens/Password/Password';
 import Order from './screens/Order/Order.jsx';
@@ -52,8 +53,9 @@ function Tabs() {
         name="Password"
         component={Password}
       />
-      <Stack.Screen name="SelectPerfil" component={SelectPerfil} />
-      <Stack.Screen name="Salon" component={Salon} />
+      <Stack.Screen name="SelectPerfil" component={SelectPerfil} options={{ headerShown: false }} />
+      <Stack.Screen name="ManageProfile" component={ManageProfiles} options={{ headerShown: false }} />
+      <Stack.Screen name="Salon" component={Salon} options={{ headerShown: false }}/>
       <Stack.Screen
         options={{
           headerStyle: styles.headerScreen,
