@@ -2,9 +2,9 @@ import * as React from 'react';
 import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Icon, ListItem, Avatar} from '@rneui/themed';
-import {Button, XGroup, XStack, YStack} from 'tamagui';
+import {Button, XGroup, XStack,YStack,ZStack} from 'tamagui';
 
-function Navbar({role, onPressAdd, onPressEdit}) {
+function Navbar({role, onPressAdd, onPressEdit, onPressMenu}) {
   const navigation = useNavigation();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -12,7 +12,6 @@ function Navbar({role, onPressAdd, onPressEdit}) {
     <View style={styles.navbar}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Salon</Text>
-        <Text style={styles.title}>{role}</Text>
       </View>
       {role === 'ADMIN' ? (
         <XStack gap="$1" justifyContent="center" style={{marginRight: 5}}>
@@ -22,7 +21,12 @@ function Navbar({role, onPressAdd, onPressEdit}) {
           <Button size="$3" chromeless onPress={onPressEdit}>
             <Icon name="edit" />
           </Button>
+          <Button size="$3" chromeless onPress={onPressMenu}>
+            <Icon name="menu" />
+          </Button>
+          
         </XStack>
+        
       ) : null}
 
       <TouchableOpacity onPress={() => navigation.navigate('SelectPerfil')}>
@@ -33,6 +37,8 @@ function Navbar({role, onPressAdd, onPressEdit}) {
           />
         </View>
       </TouchableOpacity>
+      
+      
       
     </View>
   );
@@ -45,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
-    backgroundColor: '#ffffff', // Color de fondo de la barra de navegación
+    backgroundColor: '#AA84FC', // Color de fondo de la barra de navegación
   },
   titleContainer: {
     flex: 1,
