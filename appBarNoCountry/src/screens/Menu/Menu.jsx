@@ -407,7 +407,7 @@ function Menu() {
         title={'Menu'}
         isGoBack={true}
           role={role}
-          onPressAdd={()=>setIsDialogVisibleProd(true)}
+          onPressAdd={()=>{categories && categories.length>0 ? setIsDialogVisibleProd(true): Alert.alert('Primero Agregue una Categoria')}}
         />
       </View>
       <ScrollView style={styles.foodContainer} horizontal={true}>
