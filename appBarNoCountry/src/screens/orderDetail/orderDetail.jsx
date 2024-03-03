@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
-function orderDetail({route}) {
+function OrderDetail({route}) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {totalCuenta, filteredProducts, numberTable} = route.params;
@@ -65,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default orderDetail;
+export default OrderDetail;
