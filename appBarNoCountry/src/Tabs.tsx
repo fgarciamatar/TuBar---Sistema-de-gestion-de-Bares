@@ -11,6 +11,7 @@ import Password from './screens/Password/Password';
 import Order from './screens/Order/Order.jsx';
 import ProfilePin from './screens/ProfilePin/ProfilePin.jsx';
 import Menu from './screens/Menu/Menu.jsx';
+import orderDetail from './screens/orderDetail/orderDetail.jsx';
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -77,6 +78,7 @@ function Tabs() {
       />
 
       <Stack.Screen name="ProfilePin" component={ProfilePin} />
+      <Stack.Screen name="Detalle del Pedido" component={orderDetail} />
     
     </Stack.Navigator>
   );

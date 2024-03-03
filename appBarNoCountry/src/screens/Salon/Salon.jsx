@@ -16,7 +16,7 @@ import {getTables} from '../../redux/actions';
 import {createTables, deleteTables} from '../../apis';
 import {Button, YStack, ZStack} from 'tamagui';
 
-function Salon() {
+function Salon({route}) {
   const mesas = useSelector(state => state.reducers.tables);
   const [mesasOcupadas, setmesasOcupadas] = useState([]);
   const [mesasDesocupadas, setmesasDesocupadas] = useState([]);
@@ -29,6 +29,8 @@ function Salon() {
 
   const dispatch = useDispatch();
 
+  const {role} = route.params;
+console.log("mesas",mesas);
   useEffect(() => {
     setCount(0);
     let ocupadas = [];
