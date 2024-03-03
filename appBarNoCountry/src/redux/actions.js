@@ -1,8 +1,24 @@
 //actions.js
 import axios from 'axios';
 import {urlApi} from '../utils/definition';
-import {GET_PROFILES, GET_TABLES, GET_CATEGORIES, GET_PRODUCTS, SELECTED_PRODUCTS} from './types';
+import {
+  GET_PROFILES,
+  GET_TABLES,
+  GET_CATEGORIES,
+  GET_PRODUCTS,
+  SELECTED_PRODUCTS,
+  SHOW_LOADER,
+  HIDE_LOADER,
+} from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export const showLoaderGlobal = () => ({
+  type: SHOW_LOADER,
+});
+
+export const hideLoaderGlobal = () => ({
+  type: HIDE_LOADER,
+});
 
 export const getProfile = () => {
   return async function (dispatch) {
@@ -58,8 +74,7 @@ export const getCategories = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      // console.log("apiData",apiData.data);
-      const categories = apiCategorias.data;
+      const {categories} = apiCategorias.data;
       return dispatch({
         type: GET_CATEGORIES,
         payload: categories,
@@ -91,10 +106,10 @@ export const getProducts = () => {
   };
 };
 
-export const selectedProducts = (productosSeleccionados) => {
+export const selectedProducts = productosSeleccionados => {
   // console.log(productosSeleccionados);
-    return ({
-      type: SELECTED_PRODUCTS,
-      payload: productosSeleccionados,
-    });
+  return {
+    type: SELECTED_PRODUCTS,
+    payload: productosSeleccionados,
+  };
 };
