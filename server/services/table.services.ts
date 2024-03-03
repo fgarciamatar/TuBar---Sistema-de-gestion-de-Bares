@@ -14,7 +14,7 @@ class TableService {
     });
     return tables;
   }
-  async findTableForBarOr404(barId: number, tableId: number) {
+  async findTableForBarOr404(tableId: number, barId: number) {
     const table = await TableModel.findOne({
       where: {
         id: tableId,
