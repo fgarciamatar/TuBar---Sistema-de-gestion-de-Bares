@@ -110,7 +110,7 @@ export const deleteTables = async (id) => {
     console.log('response', response.data);
 
     console.log('FINALIZADA LA ELIMINACION DE TABLA');
-    return response.data;
+    return {status: true};
   } catch (error) {
     console.log('ERROR: ' + error.message)
     return {status: false};
