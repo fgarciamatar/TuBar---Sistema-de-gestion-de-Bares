@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { Icon } from '@rneui/themed';
-import { Button, XGroup, XStack, YStack } from 'tamagui'
+import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {Icon, ListItem, Avatar} from '@rneui/themed';
+import {Button, XGroup, XStack, YStack} from 'tamagui';
 
 function Navbar({role, onPressAdd, onPressEdit}) {
   const navigation = useNavigation();
+  const [expanded, setExpanded] = React.useState(false);
 
   return (
     <View style={styles.navbar}>
@@ -13,27 +14,26 @@ function Navbar({role, onPressAdd, onPressEdit}) {
         <Text style={styles.title}>Salon</Text>
         <Text style={styles.title}>{role}</Text>
       </View>
-      {role === 'ADMIN'
-        ?<XStack gap="$1" justifyContent="center" style={{marginRight:5}}>
-        <Button size="$3" chromeless onPress={onPressAdd}>
-        <Icon
-        name='add-circle' color={'green'} />
-        </Button>
-        <Button size="$3" chromeless onPress={onPressEdit}>
-        <Icon
-        name='edit'  />
-        </Button>
-      </XStack>: null
-      }
-      
+      {role === 'ADMIN' ? (
+        <XStack gap="$1" justifyContent="center" style={{marginRight: 5}}>
+          <Button size="$3" chromeless onPress={onPressAdd}>
+            <Icon name="add-circle" color={'green'} />
+          </Button>
+          <Button size="$3" chromeless onPress={onPressEdit}>
+            <Icon name="edit" />
+          </Button>
+        </XStack>
+      ) : null}
+
       <TouchableOpacity onPress={() => navigation.navigate('SelectPerfil')}>
         <View style={styles.imageContainer}>
-          <Image 
+          <Image
             style={styles.image}
             source={require('../../assets/user.png')}
           />
         </View>
       </TouchableOpacity>
+      
     </View>
   );
 }
@@ -64,4 +64,3 @@ const styles = StyleSheet.create({
 });
 
 export default Navbar;
-

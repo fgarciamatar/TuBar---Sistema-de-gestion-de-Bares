@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import {StyleSheet} from 'react-native';
 import Login from './screens/Login/Login';
 import Welcom from './screens/Welcom/Welcom';
@@ -12,6 +12,7 @@ import Order from './screens/Order/Order.jsx';
 import ProfilePin from './screens/ProfilePin/ProfilePin.jsx';
 import Menu from './screens/Menu/Menu.jsx';
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 function Tabs() {
   return (
