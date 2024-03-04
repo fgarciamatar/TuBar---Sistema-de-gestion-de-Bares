@@ -7,6 +7,7 @@ import {
   SELECTED_PRODUCTS,
   SHOW_LOADER,
   HIDE_LOADER,
+  PROFILE_SESSION,
 } from './types';
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   categories: [],
   products: [],
   selectedProducts: {},
+  profileSession: {},
   isLoading: false,
 };
 
@@ -54,6 +56,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+      };
+    case PROFILE_SESSION:
+      return {
+        ...state,
+        profileSession: action.payload,
       };
     default:
       return {...state};

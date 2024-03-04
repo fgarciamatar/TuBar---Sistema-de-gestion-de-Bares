@@ -9,6 +9,7 @@ import {
   SELECTED_PRODUCTS,
   SHOW_LOADER,
   HIDE_LOADER,
+  PROFILE_SESSION,
 } from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axiosInstance from '../services/axiosInstance';
@@ -20,6 +21,17 @@ export const showLoaderGlobal = () => ({
 export const hideLoaderGlobal = () => ({
   type: HIDE_LOADER,
 });
+export const setProfileSession = profile => {
+  console.log('asdasd');
+
+  console.log(profile);
+  return function (dispatch) {
+    return dispatch({
+      type: PROFILE_SESSION,
+      payload: profile,
+    });
+  };
+};
 
 export const getProfile = () => {
   return async function (dispatch) {
@@ -60,14 +72,8 @@ export const getTables = () => {
 
 export const getCategories = () => {
   return async function (dispatch) {
-    const token = await AsyncStorage.getItem('accessTokenProfile');
-
     try {
-      const apiCategorias = await axios.get(`${urlApi}/product-categories`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const apiCategorias = await axiosInstance.get(`/product-categories`);
       const {categories} = apiCategorias.data;
       return dispatch({
         type: GET_CATEGORIES,

@@ -7,6 +7,14 @@ export interface Product {
   createdAt: string;
   updatedAt: string;
 }
+export interface Profile {
+  id: number;
+  name: string;
+  role: 'EMPLOYEE' | 'ADMIN';
+  barId: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export interface ProductQuantity {
   [key: string]: number;

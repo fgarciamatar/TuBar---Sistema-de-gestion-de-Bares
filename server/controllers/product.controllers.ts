@@ -27,7 +27,7 @@ const editProductForBar = catchAsync(async (req, res, next) => {
   const { id } = params;
   const product = await productService.updateProductForBar(
     +id,
-    profileSession.id,
+    profileSession.barId,
     body
   );
   res.status(200).json({ status: true, product });

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {urlApi} from './utils/definition';
+import axiosInstance from './services/axiosInstance';
 
 const API_BASE_URL = urlApi;
 
@@ -41,18 +42,18 @@ api.interceptors.request.use(
   async config => {
     const accessToken = await AsyncStorage.getItem('accessToken');
     const accessTokenProfile = await AsyncStorage.getItem('accessTokenProfile');
-    console.log('INTERCEPTO', config)
+    console.log('INTERCEPTO', config);
     if (!EXEMPTED_ROUTES.includes(config.url)) {
-      console.log('INTERCEPTO2', accessToken)
+      console.log('INTERCEPTO2', accessToken);
       if (!EXEMPTED_ROUTES2.includes(config.url)) {
-        console.log('INTERCEPTO3')
+        console.log('INTERCEPTO3');
         if (accessTokenProfile) {
           console.log('INTERCEPTO4', accessTokenProfile);
           config.headers.Authorization = `Bearer ${accessTokenProfile}`;
         }
       }
       if (EXEMPTED_ROUTES2.includes(config.url)) {
-        console.log('INTERCEPTO2b')
+        console.log('INTERCEPTO2b');
         config.headers.Authorization = `Bearer ${accessToken}`;
       }
     }
@@ -70,18 +71,18 @@ export const apiCreateProfile = async userData => {
   console.log('USERDATA', userData);
   const token = await AsyncStorage.getItem('accessTokenProfile');
   try {
-    const response = await axios.post(`${urlApi}/profiles`, userData,  {
+    const response = await axios.post(`${urlApi}/profiles`, userData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-      console.log('Respuesta del servidor:', response.data);
+    console.log('Respuesta del servidor:', response.data);
 
     return response.data;
   } catch (error) {
-    console.log('ERROR PERFIL', error)
-    return {status: false}
+    console.log('ERROR PERFIL', error);
+    return {status: false};
     throw error; // Puedes manejar el error según sea necesario en tu aplicación
     //  console.log(error);
   }
@@ -90,24 +91,28 @@ export const apiCreateProfile = async userData => {
 export const apiEditProfile = async userData => {
   console.log('USERDATA', userData);
   const data = {
-    "name": userData.name,
-    "role": userData.role,
-    "pinCode":userData.pinCode
-  }
+    name: userData.name,
+    role: userData.role,
+    pinCode: userData.pinCode,
+  };
   const token = await AsyncStorage.getItem('accessTokenProfile');
   try {
-    const response = await axios.patch(`${urlApi}/profiles/${userData.id}`, data,  {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const response = await axios.patch(
+      `${urlApi}/profiles/${userData.id}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
-    });
+    );
 
-      console.log('Respuesta del servidor:', response.data);
+    console.log('Respuesta del servidor:', response.data);
 
     return response.data;
   } catch (error) {
-    console.log('ERROR PERFIL', error)
-    return {status: false}
+    console.log('ERROR PERFIL', error);
+    return {status: false};
     throw error; // Puedes manejar el error según sea necesario en tu aplicación
     //  console.log(error);
   }
@@ -118,18 +123,18 @@ export const apiDeleteProfile = async id => {
 
   const token = await AsyncStorage.getItem('accessTokenProfile');
   try {
-    const response = await axios.delete(`${urlApi}/profiles/${id}`,   {
+    const response = await axios.delete(`${urlApi}/profiles/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-      console.log('Respuesta del servidor:', response.data);
+    console.log('Respuesta del servidor:', response.data);
 
     return {status: true};
   } catch (error) {
-    console.log('ERROR PERFIL', error)
-    return {status: false}
+    console.log('ERROR PERFIL', error);
+    return {status: false};
     throw error; // Puedes manejar el error según sea necesario en tu aplicación
     //  console.log(error);
   }
@@ -137,21 +142,14 @@ export const apiDeleteProfile = async id => {
 
 //Categorias API
 export const apiCreateCategory = async categoryData => {
-  console.log('CategoryData', categoryData);
-  const token = await AsyncStorage.getItem('accessTokenProfile');
   try {
-    const response = await axios.post(`${urlApi}/product-categories`, categoryData,  {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-      console.log('Respuesta del servidor:', response.data);
-
+    const response = await axiosInstance.post(
+      `/product-categories`,
+      categoryData,
+    );
     return response.data;
   } catch (error) {
-    console.log('ERROR Category', error)
-    return {status: false}
+    return {status: false};
     throw error; // Puedes manejar el error según sea necesario en tu aplicación
     //  console.log(error);
   }
@@ -160,23 +158,19 @@ export const apiCreateCategory = async categoryData => {
 export const apiEditCategory = async categoryData => {
   console.log('categoryData', categoryData);
   const data = {
-    "name": categoryData.name,
-    "description": categoryData.description
-  }
-  const token = await AsyncStorage.getItem('accessTokenProfile');
+    name: categoryData.name,
+    description: categoryData.description,
+  };
   try {
-    const response = await axios.patch(`${urlApi}/product-categories/${categoryData.id}`, data,  {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-      console.log('Respuesta del servidor:', response.data);
+    const response = await axiosInstance.patch(
+      `${urlApi}/product-categories/${categoryData.id}`,
+      data,
+    );
 
     return response.data;
   } catch (error) {
-    console.log('ERROR Category', error)
-    return {status: false}
+    console.log('ERROR Category', error);
+    return {status: false};
     throw error; // Puedes manejar el error según sea necesario en tu aplicación
     //  console.log(error);
   }
@@ -187,18 +181,18 @@ export const apiDeleteCategory = async id => {
 
   const token = await AsyncStorage.getItem('accessTokenProfile');
   try {
-    const response = await axios.delete(`${urlApi}/product-categories/${id}`,   {
+    const response = await axios.delete(`${urlApi}/product-categories/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-      console.log('Respuesta del servidor:', response.data);
+    console.log('Respuesta del servidor:', response.data);
 
     return {status: true};
   } catch (error) {
-    console.log('ERROR PERFIL', error)
-    return {status: false}
+    console.log('ERROR PERFIL', error);
+    return {status: false};
     throw error; // Puedes manejar el error según sea necesario en tu aplicación
     //  console.log(error);
   }
@@ -207,21 +201,15 @@ export const apiDeleteCategory = async id => {
 //Productos API
 
 export const apiCreateProduct = async productData => {
-  console.log('productData', productData);
-  const token = await AsyncStorage.getItem('accessTokenProfile');
   try {
-    const response = await axios.post(`${urlApi}/products`, productData,  {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-      console.log('Respuesta del servidor:', response.data);
-
+    const response = await axiosInstance.post(
+      `${urlApi}/products`,
+      productData,
+    );
     return response.data;
   } catch (error) {
-    console.log('ERROR Producto', error)
-    return {status: false}
+    console.log('ERROR Producto', error);
+    return {status: false};
     throw error; // Puedes manejar el error según sea necesario en tu aplicación
     //  console.log(error);
   }
@@ -230,49 +218,34 @@ export const apiCreateProduct = async productData => {
 export const apiEditProduct = async productData => {
   console.log('productData', productData);
   const data = {
-    "name": productData.name,
-    "description": productData.description,
-    "price": productData.price,
-    "productCategoryId": productData.productCategoryId,
-  }
-  const token = await AsyncStorage.getItem('accessTokenProfile');
+    name: productData.name,
+    description: productData.description,
+    price: productData.price,
+    productCategoryId: productData.productCategoryId,
+  };
   try {
-    const response = await axios.patch(`${urlApi}/products/${productData.id}`, data,  {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosInstance.patch(
+      `${urlApi}/products/${productData.id}`,
+      data,
+    );
 
-      console.log('Respuesta del servidor:', response.data);
+    console.log('Respuesta del servidor:', response.data);
 
     return response.data;
   } catch (error) {
-    console.log('ERROR Producto', error)
-    return {status: false}
+    console.log('ERROR Producto', error.response.data.message);
+    return {status: false};
     throw error; // Puedes manejar el error según sea necesario en tu aplicación
     //  console.log(error);
   }
 };
 
 export const apiDeleteProduct = async id => {
-  console.log('ID', id);
-
-  const token = await AsyncStorage.getItem('accessTokenProfile');
   try {
-    const response = await axios.delete(`${urlApi}/products/${id}`,   {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-      console.log('Respuesta del servidor:', response.data);
-
+    await axiosInstance.delete(`${urlApi}/products/${id}`);
     return {status: true};
   } catch (error) {
-    console.log('ERROR Producto', error)
-    return {status: false}
-    throw error; // Puedes manejar el error según sea necesario en tu aplicación
-    //  console.log(error);
+    return {status: false};
   }
 };
 
@@ -313,11 +286,11 @@ export const createTables = async numTables => {
   }
 };
 
-export const deleteTables = async (id) => {
+export const deleteTables = async id => {
   const token = await AsyncStorage.getItem('accessTokenProfile');
   console.log('ESTE ID EN DELETED', id);
-  const urlDelete= `${urlApi}/tables/${id}`
-  console.log('URL',urlDelete)
+  const urlDelete = `${urlApi}/tables/${id}`;
+  console.log('URL', urlDelete);
   try {
     const response = await axios.delete(urlDelete, {
       headers: {
@@ -329,7 +302,7 @@ export const deleteTables = async (id) => {
     console.log('FINALIZADA LA ELIMINACION DE TABLA');
     return {status: true};
   } catch (error) {
-    console.log('ERROR: ' + error.message)
+    console.log('ERROR: ' + error.message);
     return {status: false};
   }
 };
