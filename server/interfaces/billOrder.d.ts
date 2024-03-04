@@ -5,6 +5,7 @@ import {
   Optional,
 } from 'sequelize';
 import { ModelSequlize } from './types';
+import { OrderDetailAttributes } from './orderDetail';
 
 export interface BillOrderAttributes
   extends ModelSequlize<BillOrderAttributes> {
@@ -15,6 +16,7 @@ export interface BillOrderAttributes
   tableId: number;
   createdAt?: CreationOptional<Date>;
   updatedAt?: CreationOptional<Date>;
+  orderDetails?: OrderDetailAttributes[];
 }
 
 export type BillOrderProps = Pick<

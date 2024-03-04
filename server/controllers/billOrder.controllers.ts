@@ -1,6 +1,7 @@
-import { BillOrderProps } from '../interfaces';
+import { BillOrderProps, OrderDetailProps } from '../interfaces';
 import { BillOrderService } from '../services';
 import { catchAsync } from '../utils';
+import { joinDuplicateOrder } from '../utils/tools';
 
 const billOrderService = new BillOrderService();
 
@@ -31,29 +32,44 @@ const getBillOrderByTableForBar = catchAsync(async (req, res) => {
 });
 
 const createBillOrderForBar = catchAsync(async (req, res) => {
-  const { body } = req;
+  const orders: OrderDetailProps[] = req.body;
   const tableId = +req.params.tableId;
   const { profileSession } = res.locals;
   const billOrderBody: BillOrderProps = {
     tableId,
     profileId: profileSession.id,
   };
+  const ordersFilterQuantity = orders.filter(order => order.quantity > 0);
   const billOrder = await billOrderService.createBillOrderForBar(
     profileSession.barId,
     billOrderBody,
-    body
+    ordersFilterQuantity
   );
   res.status(200).json({ status: true, billOrder });
 });
 
 const addOrderInBillOrderForBar = catchAsync(async (req, res) => {
-  const { body, params } = req;
+  const orders: OrderDetailProps[] = req.body;
   const { profileSession } = res.locals;
-  const { billOrderId } = params;
+  const { billOrderId } = req.params;
+  const ordersFilterQuantity = orders.filter(order => order.quantity > 0);
   const billOrder = await billOrderService.addOrderInBillOrderForBar(
     +billOrderId,
     profileSession.barId,
-    body
+    ordersFilterQuantity
+  );
+  res.status(200).json({ status: true, billOrder });
+});
+const addOrCreateOrderInBillOrderForBar = catchAsync(async (req, res) => {
+  const orders: OrderDetailProps[] = req.body;
+  const { profileSession } = res.locals;
+  const { tableId } = req.params;
+  const ordersFilterQuantity = orders.filter(order => order.quantity > 0);
+  const billOrder = await billOrderService.addOrCreateOrderInBillOrderForBar(
+    +tableId,
+    profileSession.barId,
+    profileSession.id,
+    ordersFilterQuantity
   );
   res.status(200).json({ status: true, billOrder });
 });
@@ -65,7 +81,11 @@ const payBillOrder = catchAsync(async (req, res) => {
     +billOrderId,
     profileSession.barId
   );
-  res.status(200).json({ status: true, billOrder });
+  const billOrderTransform = {
+    ...billOrder,
+    orderDetails: joinDuplicateOrder(billOrder.orderDetails ?? []),
+  };
+  res.status(200).json({ status: true, billOrder: billOrderTransform });
 });
 
 export {
@@ -75,4 +95,5 @@ export {
   payBillOrder,
   getBillOrderForBar,
   getBillOrderByTableForBar,
+  addOrCreateOrderInBillOrderForBar,
 };
