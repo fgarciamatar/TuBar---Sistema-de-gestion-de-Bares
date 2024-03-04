@@ -1,26 +1,34 @@
-import  React , {useEffect, useState} from 'react';
-import { StyleSheet, ScrollView ,  SafeAreaView} from 'react-native';
-import { Text } from 'react-native-elements';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, ScrollView, SafeAreaView} from 'react-native';
+import {Text} from 'react-native-elements';
 import {Spinner} from 'tamagui';
-import { View } from 'tamagui';
+import {View} from 'tamagui';
 import ProfileCards from '../../components/ProfileCards/ProfileCards';
-import {  useSelector } from 'react-redux';
-
+import {useSelector} from 'react-redux';
 
 function SelectPerfil() {
-
-const profilesSelectPerfil = useSelector(state => state.reducers.profiles);
+  const profilesSelectPerfil = useSelector(state => state.reducers.profiles);
 
   return (
     <SafeAreaView>
-    <View style={styles.container}>
-      <Text style={styles.title}>Selecciona tu perfil:</Text>
-      <ScrollView>
-        {profilesSelectPerfil.profiles !== undefined && profilesSelectPerfil.profiles ? profilesSelectPerfil?.profiles.map(profile => (
-          <ProfileCards name={profile.name} role={profile.role} key={profile.id} id={profile.id} />
-        )): <Spinner size="large" color="$orange10" />}
-      </ScrollView>
-    </View>
+      <View style={styles.container}>
+        <Text style={styles.title}>Selecciona tu perfil:</Text>
+        <ScrollView>
+          {profilesSelectPerfil.profiles !== undefined &&
+          profilesSelectPerfil.profiles ? (
+            profilesSelectPerfil?.profiles.map(profile => (
+              <ProfileCards
+                name={profile.name}
+                role={profile.role}
+                key={profile.id}
+                id={profile.id}
+              />
+            ))
+          ) : (
+            <Spinner size="large" color="$orange10" />
+          )}
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -28,7 +36,7 @@ const profilesSelectPerfil = useSelector(state => state.reducers.profiles);
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#B5B2B2',
-    padding: 6, // Padding general
+    marginBottom: 50,
   },
   cardContainer: {
     width: '48%', // Ancho del contenedor de tarjeta para que dos tarjetas se muestren en una fila
@@ -48,6 +56,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 26,
     textAlign: 'center',
+    backgroundColor: '#D0BBFD',
+    padding: 10,
   },
 });
 
