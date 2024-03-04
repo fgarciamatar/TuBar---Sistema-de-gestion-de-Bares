@@ -11,6 +11,7 @@ import {
   HIDE_LOADER,
 } from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axiosInstance from '../services/axiosInstance';
 
 export const showLoaderGlobal = () => ({
   type: SHOW_LOADER,
@@ -44,16 +45,9 @@ export const getProfile = () => {
 
 export const getTables = () => {
   return async function (dispatch) {
-    const token = await AsyncStorage.getItem('accessTokenProfile');
-    //  console.log("token" ,token);
     try {
-      const apiData = await axios.get(`${urlApi}/tables`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      // console.log('apiData TABLES', apiData.data);
-      const tables = apiData.data;
+      const apiData = await axiosInstance.get(`/tables`);
+      const {tables} = apiData.data;
       return dispatch({
         type: GET_TABLES,
         payload: tables,

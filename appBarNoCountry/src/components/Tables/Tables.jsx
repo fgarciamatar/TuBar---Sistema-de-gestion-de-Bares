@@ -11,7 +11,7 @@ import {Spinner} from 'tamagui';
 import {useAppDispatch} from '../../hooks/hooks';
 import {table, tableSet} from '../../reducers/tableReducer';
 
-function Tables({mesas}) {
+function Tables({tables}) {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
@@ -27,19 +27,21 @@ function Tables({mesas}) {
     dispatch(tableSet(item));
     navigation.navigate('Order');
   };
-
+console.log("tables",tables)
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.tablesContainer}>
-        {mesas.tables !== undefined && mesas.tables ? (
-          mesas?.tables.map((table, index) => (
+        {tables !== undefined && tables ? (
+          tables?.map((table, index) => (
             <TouchableOpacity
               key={table.id}
               style={[
                 styles.table,
                 {backgroundColor: table.isOccupied ? 'red' : 'green'},
               ]}
-              onPress={()=>{handleSend(table)}}>
+              onPress={() => {
+                handleSend(table);
+              }}>
               <Text style={styles.tableText}>{table.tableNumber}</Text>
             </TouchableOpacity>
           ))
@@ -80,4 +82,3 @@ const styles = StyleSheet.create({
 });
 
 export default Tables;
-
