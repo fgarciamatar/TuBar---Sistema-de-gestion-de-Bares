@@ -92,10 +92,10 @@ function Menu() {
 
 const styles = StyleSheet.create({
   menuContainer: {
-    justifyContent: 'flex-start',
     padding: 20,
     gap: 10,
     flex: 1,
+
   },
 
   foodItem: {
