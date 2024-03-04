@@ -1,5 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,7 +17,7 @@ import {createTables, deleteTables} from '../../apis';
 import {Button, YStack, ZStack} from 'tamagui';
 
 function Salon({route, navigation}) {
-  const mesas = useSelector(state => state.reducers.tables);
+  const {tables} = useSelector(state => state.reducers);
   const [mesasOcupadas, setmesasOcupadas] = useState([]);
   const [mesasDesocupadas, setmesasDesocupadas] = useState([]);
   const [rol, setrol] = useState('waitress');
@@ -29,15 +29,14 @@ function Salon({route, navigation}) {
 
   const dispatch = useDispatch();
 
-  const {role} = route.params;
-console.log("mesas",mesas);
+  // const {role} = route.params;
   useEffect(() => {
     setCount(0);
     let ocupadas = [];
     let desocupadas = [];
-    if (mesas.tables !== undefined && mesas.tables) {
+    if (tables !== undefined && tables) {
       loadRole();
-      mesas.tables.map(mesa => {
+      tables.map(mesa => {
         if (mesa.isOccupied) {
           ocupadas.push(mesa);
         } else {
@@ -47,12 +46,12 @@ console.log("mesas",mesas);
       console.log('OCUPADAS', ocupadas, 'DESOCUPADAS', desocupadas);
       setmesasOcupadas(ocupadas);
       setmesasDesocupadas(desocupadas);
-      settableLength(mesas.tables.length);
+      settableLength(tables.length);
     } else {
       setmesasOcupadas([]);
       setmesasDesocupadas([]);
     }
-  }, [mesas]);
+  }, [tables]);
 
   const loadRole = async () => {
     let role = await AsyncStorage.getItem('role');
@@ -72,17 +71,23 @@ console.log("mesas",mesas);
 
   const handleOpenEditDialog = () => {
     setopenEdit(!openEdit);
-    settableLength(mesas.tables.length);
+    settableLength(tables.length);
   };
 
   const handleIncrement = () => {
     setCount(count + 1);
   };
 
-  const handleManageProfiles = ()=>{
+  useFocusEffect(
+    useCallback(() => {
+      console.log('entreas as');
+      dispatch(getTables());
+    }, []),
+  );
+  const handleManageProfiles = () => {
     setopenMenu(!openMenu);
     navigation.navigate('ManageProfile');
-  }
+  };
 
   const handleDecrement = () => {
     console.log('ACTUAL COUNT', count);
@@ -95,12 +100,12 @@ console.log("mesas",mesas);
     }
   };
 
-  const handleCloseSession= async () => {
+  const handleCloseSession = async () => {
     await AsyncStorage.removeItem('role');
     await AsyncStorage.removeItem('accessToken');
     await AsyncStorage.removeItem('accessTokenProfile');
     navigation.navigate('Login');
-  }
+  };
 
   const handleConfirmAdd = () => {
     Alert.alert(
@@ -150,18 +155,18 @@ console.log("mesas",mesas);
     );
   };
 
-  const prueba=()=>{
+  const prueba = () => {
     console.log('prueba');
-  }
+  };
 
   const handleEditTables = async () => {
-    if (mesas.tables !== undefined && mesas.tables) {
-      let eliminarMesas = mesas.tables.length - tableLength;
-      let cantidad = Math.min(eliminarMesas, mesas.tables.length);
+    if (tables !== undefined && tables) {
+      let eliminarMesas = tables.length - tableLength;
+      let cantidad = Math.min(eliminarMesas, tables.length);
       let finish = false;
       console.log('CANTIDAD', cantidad, eliminarMesas);
-      if (tableLength > mesas.tables.length) {
-        let mesasAgregar = tableLength - mesas.tables.length;
+      if (tableLength > tables.length) {
+        let mesasAgregar = tableLength - tables.length;
         console.log('MESAS AGREGAR', mesasAgregar);
         const tablesCreated = await createTables(mesasAgregar);
         if (tablesCreated.status) {
@@ -172,12 +177,8 @@ console.log("mesas",mesas);
           Alert.alert('Error', 'No se Crearon Mesas.');
         }
       } else {
-        for (
-          let i = mesas.tables.length - 1;
-          i >= mesas.tables.length - cantidad;
-          i--
-        ) {
-          const id = mesas.tables[i].id;
+        for (let i = tables.length - 1; i >= tables.length - cantidad; i--) {
+          const id = tables[i].id;
           const tablesDeleted = await deleteTables(id);
           finish = tablesDeleted.status;
 
@@ -192,13 +193,15 @@ console.log("mesas",mesas);
         }
       }
     } else {
-      console.log('MESAS UNDEFINED', mesas.tables);
+      console.log('MESAS UNDEFINED', tables);
     }
   };
+  console.log('asdasdtables', tables);
 
   return (
     <View style={styles.container}>
-      {openMenu && rol =='ADMIN'? <View
+      {openMenu && rol == 'ADMIN' ? (
+        <View
           style={{
             position: 'absolute',
             top: 0,
@@ -209,39 +212,52 @@ console.log("mesas",mesas);
             zIndex: 1,
           }}>
           <TouchableWithoutFeedback onPress={handleOpenMenu}>
-          <ZStack maxWidth={'100%'} maxHeight={'100%'} width={'100%'} flex={1}>
-            <YStack
-              borderColor="gray"
-              fullscreen
-              height={175}
-              width={'35%'}
-              gap="$1"
-              y={50}
-              x={230}
-              borderWidth={2}
-              borderRadius="$4"
-              padding="$2">
-              <Button size="$3" backgroundColor={'#AA84FC'} onPress={prueba}>
-                Reportes
-              </Button>
-              <Button size="$3" backgroundColor={'#AA84FC'} onPress={handleManageProfiles}>
-                Empleados
-              </Button>
-              <Button size="$3" backgroundColor={'#AA84FC'} onPress={handleCloseSession}>
-                Cerrar Sesion
-              </Button>
-            </YStack>
+            <ZStack
+              maxWidth={'100%'}
+              maxHeight={'100%'}
+              width={'100%'}
+              flex={1}>
+              <YStack
+                borderColor="gray"
+                fullscreen
+                height={175}
+                width={'35%'}
+                gap="$1"
+                y={50}
+                x={230}
+                borderWidth={2}
+                borderRadius="$4"
+                padding="$2">
+                <Button size="$3" backgroundColor={'#AA84FC'} onPress={prueba}>
+                  Reportes
+                </Button>
+                <Button
+                  size="$3"
+                  backgroundColor={'#AA84FC'}
+                  onPress={handleManageProfiles}>
+                  Empleados
+                </Button>
+                <Button
+                  size="$3"
+                  backgroundColor={'#AA84FC'}
+                  onPress={handleCloseSession}>
+                  Cerrar Sesion
+                </Button>
+              </YStack>
             </ZStack>
           </TouchableWithoutFeedback>
-        </View>: null}
+        </View>
+      ) : null}
 
       <View>
         <Navbar
+          title={'Salon'}
           role={rol}
           onPressAdd={handleOpenDialog}
           onPressEdit={handleOpenEditDialog}
           showMenu={openMenu}
           onPressMenu={handleOpenMenu}
+          onPlusOptions={true}
         />
       </View>
       <View style={styles.textContainer}>
@@ -249,17 +265,13 @@ console.log("mesas",mesas);
         <Text>Mesas desocupadas: {mesasDesocupadas.length}</Text>
       </View>
 
-      <Tables mesas={mesas} />
+      <Tables tables={tables} />
 
       <Dialog
         isVisible={open}
         isCount={count}
         isEdit={false}
-        countTables={
-          mesas.tables !== undefined && mesas.tables.length
-            ? mesas.tables.length
-            : 0
-        }
+        countTables={tables !== undefined && tables.length ? tables.length : 0}
         onHidePress={handleOpenDialog}
         title={'# Mesas Actual: '}
         description={'¿Cuantas mesas deseas agregar?'}
@@ -272,11 +284,7 @@ console.log("mesas",mesas);
         editTables={tableLength}
         onEditTables={settableLength}
         isEdit={true}
-        countTables={
-          mesas.tables !== undefined && mesas.tables.length
-            ? mesas.tables.length
-            : 0
-        }
+        countTables={tables !== undefined && tables.length ? tables.length : 0}
         onHidePress={handleOpenEditDialog}
         title={'# Mesas Actual: '}
         description={'¿Cuantas mesas tienes actualmente?'}

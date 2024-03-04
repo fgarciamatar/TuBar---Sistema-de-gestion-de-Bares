@@ -6,12 +6,12 @@ import {
   Text,
   StyleSheet,
   Button,
-  Alert
+  Alert,
 } from 'react-native';
 import {postLoginProfile} from '../../apis';
-import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
-import { getTables } from '../../redux/actions';
+import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {getTables} from '../../redux/actions';
 
 function ProfilePin({route}) {
   const [pin, setPin] = useState('');
@@ -20,15 +20,12 @@ function ProfilePin({route}) {
 
   const dispatch = useDispatch();
 
-
-
- const handleLogin = async () => {
+  const handleLogin = async () => {
     const profileLogin = await postLoginProfile(pin, idProfile);
     // console.log(profileLogin.status);
     if (profileLogin.status) {
       Alert.alert('Exito', 'PIN correcto.');
-      dispatch(getTables());
-      navigation.navigate('Salon',{role: role});
+      navigation.navigate('Salon', {role: role});
     } else if (!profileLogin.status) {
       Alert.alert('Error', 'PIN incorrecto. Por favor, inténtalo de nuevo.');
       setPin('');
@@ -61,7 +58,6 @@ function ProfilePin({route}) {
 
 export default ProfilePin;
 const styles = StyleSheet.create({
-
   container: {
     alignItems: 'center',
   },

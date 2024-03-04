@@ -51,7 +51,7 @@ class BillOrderService {
     { profileId, tableId }: BillOrderProps,
     orderDetails: OrderDetailProps[]
   ) {
-    const table = await tableService.findTableForBarOr404(barId, tableId);
+    const table = await tableService.findTableForBarOr404(tableId, barId);
     const billOrderActive = await BillOrderModel.findOne({
       where: {
         isBilled: false,
@@ -81,6 +81,7 @@ class BillOrderService {
       { total: +OrderDetails.totalPrice },
       { transaction: t }
     );
+    await table.update({ isOccupied: true }, { transaction: t });
     await t.commit();
     return billOrder;
   }
@@ -109,6 +110,39 @@ class BillOrderService {
     );
     await t.commit();
     return billOrder;
+  }
+  async addOrCreateOrderInBillOrderForBar(
+    tableId: number,
+    barId: number,
+    profileId: number,
+    orderDetails: OrderDetailProps[]
+  ) {
+    const table = await tableService.findTableForBarOr404(tableId, barId);
+    const billOrderByTableByProfile = await BillOrderModel.findOne({
+      where: {
+        tableId: table.id,
+        isBilled: false,
+      },
+      include: {
+        model: OrderDetailModel,
+      },
+    });
+
+    if (billOrderByTableByProfile?.orderDetails?.length) {
+      const billOrder = await this.addOrderInBillOrderForBar(
+        billOrderByTableByProfile.id,
+        barId,
+        orderDetails
+      );
+      return billOrder;
+    } else {
+      const billOrder = await this.createBillOrderForBar(
+        barId,
+        { profileId, tableId },
+        orderDetails
+      );
+      return billOrder;
+    }
   }
 
   async findBillOrderOr404(billOrderId: number) {
@@ -173,9 +207,10 @@ class BillOrderService {
     return billOrderWithBillOrderNumber;
   }
   async findBillOrderByTableForBar(tableId: number, barId: number) {
+    const table = await tableService.findTableForBarOr404(tableId, barId);
     const billOrderByTable = await BillOrderModel.findOne({
       where: {
-        tableId,
+        tableId: table.id,
         isBilled: false,
       },
       include: {
@@ -187,8 +222,7 @@ class BillOrderService {
         ],
       },
     });
-    if (!billOrderByTable)
-      throw new AppError('No hay ninguna factura activa en esta mesa', 404);
+    if (!billOrderByTable) return billOrderByTable;
     await this.findBillOrderForBarOr404(billOrderByTable.id, barId);
     const billOrderWithBillOrderNumber =
       await this.getBillOrderWithBillOrderNumber(billOrderByTable, barId);
@@ -198,7 +232,10 @@ class BillOrderService {
   async payBillOrder(billOrderId: number, barId: number) {
     const billOrder = await this.findBillOrderForBarOr404(billOrderId, barId);
     billOrder.update({ isBilled: true });
-    return billOrder;
+    await tableService.IsOrNotOccupiedTableForBar(billOrder.tableId, barId);
+    const billOrderWithBillOrderNumber =
+      await this.getBillOrderWithBillOrderNumber(billOrder, barId);
+    return billOrderWithBillOrderNumber;
   }
 }
 
