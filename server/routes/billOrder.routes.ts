@@ -7,6 +7,7 @@ import {
   payBillOrder,
   getBillOrderForBar,
   getBillOrderByTableForBar,
+  addOrCreateOrderInBillOrderForBar,
 } from '../controllers/billOrder.controllers';
 
 const router = Router();
@@ -45,50 +46,6 @@ router.use(checkRole(['EMPLOYEE', 'ADMIN']));
  */
 
 router.get('/', getBillOrdersForBar);
-/**
- * @swagger
- * /bill-orders/table/{tableId}:
- *  post:
- *    tags: [Factura]
- *    summary: Crear una factura para el Bar, requiere sesion del perfil
- *    description: Endpoint para crear facturas en el bar
- *    parameters:
- *       - name: tableId
- *         in: path
- *         description: Id de la tabla
- *         required: true
- *         schema:
- *           type: integer
- *    requestBody:
- *       content:
- *         application/json:
- *          schema:
- *            $ref: "#/components/schemas/billOrderGeneral"
- *    responses:
- *       '200':
- *         description: Factura creado exitosamente.
- *         content:
- *          application/json:
- *            schema:
- *              $ref: "#/components/schemas/billOrder"
- *       '400':
- *         description: No se pudo crear la factura. Verifique los datos proporcionados.
- *       '401':
- *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
- *       '403':
- *         description: Este perfil no tiene permisos para acceder a esta ruta.
- *       '404':
- *         description: No se encontró ninguna mesa con el ID especificado.
- *       '409':
- *         description: Error de validación, revise que los campos enviados son los correctos.
- *       '500':
- *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
- *    security:
- *      - bearerAuth: []
- *
- */
-router.post('/table/:tableId', createBillOrderForBar);
-
 /**
  * @swagger
  * /bill-orders/table/{tableId}:
@@ -161,6 +118,93 @@ router.get('/table/:tableId', getBillOrderByTableForBar);
  *
  */
 router.get('/:billOrderId', getBillOrderForBar);
+
+/**
+ * @swagger
+ * /bill-orders/table/{tableId}:
+ *  post:
+ *    tags: [Factura]
+ *    summary: Crear una factura para el Bar, requiere sesion del perfil
+ *    description: Endpoint para crear facturas en el bar
+ *    parameters:
+ *       - name: tableId
+ *         in: path
+ *         description: Id de la tabla
+ *         required: true
+ *         schema:
+ *           type: integer
+ *    requestBody:
+ *       content:
+ *         application/json:
+ *          schema:
+ *            $ref: "#/components/schemas/billOrderGeneral"
+ *    responses:
+ *       '200':
+ *         description: Factura creado exitosamente.
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: "#/components/schemas/billOrder"
+ *       '400':
+ *         description: No se pudo crear la factura. Verifique los datos proporcionados.
+ *       '401':
+ *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
+ *       '403':
+ *         description: Este perfil no tiene permisos para acceder a esta ruta.
+ *       '404':
+ *         description: No se encontró ninguna mesa con el ID especificado.
+ *       '409':
+ *         description: Error de validación, revise que los campos enviados son los correctos.
+ *       '500':
+ *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
+ *    security:
+ *      - bearerAuth: []
+ *
+ */
+router.post('/table/:tableId', createBillOrderForBar);
+/**
+ * @swagger
+ * /bill-orders/create-or-add/{tableId}:
+ *  post:
+ *    tags: [Factura]
+ *    summary: Crear una factura o añadir ordenes para la mesa seleccionada del Bar, requiere sesion del perfil
+ *    description: Endpoint para crear facturas o añadir ordenes en caso de que la factura exista en el bar
+ *    parameters:
+ *       - name: tableId
+ *         in: path
+ *         description: Id de la mesa
+ *         required: true
+ *         schema:
+ *           type: integer
+ *    requestBody:
+ *       content:
+ *         application/json:
+ *          schema:
+ *            $ref: "#/components/schemas/billOrderGeneral"
+ *    responses:
+ *       '200':
+ *         description: Factura creado exitosamente.
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: "#/components/schemas/billOrder"
+ *       '400':
+ *         description: No se pudo crear completa la opeacion. Verifique los datos proporcionados.
+ *       '401':
+ *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
+ *       '403':
+ *         description: Este perfil no tiene permisos para acceder a esta ruta.
+ *       '404':
+ *         description: No se encontró ninguna mesa con el ID especificado.
+ *       '409':
+ *         description: Error de validación, revise que los campos enviados son los correctos.
+ *       '500':
+ *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
+ *    security:
+ *      - bearerAuth: []
+ *
+ */
+router.post('/create-or-add/:tableId', addOrCreateOrderInBillOrderForBar);
 
 /**
  * @swagger

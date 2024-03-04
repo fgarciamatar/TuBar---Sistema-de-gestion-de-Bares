@@ -11,7 +11,9 @@ class TableService {
       where: {
         barId,
       },
+      order: [['tableNumber', 'ASC']],
     });
+
     return tables;
   }
   async findTableForBarOr404(tableId: number, barId: number) {
@@ -97,6 +99,11 @@ class TableService {
       })
     );
 
+    return table;
+  }
+  async IsOrNotOccupiedTableForBar(tableId: number, barId: number) {
+    const table = await this.findTableForBarOr404(tableId, barId);
+    table.update({ isOccupied: !table.isOccupied });
     return table;
   }
 }

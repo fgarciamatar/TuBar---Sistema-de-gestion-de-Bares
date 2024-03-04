@@ -29,7 +29,7 @@ function Salon({route, navigation}) {
 
   const dispatch = useDispatch();
 
-  const {role} = route.params;
+  // const {role} = route.params;
 console.log("mesas",mesas);
   useEffect(() => {
     setCount(0);
