@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Button,
   Alert,
+  TouchableOpacity,
 } from 'react-native';
 import {postLoginProfile} from '../../apis';
 import {useNavigation} from '@react-navigation/native';
@@ -43,7 +44,7 @@ function ProfilePin({route}) {
             : require('../../assets/menu/waiter.png')
         }
       />
-      <Text>{name}</Text>
+      <Text style={styles.text}>{name}</Text>
       <Text style={styles.title}>Ingrese el Pin (2bc6e8)</Text>
       <TextInput
         style={styles.input}
@@ -52,7 +53,9 @@ function ProfilePin({route}) {
         onChangeText={setPin}
         secureTextEntry={true}
       />
-      <Button title="Ingresar" onPress={handleLogin} />
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.textButton}>Ingresar</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -60,16 +63,25 @@ function ProfilePin({route}) {
 export default ProfilePin;
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     alignItems: 'center',
+    justifyContent: "center",
+    gap: 30,
+    marginTop: 20,
+  },
+  text:{
+    color: "#2A2A2A",
+    fontSize: 16,
   },
   input: {
     width: '80%',
     height: 40,
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
+    borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 20,
+    backgroundColor: '#D7D7D7',
   },
   imageContainer: {
     marginBottom: 10,
@@ -81,5 +93,21 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     fontSize: 20,
+    color: '#0305C5',
+    fontWeight: 'bold',
   },
+  button: {
+    backgroundColor: '#D0BBFD',
+    borderWidth: 1,
+    borderColor: '#AA84FC',
+    padding: 10,
+    borderRadius: 5,
+    width: 100,
+  },
+  textButton:{
+    color: "#4505D0",
+    fontWeight: "bold",
+    fontSize:16,
+    textAlign: "center"
+  }
 });

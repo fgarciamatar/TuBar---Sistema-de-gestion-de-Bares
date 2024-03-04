@@ -4,7 +4,15 @@ import {StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
 import {Button, XStack, Input, View, YStack} from 'tamagui';
 import {Icon} from '@rneui/themed';
 
-function ProfileCards({name, role, id, rol, onPressAdd, onPressEdit, onPressDelete}) {
+function ProfileCards({
+  name,
+  role,
+  id,
+  rol,
+  onPressAdd,
+  onPressEdit,
+  onPressDelete,
+}) {
   const navigation = useNavigation();
 
   const handleSalonAdm = () => {
@@ -25,23 +33,21 @@ function ProfileCards({name, role, id, rol, onPressAdd, onPressEdit, onPressDele
           />
           <YStack
             gap="$1"
-            justifyContent='center'
-            alignItems='center'
+            justifyContent="center"
+            alignItems="center"
             padding="$2">
             <Text style={[styles.titleName]}>{name}</Text>
             <Text style={[styles.titleProfile]}>{role}</Text>
-            {rol == 'ADMIN'?(
-        <XStack gap="$1" justifyContent="center" style={{marginRight: 5}}>
-          <Button size="$3" chromeless onPress={onPressEdit}>
-            <Icon name="edit" color={'yellow'} />
-          </Button>
-          <Button size="$3" chromeless onPress={onPressDelete}>
-            <Icon name="delete" color={'red'} />
-          </Button>
-          
-        </XStack>
-        
-      ) : null}
+            {rol == 'ADMIN' ? (
+              <XStack gap="$1" justifyContent="center" style={{marginRight: 5}}>
+                <Button size="$3" chromeless onPress={onPressEdit}>
+                  <Icon name="edit" color={'yellow'} />
+                </Button>
+                <Button size="$3" chromeless onPress={onPressDelete}>
+                  <Icon name="delete" color={'red'} />
+                </Button>
+              </XStack>
+            ) : null}
           </YStack>
         </View>
       </TouchableOpacity>
@@ -55,12 +61,23 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: 20,
-    backgroundColor: '#B5B2B2',
-    marginBottom: 30, // Centrar elementos horizontalmente
+    backgroundColor: '#EEEBEB',
+    // Centrar elementos horizontalmente
   },
   imageContainer: {
-    marginBottom: 10, // Espacio entre la imagen y el texto
+    marginBottom: 10,
+    // Espacio entre la imagen y el texto
+  },
+  cardContainer: {
+    padding: 20,
+    width: '92%',
+    display: 'flex',
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
   image: {
     width: 150,

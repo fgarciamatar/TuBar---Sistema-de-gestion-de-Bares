@@ -124,7 +124,17 @@ function Tabs() {
         component={Bill}
       />
 
-      <Stack.Screen name="ProfilePin" component={ProfilePin} />
+      <Stack.Screen
+        options={{
+          headerStyle: styles.headerScreen,
+          headerTintColor: '#000',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+        name="ProfilePin"
+        component={ProfilePin}
+      />
       {/* <Stack.Screen name="Detalle del Pedido" component={OrderDetail} /> */}
       <Stack.Screen
         name="Receipt"

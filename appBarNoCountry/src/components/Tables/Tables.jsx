@@ -37,7 +37,7 @@ console.log("tables",tables)
               key={table.id}
               style={[
                 styles.table,
-                {backgroundColor: table.isOccupied ? 'red' : 'green'},
+                {backgroundColor: table.isOccupied ? '#F7505A' : '#7BE769'},
               ]}
               onPress={() => {
                 handleSend(table);
@@ -58,18 +58,20 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 20,
     paddingHorizontal: 10,
+    marginTop: 20,
   },
   tablesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+    gap: 20,
+    height: 550,
+    padding: 10,
   },
   table: {
-    width: '30%', // Ajusta el tamaño para que entren tres mesas por fila
-    aspectRatio: 1, // Hace que el elemento sea cuadrado
+    width: '26%', 
+    height: "15%",
     backgroundColor: 'white', // Cambiado a fondo blanco
-    borderWidth: 2, // Ancho del borde
-    borderColor: 'black', // Color del borde
     borderRadius: 10, // Bordes redondeados
     alignItems: 'center', // Centra el contenido horizontalmente
     justifyContent: 'center', // Centra el contenido verticalmente

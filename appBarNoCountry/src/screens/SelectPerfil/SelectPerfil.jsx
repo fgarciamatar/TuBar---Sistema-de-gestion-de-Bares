@@ -12,7 +12,7 @@ function SelectPerfil() {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Text style={styles.title}>Selecciona tu perfil:</Text>
+        <Text style={styles.title}>Selecciona tu perfil</Text>
         <ScrollView>
           {profilesSelectPerfil.profiles !== undefined &&
           profilesSelectPerfil.profiles ? (
@@ -35,16 +35,18 @@ function SelectPerfil() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#B5B2B2',
-    marginBottom: 50,
+    backgroundColor: '#fff',
+    marginBottom: 100,
+    borderWidth: 1,
   },
   cardContainer: {
     width: '48%', // Ancho del contenedor de tarjeta para que dos tarjetas se muestren en una fila
     marginBottom: 12, // Espacio entre las tarjetas
-    backgroundColor: '#B5B2B2', // Fondo blanco de las tarjetas
+    backgroundColor: '#fff', // Fondo blanco de las tarjetas
     borderRadius: 15, // Bordes redondeados de las tarjetas
     padding: 12, // Padding dentro del contenedor de tarjeta
-    shadowColor: '#000000', // Color de la sombra
+    shadowColor: '#000000',
+     // Color de la sombra
     shadowOffset: {
       width: 0,
       height: 2,
@@ -57,6 +59,7 @@ const styles = StyleSheet.create({
     fontSize: 26,
     textAlign: 'center',
     backgroundColor: '#D0BBFD',
+    fontWeight: "bold",
     padding: 10,
   },
 });

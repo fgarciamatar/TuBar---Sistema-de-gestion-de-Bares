@@ -261,8 +261,8 @@ function Salon({route, navigation}) {
         />
       </View>
       <View style={styles.textContainer}>
-        <Text>Mesas ocupadas: {mesasOcupadas.length}</Text>
-        <Text>Mesas desocupadas: {mesasDesocupadas.length}</Text>
+        <Text style={styles.table}>Mesas ocupadas: {mesasOcupadas.length}</Text>
+        <Text style={styles.table}>Mesas desocupadas: {mesasDesocupadas.length}</Text>
       </View>
 
       <Tables tables={tables} />
@@ -302,8 +302,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    marginTop: 10,
+    marginTop: 25,
   },
+  table: {
+    color: "#0305C5",
+    fontSize: 15,
+  },
+  
+
 });
 
 export default Salon;

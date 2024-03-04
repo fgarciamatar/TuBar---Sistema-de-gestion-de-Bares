@@ -37,15 +37,15 @@ function Navbar({
       {role === 'ADMIN' ? (
         <XStack gap="$1" justifyContent="center" style={{marginRight: 5}}>
           <Button size="$3" chromeless onPress={onPressAdd}>
-            <Icon name="add-circle" color={'green'} />
+            <Icon name="add-circle" color={'#4505D0'} />
           </Button>
           {onPlusOptions ? (
             <>
               <Button size="$3" chromeless onPress={onPressEdit}>
-                <Icon name="edit" />
+                <Icon name="edit" color={'#4505D0'}/>
               </Button>
               <Button size="$3" chromeless onPress={onPressMenu}>
-                <Icon name="menu" />
+                <Icon name="menu" color={'#4505D0'}/>
               </Button>
             </>
           ) : null}
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
-    backgroundColor: '#AA84FC', // Color de fondo de la barra de navegación
+    backgroundColor: '#D0BBFD', // Color de fondo de la barra de navegación
   },
   titleContainer: {
     flex: 1,

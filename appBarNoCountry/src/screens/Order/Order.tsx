@@ -92,10 +92,16 @@ function Order() {
           <FlatList
             data={billOrder.orderDetails}
             renderItem={({item}) => (
-              <CardProduct product={item.product} quantity={item.quantity} />
+              <CardProduct product={item.product} quantity={item.quantity} ></CardProduct>
             )}
             keyExtractor={item => String(item.id)}
           />
+          {/* <TouchableOpacity>
+            <Image
+              style={styles.trash}
+              source={require('../../assets/trash.png')}
+            />
+          </TouchableOpacity> */}
           <View style={styles.footerContainer}>
             <TouchableOpacity style={styles.total}>
               <Text style={styles.textTotal}>Total: ${billOrder?.total}</Text>
@@ -142,6 +148,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  trash: {
+    width: 30,
+    height: 30,
   },
   orderItem: {
     borderRadius: 16,
