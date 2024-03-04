@@ -11,7 +11,7 @@ import {
 import {postLoginProfile} from '../../apis';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {getTables} from '../../redux/actions';
+import {setProfileSession} from '../../redux/actions';
 
 function ProfilePin({route}) {
   const [pin, setPin] = useState('');
@@ -22,7 +22,8 @@ function ProfilePin({route}) {
 
   const handleLogin = async () => {
     const profileLogin = await postLoginProfile(pin, idProfile);
-    // console.log(profileLogin.status);
+    const {profile} = profileLogin;
+    dispatch(setProfileSession(profile));
     if (profileLogin.status) {
       Alert.alert('Exito', 'PIN correcto.');
       navigation.navigate('Salon', {role: role});

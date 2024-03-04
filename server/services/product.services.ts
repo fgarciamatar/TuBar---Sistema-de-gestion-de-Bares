@@ -73,10 +73,10 @@ class ProductService {
   async updateProductForBar(
     productId: number,
     barId: number,
-    { name, description, price }: ProductProps
+    { name, description, price, productCategoryId }: ProductProps
   ) {
     const product = await this.findProductForBarOr404(productId, barId);
-    product.update({ name, description, price });
+    product.update({ name, description, price, productCategoryId });
     return product;
   }
 

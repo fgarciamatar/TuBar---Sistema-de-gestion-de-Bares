@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import {Button, XGroup, XStack, YStack, Input} from 'tamagui';
-import RNPickerSelect, { Item } from 'react-native-picker-select';
+import RNPickerSelect, {Item} from 'react-native-picker-select';
 import {Icon} from '@rneui/themed';
 
 interface DialogProfileProps {
@@ -21,13 +21,13 @@ interface DialogProfileProps {
   prop1?: string;
   prop2?: string;
   prop3?: string;
-  prop4?: string;
+  prop4?: string | number;
   arrayValues?: any[];
   onHidePress: () => void;
   onChangeProp1: (text: string) => void;
-  onChangeProp2: (text: string) => void;
-  onChangeProp3: (text: string) => void;
-  onChangeProp4: (value: any) => void;
+  onChangeProp2?: (text: string) => void;
+  onChangeProp3?: (text: string) => void;
+  onChangeProp4?: (value: any) => void;
   onConfirm: () => void;
 }
 
@@ -104,7 +104,7 @@ const Dialog: React.FC<DialogProfileProps> = ({
                       <Input
                         value={prop2}
                         onChangeText={(text: string) => {
-                          onChangeProp2(text);
+                          onChangeProp2?.(text);
                         }}
                         flex={1}
                         size="$3"
@@ -127,7 +127,7 @@ const Dialog: React.FC<DialogProfileProps> = ({
                       <Input
                         value={prop3}
                         onChangeText={(text: string) => {
-                          onChangeProp3(text);
+                          onChangeProp3?.(text);
                         }}
                         flex={1}
                         size="$3"
@@ -148,35 +148,31 @@ const Dialog: React.FC<DialogProfileProps> = ({
                       <YStack width={'41%'}>
                         <Text style={styles.descriptionText}>{labelProp4}</Text>
                       </YStack>
-                      <View style={{width:'59%', paddingBottom:10}}>
-                      <RNPickerSelect
-                        style={{
-                          
-                          inputIOS: {
-                            width:200,
-                            fontSize: 16,
-                            borderWidth: 1,
-                            borderColor: 'black',
-                            borderRadius: 4,
-                            color: 'black',
-                          },
-                          inputAndroid: {
-                            width:200,
-                            fontSize: 16,
-                            borderWidth: 1,
-                            borderColor: 'black',
-                            borderRadius: 8,
-                            color: 'black',
-                          },
-                        }}
-                        onValueChange={value => onChangeProp4(value)}
-                        value={prop4}
-                        items={
-                          arrayValues as Item[]
-                        }
-                      />
+                      <View style={{width: '59%', paddingBottom: 10}}>
+                        <RNPickerSelect
+                          style={{
+                            inputIOS: {
+                              width: 200,
+                              fontSize: 16,
+                              borderWidth: 1,
+                              borderColor: 'black',
+                              borderRadius: 4,
+                              color: 'black',
+                            },
+                            inputAndroid: {
+                              width: 200,
+                              fontSize: 16,
+                              borderWidth: 1,
+                              borderColor: 'black',
+                              borderRadius: 8,
+                              color: 'black',
+                            },
+                          }}
+                          onValueChange={value => onChangeProp4?.(value)}
+                          value={prop4}
+                          items={arrayValues as Item[]}
+                        />
                       </View>
-                      
                     </XStack>
                   )}
                 </YStack>
