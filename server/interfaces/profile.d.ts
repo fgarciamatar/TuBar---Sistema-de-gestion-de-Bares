@@ -6,7 +6,8 @@ import {
 } from 'sequelize';
 import { ModelSequlize, Role } from './types';
 
-export type Role = 'ADMIN' | 'EMPLOYEE';
+export type Role = 'ADMIN' | 'EMPLOYEE' | 'CHEF';
+
 
 export interface ProfileAttributes extends ModelSequlize<ProfileAttributes> {
   id?: CreationOptional<number>;

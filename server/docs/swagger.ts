@@ -94,7 +94,7 @@ const swaggerDefinition: OAS3Definition = {
           role: {
             type: 'string',
             example: 'EMPLOYEE',
-            enum: ['ADMIN', 'EMPLOYEE'],
+            enum: ['ADMIN', 'EMPLOYEE', 'CHEF'],
           },
           pinCode: { type: 'string', example: 'abcde12345' },
         },
