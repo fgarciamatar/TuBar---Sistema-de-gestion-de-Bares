@@ -1,5 +1,11 @@
 import { Router } from 'express';
-import { logIn, logInProfile, signUp } from '../controllers';
+import {
+  forgotPassword,
+  logIn,
+  logInProfile,
+  newPassword,
+  signUp,
+} from '../controllers';
 import { protect } from '../middlewares';
 
 const router = Router();
@@ -71,13 +77,6 @@ router.post('/sign-up', signUp);
 
 /**
  * @swagger
- * tags:
- *  name: Auth
- *  description: Auth Endpoints
- */
-
-/**
- * @swagger
  * /auth/login/profile:
  *  post:
  *    tags: [Auth]
@@ -111,5 +110,59 @@ router.post(
   protect(['barSession', 'profileSession']),
   logInProfile
 );
+/**
+ * @swagger
+ * /auth/forgot-password:
+ *  post:
+ *    tags: [Auth]
+ *    summary: Recuperar contraseña
+ *    description: Endpoint para recuperar la contraseña del bar
+ *    requestBody:
+ *       content:
+ *         application/json:
+ *          schema:
+ *            $ref: "#/components/schemas/recoveryPassword"
+ *    responses:
+ *       '200':
+ *         description: Se envio un codigo a su correo para restablecer su contraseña.
+ *       '404':
+ *         description: No se encontró ninguna BAR con el EMAIL especificado.
+ *       '409':
+ *         description: Error de validación, revise que los campos enviados son los correctos.
+ *       '500':
+ *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
+ *    security:
+ *       - bearerAuth: []
+ */
+
+router.post('/forgot-password', forgotPassword);
+/**
+ * @swagger
+ * /auth/new-password:
+ *  post:
+ *    tags: [Auth]
+ *    summary: Cambiar contraseña
+ *    description: Endpoint para cambiar la contraseña del bar
+ *    requestBody:
+ *       content:
+ *         application/json:
+ *          schema:
+ *            $ref: "#/components/schemas/newPassword"
+ *    responses:
+ *       '200':
+ *         description: La operacion se realizo con exito.
+ *       '400':
+ *         description: Algo salio mal.
+ *       '401':
+ *         description: El proceso expiro, vuelva a enviar otra solicitud de recuperacion..
+ *       '409':
+ *         description: Error de validación, revise que los campos enviados son los correctos.
+ *       '500':
+ *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
+ *    security:
+ *       - bearerAuth: []
+ */
+
+router.post('/new-password', newPassword);
 
 export default router;

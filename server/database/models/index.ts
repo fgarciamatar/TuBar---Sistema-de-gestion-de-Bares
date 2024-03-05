@@ -6,3 +6,4 @@ export { default as ProductCategoryModel } from './productCategory.models';
 export { default as ProductModel } from './product.models';
 export { default as TableModel } from './table.models';
 export { default as initModels } from './initModels';
+export { default as VerificationModel } from './verification.models';
