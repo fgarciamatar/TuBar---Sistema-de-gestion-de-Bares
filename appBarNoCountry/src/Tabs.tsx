@@ -19,6 +19,7 @@ import OrderDetail from './screens/orderDetail/orderDetail.jsx';
 import Receipt from './screens/Receipt/Receipt';
 import {BillOrder} from './interfaces/interface';
 import Bill from './screens/BillOrder/Bill.tsx';
+import CodePassword from "./screens/CodePassword/CodePassword.jsx"
 
 export type RootStackParamList = {
   Welcom: undefined;
@@ -33,6 +34,7 @@ export type RootStackParamList = {
   ProfilePin: undefined;
   ManageProfile: undefined;
   Factura: {billOrder: BillOrder; tableNumber: number};
+  CodePassword: undefined;
 };
 export type ScreenProp = StackNavigationProp<RootStackParamList>;
 const Stack = createStackNavigator<RootStackParamList>();
@@ -141,6 +143,12 @@ function Tabs() {
         component={Receipt}
         options={{headerShown: false}}
       />
+
+<Stack.Screen
+        name="CodePassword"
+        component={CodePassword}
+      />
+      
     </Stack.Navigator>
   );
 }

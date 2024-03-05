@@ -19,6 +19,9 @@ function Password() {
   const handleLogIn = () => {
     navigation.navigate('Login' as never);
   };
+  const handleCode = () => {
+    navigation.navigate('CodePassword' as never);
+  }
 
   return (
     <View style={styles.container}>
@@ -32,7 +35,7 @@ function Password() {
         <TextInput style={styles.input} />
       </View>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleCode}>
         <Text style={styles.textButton}>Recupera tu contraseña</Text>
       </TouchableOpacity>
 
