@@ -87,7 +87,7 @@ const Dialog: React.FC<DialogProfileProps> = ({
                         size="$3"
                         borderWidth={2}
                         placeholder={`Nombre Completo`}
-                        style={{backgroundColor: 'white', color: 'black'}}
+                        style={styles.modalInput}
                       />
                     </XStack>
                   )}
@@ -110,7 +110,7 @@ const Dialog: React.FC<DialogProfileProps> = ({
                         size="$3"
                         borderWidth={2}
                         placeholder={`Rol`}
-                        style={{backgroundColor: 'white', color: 'black'}}
+                        style={styles.modalInput}
                       />
                     </XStack>
                   )}
@@ -133,7 +133,7 @@ const Dialog: React.FC<DialogProfileProps> = ({
                         size="$3"
                         borderWidth={2}
                         placeholder={`Pin`}
-                        style={{backgroundColor: 'white', color: 'black'}}
+                        style={styles.modalInput}
                       />
                     </XStack>
                   )}
@@ -195,6 +195,12 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo gris translúcido
+  },
+  modalInput: {
+    backgroundColor: 'white',
+    color: 'black',
+    paddingVertical: 0,
+    marginVertical: 10 
   },
   buttonsView: {
     flexDirection: 'row',
