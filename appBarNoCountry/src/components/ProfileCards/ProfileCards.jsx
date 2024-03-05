@@ -28,7 +28,7 @@ function ProfileCards({
             source={
               role === 'ADMIN'
                 ? require('../../assets/menu/addmin.png')
-                : require('../../assets/menu/waiter.png')
+                : require('../../assets/waiter.png')
             }
           />
           <YStack
