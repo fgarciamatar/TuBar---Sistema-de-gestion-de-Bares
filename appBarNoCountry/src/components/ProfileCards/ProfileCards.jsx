@@ -3,6 +3,9 @@ import * as React from 'react';
 import {StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
 import {Button, XStack, Input, View, YStack} from 'tamagui';
 import {Icon} from '@rneui/themed';
+import adminImage from '../../assets/menu/admin.png';
+import employeeImage from '../../assets/waiter.png';
+import chefImage from '../../assets/chef.png';
 
 function ProfileCards({
   name,
@@ -18,6 +21,17 @@ function ProfileCards({
   const handleSalonAdm = () => {
     navigation.navigate('ProfilePin', {idProfile: id, role: role, name: name});
   };
+  let imageSource;
+
+  if (role === 'ADMIN') {
+    imageSource = adminImage;
+  } else if (role === 'EMPLOYEE') {
+    imageSource = employeeImage;
+  } else {
+    imageSource = chefImage;
+  }
+
+
 
   return (
     <View style={styles.container}>
@@ -25,11 +39,7 @@ function ProfileCards({
         <View>
           <Image
             style={styles.image}
-            source={
-              role === 'ADMIN'
-                ? require('../../assets/menu/addmin.png')
-                : require('../../assets/waiter.png')
-            }
+            source={imageSource}
           />
           <YStack
             gap="$1"
