@@ -82,7 +82,7 @@ const Dialog: React.FC<DialogProps> = ({
                       size="$3"
                       borderWidth={2}
                       placeholder={`00`}
-                      style={{backgroundColor: 'white', color: 'black'}}
+                      style={{backgroundColor: 'white', color: 'black', paddingVertical: 0, textAlign: 'center', marginVertical: 10 }}
                     />
                   </XStack>
                 ) : (
@@ -91,12 +91,13 @@ const Dialog: React.FC<DialogProps> = ({
                     justifyContent="center"
                     alignItems="center"
                     style={{marginRight: 5}}>
-                    <Button size="$3" chromeless onPress={onAdd}>
-                      <Icon name="add" color={'green'} />
+
+                    <Button size="$3" chromeless onPress={onRemove} style={{marginBottom:15}}>
+                      <Icon name="remove" color={'red'} />
                     </Button>
                     <Text style={styles.modalText}>{isCount.toString()}</Text>
-                    <Button size="$3" chromeless onPress={onRemove}>
-                      <Icon name="remove" color={'red'} />
+                    <Button size="$3" chromeless onPress={onAdd} style={{marginBottom:15}}>
+                      <Icon name="add" color={'green'} />
                     </Button>
                   </XStack>
                 )}
@@ -104,7 +105,8 @@ const Dialog: React.FC<DialogProps> = ({
               <Button
                 size="$3"
                 backgroundColor={'$green10'}
-                onPress={onConfirm}>
+                onPress={onConfirm}
+                style={{marginRight: 5}}>
                 OK
               </Button>
             </View>
@@ -170,6 +172,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     marginBottom: 10,
+    marginHorizontal: 10,
   },
   descriptionText: {
     fontSize: 18,

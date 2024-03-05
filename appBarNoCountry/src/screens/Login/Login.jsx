@@ -153,7 +153,8 @@ const styles = StyleSheet.create({
   input: {
     borderRadius: 8,
     backgroundColor: '#D7D7D7',
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 0,
     width: 288,
     height: 35,
   },
@@ -166,7 +167,8 @@ const styles = StyleSheet.create({
   passwordInput: {
     flex: 1,
     height: 35,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 0,
     backgroundColor: '#D7D7D7',
     borderRadius: 8,
     borderTopRightRadius:0 ,
