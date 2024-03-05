@@ -94,8 +94,7 @@ const styles = StyleSheet.create({
   menuContainer: {
     padding: 20,
     gap: 10,
-    flex: 1,
-
+    flex: 1
   },
 
   foodItem: {
@@ -153,6 +152,8 @@ const styles = StyleSheet.create({
     height: 30,
     marginTop: 30,
     borderRadius: 5,
+    position: 'absolute', 
+    bottom: 0,
   },
   buttonText: {
     color: '#000',
