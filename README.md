@@ -14,8 +14,14 @@ front / back
 
 ## INTEGRANTES
 
+https://github.com/DarkEdson
+https://github.com/sol1217
+https://github.com/cartudev (Carlos)
+
+(francisco
+https://github.com/jhonccastilloa
 ### FrontEnd
-- Francisco Garcia Matar (estilos y funcionalidades)
+- [Francisco Garcia Matar (estilos y funcionalidades)] (https://github.com/fgarciamatar)
 - Sol Calderón (estilos)
 - Edson Aju (estilos y funcionalidades)
 - Jhon Castillo (estilos y funcionalidades)
