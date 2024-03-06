@@ -13,6 +13,9 @@ const BillOrderModel = db.define<BillOrderAttributes>('billOrders', {
       notNull: {
         msg: "El campo 'total' es obligatorio y debe ser proporcionado.",
       },
+      isNumeric: {
+        msg: "El campo 'total' tiene que ser numerico.",
+      },
     },
   },
   isBilled: {

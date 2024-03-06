@@ -12,7 +12,14 @@ const OrderDetailModel = db.define<OrderDetailAttributes>('orderDetails', {
       notNull: {
         msg: "El campo 'quantity' es obligatorio y debe ser proporcionado.",
       },
+      isNumeric: {
+        msg: "El campo 'quantity' tiene que ser numerico.",
+      },
     },
+  },
+  description: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   billOrderId: {
     type: DataTypes.INTEGER,

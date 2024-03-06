@@ -19,6 +19,9 @@ const BarModel = db.define<BarAttributes>('bars', {
       notNull: {
         msg: "El campo 'name' es obligatorio y debe ser proporcionado.",
       },
+      notEmpty: {
+        msg: "El campo 'name' no puede ir vacio.",
+      },
     },
   },
   userName: {
@@ -27,6 +30,9 @@ const BarModel = db.define<BarAttributes>('bars', {
     validate: {
       notNull: {
         msg: "El campo 'userName' es obligatorio y debe ser proporcionado.",
+      },
+      notEmpty: {
+        msg: "El campo 'userName' no puede ir vacio.",
       },
     },
     unique: {
@@ -43,6 +49,9 @@ const BarModel = db.define<BarAttributes>('bars', {
       },
       notNull: {
         msg: "El campo 'email' es obligatorio y debe ser proporcionado.",
+      },
+      notEmpty: {
+        msg: "El campo 'email' no puede ir vacio.",
       },
     },
     unique: {

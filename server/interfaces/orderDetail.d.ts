@@ -11,6 +11,7 @@ export interface OrderDetailAttributes
   id?: CreationOptional<number>;
   productId: number;
   quantity: number;
+  description: CreationOptional<string>;
   billOrderId: number;
   createdAt?: CreationOptional<Date>;
   updatedAt?: CreationOptional<Date>;

@@ -70,7 +70,7 @@ class ProductCategoryService {
         'No se encontró ninguna categoria en el bar con el ID especificado.',
         404
       );
-    category.destroy();
+    await category.destroy();
     return category;
   }
 }

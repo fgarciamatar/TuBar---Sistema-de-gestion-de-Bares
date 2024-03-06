@@ -11,6 +11,9 @@ const ProductModel = db.define<ProductAttributes>('product', {
       notNull: {
         msg: "El campo 'name' es obligatorio y debe ser proporcionado.",
       },
+      notEmpty: {
+        msg: "El campo 'name' no puede ir vacio.",
+      },
     },
   },
   price: {
@@ -20,23 +23,21 @@ const ProductModel = db.define<ProductAttributes>('product', {
       notNull: {
         msg: "El campo 'price' es obligatorio y debe ser proporcionado.",
       },
+      isNumeric: {
+        msg: "El campo 'quantity' tiene que ser numerico.",
+      },
     },
   },
   description: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notNull: {
-        msg: "El campo 'description' es obligatorio y debe ser proporcionado.",
-      },
-    },
+    allowNull: true,
   },
   productCategoryId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: ProductCategoryModel, 
-      key: 'id', 
+      model: ProductCategoryModel,
+      key: 'id',
     },
     validate: {
       notNull: {

@@ -32,10 +32,7 @@ const editProductCategoryForBar = catchAsync(async (req, res, next) => {
   const { profileSession } = res.locals;
   const { id } = params;
   const data = { ...body, barId: profileSession.barId };
-  const category = await productCategoryService.updateCategoryForBar(
-    +id,
-    data
-  );
+  const category = await productCategoryService.updateCategoryForBar(+id, data);
   res.status(200).json({ status: true, category });
 });
 

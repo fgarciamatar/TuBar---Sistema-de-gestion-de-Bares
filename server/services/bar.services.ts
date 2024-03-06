@@ -74,7 +74,7 @@ class BarService {
         'No se encontró ningún bar con el ID especificado.',
         404
       );
-    bar.destroy();
+    await bar.destroy();
     return bar;
   }
   async updateBar(barId: number, { email, name, password }: BarProps) {
