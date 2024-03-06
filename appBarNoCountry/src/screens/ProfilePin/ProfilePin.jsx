@@ -35,9 +35,7 @@ function ProfilePin({route}) {
   };
 
 
-   const handleKitchen = async () => {
-    navigation.navigate('Cocina');
-   }
+   
 
   return (
     <View style={styles.container}>
@@ -62,9 +60,6 @@ function ProfilePin({route}) {
         <Text style={styles.textButton}>Ingresar</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={handleKitchen}>
-        <Text style={styles.textButton}>Cocina</Text>
-      </TouchableOpacity>
     </View>
   );
 }

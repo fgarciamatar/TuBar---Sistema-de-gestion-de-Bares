@@ -20,7 +20,7 @@ import Receipt from './screens/Receipt/Receipt';
 import {BillOrder} from './interfaces/interface';
 import Bill from './screens/BillOrder/Bill.tsx';
 import CodePassword from "./screens/CodePassword/CodePassword.jsx"
-// import Kitchen from "./screens/Kitchen/Kitchen.jsx"
+
 
 export type RootStackParamList = {
   Welcom: undefined;
@@ -150,10 +150,7 @@ function Tabs() {
         name="CodePassword"
         component={CodePassword}
       />
-      {/* <Stack.Screen
-        name="Cocina"
-        component={Kitchen}
-      /> */}
+
       
     </Stack.Navigator>
   );
