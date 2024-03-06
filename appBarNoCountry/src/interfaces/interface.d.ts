@@ -10,7 +10,7 @@ export interface Product {
 export interface Profile {
   id: number;
   name: string;
-  role: 'EMPLOYEE' | 'ADMIN';
+  role: 'EMPLOYEE' | 'ADMIN' | 'CHEF';
   barId: number;
   createdAt: string;
   updatedAt: string;

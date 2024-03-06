@@ -10,6 +10,7 @@ import {
 import {Button, XGroup, XStack, YStack, Input} from 'tamagui';
 import RNPickerSelect, {Item} from 'react-native-picker-select';
 import {Icon} from '@rneui/themed';
+import { Picker } from '@react-native-picker/picker';
 
 interface DialogProfileProps {
   isVisible: boolean;
@@ -30,7 +31,6 @@ interface DialogProfileProps {
   onChangeProp4?: (value: any) => void;
   onConfirm: () => void;
 }
-
 const Dialog: React.FC<DialogProfileProps> = ({
   isVisible,
   title,
@@ -50,6 +50,12 @@ const Dialog: React.FC<DialogProfileProps> = ({
   onChangeProp3,
   onChangeProp4,
 }) => {
+
+
+  const [selectedRole, setSelectedRole] = useState('EMPLOYEE');
+
+const [pickerFocused, setPickerFocused] = useState(false)
+
   return (
     <Modal
       animationType="fade"
@@ -87,7 +93,7 @@ const Dialog: React.FC<DialogProfileProps> = ({
                         size="$3"
                         borderWidth={2}
                         placeholder={`Nombre Completo`}
-                        style={{backgroundColor: 'white', color: 'black'}}
+                        style={styles.modalInput}
                       />
                     </XStack>
                   )}
@@ -101,17 +107,27 @@ const Dialog: React.FC<DialogProfileProps> = ({
                       <YStack width={'41%'}>
                         <Text style={styles.descriptionText}>{labelProp2}</Text>
                       </YStack>
-                      <Input
-                        value={prop2}
-                        onChangeText={(text: string) => {
-                          onChangeProp2?.(text);
+
+                      <View style={{width: '59%', paddingBottom: 10 }}>
+                      <Picker
+                        style={{
+                          width: '100%',
+                          height: 50,
+                          fontSize: 16,
+                          borderWidth: 1,
+                          borderColor: 'black',
+                          borderRadius: 8,
+                          color: 'black',
                         }}
-                        flex={1}
-                        size="$3"
-                        borderWidth={2}
-                        placeholder={`Rol`}
-                        style={{backgroundColor: 'white', color: 'black'}}
-                      />
+                        onFocus={() => setPickerFocused(true)}
+                        onBlur={() => setPickerFocused(false)}
+                        selectedValue={prop2 || selectedRole}
+                        onValueChange={(itemValue) => onChangeProp2?.(itemValue)}>
+                      <Picker.Item label="Administrador" value="ADMIN" />
+                      <Picker.Item label="Empleado" value="EMPLOYEE" />
+                      <Picker.Item label="Chef" value="CHEF" />
+                      </Picker>
+                      </View>
                     </XStack>
                   )}
                   {labelProp3 && (
@@ -133,7 +149,7 @@ const Dialog: React.FC<DialogProfileProps> = ({
                         size="$3"
                         borderWidth={2}
                         placeholder={`Pin`}
-                        style={{backgroundColor: 'white', color: 'black'}}
+                        style={styles.modalInput}
                       />
                     </XStack>
                   )}
@@ -195,6 +211,12 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo gris translúcido
+  },
+  modalInput: {
+    backgroundColor: 'white',
+    color: 'black',
+    paddingVertical: 0,
+    marginVertical: 10 
   },
   buttonsView: {
     flexDirection: 'row',

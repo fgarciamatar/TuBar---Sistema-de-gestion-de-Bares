@@ -39,6 +39,19 @@ class BarService {
     const bar = await BarModel.findByPk(id);
     return bar;
   }
+  async findBarByEmailOr404(email: string) {
+    const bar = await BarModel.findOne({
+      where: {
+        email,
+      },
+    });
+    if (!bar)
+      throw new AppError(
+        'No se encontró ningún bar con el "correo" especificado.',
+        404
+      );
+    return bar;
+  }
   async findBarByUserNameOr404(userName: string) {
     if (!userName)
       throw new AppError(
@@ -54,7 +67,6 @@ class BarService {
     return bar;
   }
   async removeBar(barId: number) {
-
     const bar = await BarModel.findByPk(barId);
 
     if (!bar)
@@ -65,10 +77,7 @@ class BarService {
     bar.destroy();
     return bar;
   }
-  async updateBar(
-    barId: number,
-    { email, name, password }: BarProps,
-  ) {
+  async updateBar(barId: number, { email, name, password }: BarProps) {
     const bar = await BarModel.findByPk(barId);
     if (!bar)
       throw new AppError(
@@ -78,7 +87,17 @@ class BarService {
     bar.update({ email, name, password });
     return bar;
   }
-
+  async updatePasswordBar(barId: number, newPassword: string) {
+    const bar = await BarModel.findByPk(barId);
+    if (!bar)
+      throw new AppError(
+        'No se encontró ningún bar con el ID especificado.',
+        404
+      );
+    const hashedPassword = await encrypt(newPassword);
+    bar.update({ password: hashedPassword });
+    return bar;
+  }
 }
 
 export default BarService;

@@ -47,6 +47,22 @@ const swaggerDefinition: OAS3Definition = {
           profileId: { type: 'number', example: 1 },
         },
       },
+      recoveryPassword: {
+        type: 'object',
+        required: ['email'],
+        properties: {
+          email: { type: 'string', example: 'example@gmail.com' },
+        },
+      },
+      newPassword: {
+        type: 'object',
+        required: ['newPassword', 'verifyPassword', 'code'],
+        properties: {
+          newPassword: { type: 'string', example: 'abcde12345' },
+          verifyPassword: { type: 'string', example: 'abcde12345' },
+          code: { type: 'string', example: '9e6c' },
+        },
+      },
       loginResponse: {
         type: 'object',
         example: {
@@ -94,7 +110,7 @@ const swaggerDefinition: OAS3Definition = {
           role: {
             type: 'string',
             example: 'EMPLOYEE',
-            enum: ['ADMIN', 'EMPLOYEE'],
+            enum: ['ADMIN', 'EMPLOYEE', 'CHEF'],
           },
           pinCode: { type: 'string', example: 'abcde12345' },
         },

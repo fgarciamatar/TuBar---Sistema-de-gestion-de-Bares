@@ -20,12 +20,12 @@ function SelectPerfil({navigation}) {
   const [isDialogVisibleEdit, setIsDialogVisibleEdit] = useState(false);
   const [profileEdit, setProfileEdit] = useState({
     name: '',
-    role: '',
+    role: 'EMPLOYEE',
     pinCode: '',
   });
   const [profile, setProfile] = useState({
     name: '',
-    role: '',
+    role: 'EMPLOYEE',
     pinCode: '',
   });
 
@@ -43,14 +43,14 @@ function SelectPerfil({navigation}) {
   const handleCleanprofile = ()=>{
     setProfile({
       name: '',
-      role: '',
+      role: 'EMPLOYEE',
       pinCode: '',
     });
   }
   const handleCleanprofileEdit = ()=>{
     setProfileEdit({
       name: '',
-      role: '',
+      role: 'EMPLOYEE',
       pinCode: '',
     });
   }
@@ -63,11 +63,12 @@ function SelectPerfil({navigation}) {
   };
 
   const handleChangeRole = role => {
+    if (role !== 0) {
     setProfile(prevProfile => ({
       ...prevProfile,
       role: role,
     }));
-  };
+  }};
 
   const handleChangeEditName = name => {
     setProfileEdit(prevProfile => ({

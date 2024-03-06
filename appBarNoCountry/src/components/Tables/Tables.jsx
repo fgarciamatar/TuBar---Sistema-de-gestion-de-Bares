@@ -55,17 +55,14 @@ console.log("tables",tables)
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
-    paddingBottom: 20,
-    paddingHorizontal: 10,
-    marginTop: 20,
+    padding: 20,
+    height: 600,
   },
   tablesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     gap: 20,
-    height: 550,
     padding: 10,
   },
   table: {

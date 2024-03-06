@@ -105,8 +105,11 @@ const Bill = () => {
 const styles = StyleSheet.create({
   billContainer: {
     padding: 20,
-    flex: 1,
+    display: "flex",
+    justifyContent: "space-between",
     gap: 10,
+    height: 600,
+    
   },
   header: {
     display: 'flex',
@@ -133,11 +136,11 @@ const styles = StyleSheet.create({
     marginVertical: 3,
   },
   billTable: {
-    flex: 1,
     borderStyle: 'dotted',
     borderTopWidth: 3,
     borderBottomWidth: 3,
     paddingVertical: 8,
+    height: 200,
   },
   textTableTitle: {
     color: 'black',
@@ -192,6 +195,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#AA84FC',
     borderRadius: 5,
+    position: "absolute",
+    bottom: -100,
   },
 });
 

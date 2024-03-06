@@ -6,3 +6,4 @@ export * from './productCategory';
 export * from './profile.d';
 export * from './table.d';
 export * from './types.d';
+export * from './verification.d.ts';

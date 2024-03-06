@@ -16,7 +16,6 @@ import Order from './screens/Order/Order.tsx';
 import ProfilePin from './screens/ProfilePin/ProfilePin.jsx';
 import Menu from './screens/Menu/Menu.tsx';
 import OrderDetail from './screens/orderDetail/orderDetail.jsx';
-import Receipt from './screens/Receipt/Receipt';
 import {BillOrder} from './interfaces/interface';
 import Bill from './screens/BillOrder/Bill.tsx';
 import CodePassword from "./screens/CodePassword/CodePassword.jsx"
@@ -140,11 +139,7 @@ function Tabs() {
         component={ProfilePin}
       />
       {/* <Stack.Screen name="Detalle del Pedido" component={OrderDetail} /> */}
-      <Stack.Screen
-        name="Receipt"
-        component={Receipt}
-        options={{headerShown: false}}
-      />
+      
 
 <Stack.Screen
         name="CodePassword"

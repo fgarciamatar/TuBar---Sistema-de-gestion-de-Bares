@@ -13,6 +13,9 @@ import {postLoginProfile} from '../../apis';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {setProfileSession} from '../../redux/actions';
+import adminImage from '../../assets/menu/admin.png';
+import employeeImage from '../../assets/waiter.png';
+import chefImage from '../../assets/chef.png';
 
 function ProfilePin({route}) {
   const [pin, setPin] = useState('');
@@ -35,17 +38,25 @@ function ProfilePin({route}) {
   };
 
 
+
+  let imageSource;
+
+  if (role === 'ADMIN') {
+    imageSource = adminImage;
+  } else if (role === 'EMPLOYEE') {
+    imageSource = employeeImage;
+  } else {
+    imageSource = chefImage;
+  }
+
+
    
 
   return (
     <View style={styles.container}>
       <Image
         style={styles.image}
-        source={
-          role === 'ADMIN'
-            ? require('../../assets/menu/addmin.png')
-            : require('../../assets/menu/waiter.png')
-        }
+        source={imageSource}
       />
       <Text style={styles.text}>{name}</Text>
       <Text style={styles.title}>Ingrese el Pin (2bc6e8)</Text>
@@ -78,11 +89,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   input: {
-    width: '80%',
+    width: '50%',
     height: 40,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 8,
+    paddingVertical: 0,
+    textAlign: 'center',
     paddingHorizontal: 10,
     marginBottom: 20,
     backgroundColor: '#D7D7D7',

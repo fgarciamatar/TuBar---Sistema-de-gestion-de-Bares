@@ -3,6 +3,9 @@ import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Icon, ListItem, Avatar} from '@rneui/themed';
 import {Button, XGroup, XStack, YStack, ZStack} from 'tamagui';
+import adminImage from '../../assets/menu/admin.png';
+import employeeImage from '../../assets/waiter.png';
+import chefImage from '../../assets/chef.png';
 
 function Navbar({
   role,
@@ -16,6 +19,15 @@ function Navbar({
   const navigation = useNavigation();
   const [expanded, setExpanded] = React.useState(false);
 
+  let imageSource;
+
+  if (role === 'ADMIN') {
+    imageSource = adminImage;
+  } else if (role === 'EMPLOYEE') {
+    imageSource = employeeImage;
+  } else {
+    imageSource = chefImage;
+  }
   return (
     <View style={styles.navbar}>
       <View style={styles.titleContainer}>
@@ -57,11 +69,7 @@ function Navbar({
           <View style={styles.imageContainer}>
             <Image
               style={styles.image}
-              source={
-                role === 'ADMIN'
-                  ? require('../../assets/menu/addmin.png')
-                  : require('../../assets/menu/waiter.png')
-              }
+              source={imageSource}
             />
           </View>
         </TouchableOpacity>
