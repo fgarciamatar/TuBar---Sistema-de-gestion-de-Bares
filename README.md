@@ -14,27 +14,19 @@ front / back
 
 ## INTEGRANTES
 
-- https://github.com/DarkEdson
-- https://github.com/sol1217
-- https://github.com/cartudev
-- https://github.com/ChristopherPeralta
-- https://github.com/florenciaParodi
-
-(francisco
-https://github.com/jhonccastilloa
 ### FrontEnd
 - [Francisco Garcia Matar](https://github.com/fgarciamatar)
-- Sol Calderón
-- Edson Aju 
-- Jhon Castillo 
+- [Sol Calderón](https://github.com/sol1217)
+- [Edson Aju](https://github.com/DarkEdson) 
+- [Jhon Castillo]() 
 
 ### BackEnd
-- Carlos Tuñon
-- Jhon Castillo
+- [Carlos Tuñon](https://github.com/cartudev)
+- [Jhon Castillo](https://github.com/jhonccastilloa)
 
 ### UX/UI
-- Florencia Parodi
-- Christopher P-P
+- [Florencia Parodi](https://github.com/florenciaParodi)
+- [Christopher Peralta](https://github.com/ChristopherPeralta)
 
 ***
 ## TECNOLOGÍAS UTILIZADAS
