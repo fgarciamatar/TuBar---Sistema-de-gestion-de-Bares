@@ -34,6 +34,11 @@ function ProfilePin({route}) {
     }
   };
 
+
+   const handleKitchen = async () => {
+    navigation.navigate('Cocina');
+   }
+
   return (
     <View style={styles.container}>
       <Image
@@ -55,6 +60,10 @@ function ProfilePin({route}) {
       />
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.textButton}>Ingresar</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={handleKitchen}>
+        <Text style={styles.textButton}>Cocina</Text>
       </TouchableOpacity>
     </View>
   );
