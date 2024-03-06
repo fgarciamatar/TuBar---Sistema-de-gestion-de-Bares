@@ -11,6 +11,9 @@ const ProfileModel = db.define<ProfileAttributes>('profiles', {
       notNull: {
         msg: "El campo 'name' es obligatorio y debe ser proporcionado.",
       },
+      notEmpty: {
+        msg: "El campo 'name' no puede ir vacio.",
+      },
     },
   },
   role: {

@@ -13,16 +13,14 @@ const ProductCategoryModel = db.define<ProductCategoryAttributes>(
         notNull: {
           msg: "El campo 'name' es obligatorio y debe ser proporcionado.",
         },
+        notEmpty: {
+          msg: "El campo 'name' no puede ir vacio.",
+        },
       },
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: "El campo 'description' es obligatorio y debe ser proporcionado.",
-        },
-      },
+      allowNull: true,
     },
     barId: {
       type: DataTypes.INTEGER,

@@ -82,7 +82,7 @@ class ProductService {
 
   async removeProductForBar(productId: number, barId: number) {
     const product = await this.findProductForBarOr404(productId, barId);
-    product.destroy();
+    await product.destroy();
     return product;
   }
 }

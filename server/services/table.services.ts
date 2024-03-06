@@ -83,7 +83,7 @@ class TableService {
 
   async removeTableForBar(tableId: number, barId: number) {
     const table = await this.findTableForBarOr404(tableId, barId);
-    table.destroy();
+    await table.destroy();
     const remainingTables = await TableModel.findAll({
       where: {
         barId,

@@ -67,7 +67,7 @@ class ProfileService {
         'No se encontró ningún perfil en el bar con el ID especificado.',
         404
       );
-    profile.destroy();
+    await profile.destroy();
     return profile;
   }
 

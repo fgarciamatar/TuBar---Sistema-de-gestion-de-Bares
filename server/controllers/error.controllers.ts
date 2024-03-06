@@ -28,7 +28,7 @@ const globalErrorHandler = (
     if (err instanceof Sequelize.ForeignKeyConstraintError) {
       // 409 Conflict: Error de restricción de clave externa
       const defaultMessage =
-        'El recurso relacionado no existe o está en conflicto con otro existente.';
+        'El recurso relacionado tiene sub items, elimine todas sus relaciones para continuar.';
       err.statusCode = 409;
       err.message = defaultMessage;
     }
