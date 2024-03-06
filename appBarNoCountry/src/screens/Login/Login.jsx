@@ -32,9 +32,9 @@ function Login() {
 
     try {
       const resp = await apiLogin(userData);
-      console.log('Respuesta del login:', resp);
+      // console.log('Respuesta del login:', resp);
       await AsyncStorage.setItem('accessToken', resp.token);
-      console.log('Token guardado correctamente en AsyncStorage.');
+      // console.log('Token guardado correctamente en AsyncStorage.');
       setloading(false);
       Alert.alert('Éxito', 'Sesion iniciada', [
         {

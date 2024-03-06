@@ -1,27 +1,42 @@
-import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { passwordRecovery } from '../../apis';
 
 function Password() {
   const navigation = useNavigation();
+  const [email, setEmail] = useState('');
 
   const handleSignUP = () => {
-    navigation.navigate('SignUp' as never);
+    navigation.navigate('SignUp');
   };
 
   const handleLogIn = () => {
-    navigation.navigate('Login' as never);
+    navigation.navigate('Login');
   };
-  const handleCode = () => {
-    navigation.navigate('CodePassword' as never);
-  }
+
+  const handleCode = async () => {
+    try {
+      const resp = await passwordRecovery(email);
+      // console.log("respPASSWRD",resp);
+      
+      Alert.alert('Éxito', resp.msg, [
+        {
+          text: 'OK',
+          onPress: () => {
+            navigation.navigate('CodePassword');
+          },
+        },
+      ]);
+    } catch (error) {
+      Alert.alert('Error', error.response.data.message , [
+        {
+          text: 'OK',
+          onPress: () => {},
+        },
+      ]);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -32,7 +47,7 @@ function Password() {
 
       <View style={styles.formContainer}>
         <Text style={styles.label}>Ingresa tu correo</Text>
-        <TextInput style={styles.input} />
+        <TextInput style={styles.input} value={email} onChangeText={setEmail} />
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleCode}>

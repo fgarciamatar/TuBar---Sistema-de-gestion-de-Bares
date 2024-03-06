@@ -11,7 +11,7 @@ import SignUp from './screens/SignUp/SignUp';
 import SelectPerfil from './screens/SelectPerfil/SelectPerfil.jsx';
 import ManageProfiles from './screens/ManageProfiles/ManageProfiles.jsx';
 import Salon from './screens/Salon/Salon.jsx';
-import Password from './screens/Password/Password';
+import Password from './screens/Password/Password.jsx';
 import Order from './screens/Order/Order.tsx';
 import ProfilePin from './screens/ProfilePin/ProfilePin.jsx';
 import Menu from './screens/Menu/Menu.tsx';

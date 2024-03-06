@@ -30,13 +30,13 @@ function SelectPerfil({navigation}) {
   });
 
   useEffect(() => {
-    console.log('profilesSelectPerfil', profilesSelectPerfil.profiles);
+    // console.log('profilesSelectPerfil', profilesSelectPerfil.profiles);
     loadRole();
   }, []);
 
   const loadRole = async () => {
     let role = await AsyncStorage.getItem('role');
-    console.log('ROL ADMIN?', role);
+    // console.log('ROL ADMIN?', role);
     setrol(role);
   };
 
@@ -94,7 +94,7 @@ function SelectPerfil({navigation}) {
 
   const handleCreateProfile = async () => {
     setLoading(true);
-    console.log('Perfil a Agregar', profile);
+    // console.log('Perfil a Agregar', profile);
     const profileCreated = await apiCreateProfile(profile);
     if (profileCreated.status) {
       Alert.alert('Exito', 'Perfil Creado');
@@ -134,7 +134,7 @@ function SelectPerfil({navigation}) {
 
   const handleEditProfile = async () => {
     setLoading(true);
-    console.log('Perfil a Editar', profileEdit);
+    // console.log('Perfil a Editar', profileEdit);
     const profileEdited = await apiEditProfile(profileEdit);
     if (profileEdited.status) {
       Alert.alert('Exito', 'Perfil Editado');
@@ -150,7 +150,7 @@ function SelectPerfil({navigation}) {
 
   const handleDeleteProfile = async (perfil) => {
     setLoading(true);
-    console.log('Perfil a Borrar', perfil);
+    // console.log('Perfil a Borrar', perfil);
     const profileDeleted = await apiDeleteProfile(perfil.id);
     if (profileDeleted.status) {
       Alert.alert('Exito', 'Perfil Borrado');
