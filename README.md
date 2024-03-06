@@ -14,17 +14,19 @@ front / back
 
 ## INTEGRANTES
 
-https://github.com/DarkEdson
-https://github.com/sol1217
-https://github.com/cartudev (Carlos)
+- https://github.com/DarkEdson
+- https://github.com/sol1217
+- https://github.com/cartudev
+- https://github.com/ChristopherPeralta
+- https://github.com/florenciaParodi
 
 (francisco
 https://github.com/jhonccastilloa
 ### FrontEnd
-- [Francisco Garcia Matar (estilos y funcionalidades)] (https://github.com/fgarciamatar)
-- Sol Calderón (estilos)
-- Edson Aju (estilos y funcionalidades)
-- Jhon Castillo (estilos y funcionalidades)
+- [Francisco Garcia Matar](https://github.com/fgarciamatar)
+- Sol Calderón
+- Edson Aju 
+- Jhon Castillo 
 
 ### BackEnd
 - Carlos Tuñon
