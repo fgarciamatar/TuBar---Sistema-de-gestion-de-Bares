@@ -92,7 +92,8 @@ function Login() {
           value={userName}
           onChangeText={setUserName}
         />
-        <Text style={styles.label}>Contraseña</Text>
+      <View style={styles.formContainer}>
+        <Text style={styles.label}>Password</Text>
         <View style={styles.passwordContainer}>
           <TextInput
             style={styles.passwordInput}
@@ -103,6 +104,7 @@ function Login() {
           <TouchableOpacity onPress={toggleShowPassword}>
             <Text style={styles.eyeIcon}>{showPassword ? '👁️' : '👁️'}</Text>
           </TouchableOpacity>
+        </View>
         </View>
         <TouchableOpacity onPress={handlePassword}>
           <Text style={styles.textPassword}>Olvide Mi contraseña</Text>
@@ -128,40 +130,40 @@ function Login() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    height: '100%',
+    padding: 20,
   },
   image: {
     width: 174,
     height: 163.8,
     padding: 20,
-    backgroundColor: 'white',
-    borderRadius: 100,
-    marginTop: 40,
   },
   label: {
     fontSize: 16,
-    color: '#000',
+    color: '#0305C5',
+    marginBottom:-6
   },
   formContainer: {
     display: 'flex',
-    gap: 10,
-    marginTop: 40,
+    gap: 0,
+    marginTop: 30,
   },
   input: {
     borderRadius: 8,
     backgroundColor: '#D7D7D7',
     paddingHorizontal: 10,
     paddingVertical: 0,
+    marginVertical: 0,
     width: 288,
     height: 35,
   },
   passwordContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomWidth: 1,
+    borderBottomWidth: 0,
     borderBottomColor: '#000',
   },
   passwordInput: {
@@ -187,6 +189,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   textPassword: {
+    marginTop: 7,
+    marginRight:-5,
     color: '#3F86FC',
     textAlign: 'right',
     fontWeight: '400',
@@ -199,24 +203,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#D0BBFD',
     borderWidth: 1,
     borderColor: '#AA84FC',
-    marginTop: 40,
+    marginVertical: 30,
   },
   createCountContainer: {
     fontFamily: 'Roboto',
     display: 'flex',
     flexDirection: 'row',
     gap: 5,
-    marginTop: 50,
   },
   createCount: {
     color: '#3F86FC',
-    lineHeight: 17.07,
   },
   eyeIcon: {
     fontSize: 15,
     paddingHorizontal: 10,
     height: 35,
-    padding: 10,
+    paddingVertical: 7,
     backgroundColor: '#D7D7D7',
     borderRadius: 8,
     borderTopLeftRadius: 0,

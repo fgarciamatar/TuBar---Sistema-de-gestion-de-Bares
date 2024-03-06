@@ -80,11 +80,10 @@ function SignUp() {
           style={styles.image}
           source={require('../../assets/landing-page.png')}
         />
-        <Text>Completa los campos para crear una cuenta</Text>
-      </View>
+        <Text style={styles.information}>Completa los campos para crear una cuenta</Text>
 
       <View style={styles.formContainer}>
-        <Text style={styles.labelInput}>Nombre del Bar/Restaurante</Text>
+        <Text style={styles.label}>Nombre del Bar/Restaurante</Text>
         <TextInput
           style={styles.input}
           value={name}
@@ -92,7 +91,7 @@ function SignUp() {
         />
         {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
 
-        <Text style={styles.labelInput}>Nombre de usuario</Text>
+        <Text style={styles.label}>Nombre de usuario</Text>
         <TextInput
           style={styles.input}
           value={userName}
@@ -100,7 +99,7 @@ function SignUp() {
         />
         {errors.userName && <Text style={styles.errorText}>{errors.userName}</Text>}
 
-        <Text style={styles.labelInput}>Email</Text>
+        <Text style={styles.label}>Email</Text>
         <TextInput
           style={styles.input}
           value={email}
@@ -108,7 +107,7 @@ function SignUp() {
         />
         {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
 
-        <Text style={styles.labelInput}>Contraseña</Text>
+        <Text style={styles.label}>Contraseña</Text>
         <TextInput
           style={styles.input}
           value={password}
@@ -124,7 +123,7 @@ function SignUp() {
           onPress={handleSend}
           style={[styles.button, !isValid && styles.disabledButton]}
           disabled={!isValid}>
-          <Text style={styles.textButton}>Regístrame</Text>
+          <Text style={[styles.textButton, !isValid && styles.disabledButton]}>Regístrame</Text>
         </TouchableOpacity>
         }
         
@@ -136,6 +135,7 @@ function SignUp() {
           </TouchableOpacity>
         </View>
       </View>
+      </View>
       </ScrollView>
     </View>
   );
@@ -143,11 +143,15 @@ function SignUp() {
 
 const styles = StyleSheet.create({
   signUpContainer: {
+    width:'100%',
     display: 'flex',
+    flex:1,
     justifyContent: 'center',
     alignItems: 'center',
+    height:'100%'
   },
   acountContainer: {
+    width:'100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -156,26 +160,28 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   image: {
-    backgroundColor: '#fff',
-    borderRadius: 200,
-    width: 60,
-    height: 60,
+    width: 70,
+    height: 70,
   },
   formContainer: {
     display: 'flex',
     justifyContent: 'center',
-    gap: 10,
-    padding: 20,
+    padding: 0,
   },
   input: {
-    padding: 10,
-    backgroundColor: '#D7D7D7',
-    width: 280,
-    height: 35,
     borderRadius: 8,
+    backgroundColor: '#D7D7D7',
+    paddingHorizontal: 10,
+    paddingVertical: 0,
+    marginVertical: 0,
+    width: 288,
+    height: 35,
+    marginBottom:15
   },
-  labelInput: {
-    fontWeight: 'bold',
+  label: {
+    fontSize: 16,
+    color: '#0305C5',
+    marginBottom:-6
   },
   sendContainer: {
     display: 'flex',
@@ -190,10 +196,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#D0BBFD',
     borderWidth: 1,
     borderColor: '#AA84FC',
-    marginTop: 20,
+    marginTop: 2,
+    marginBottom: 10,
   },
   disabledButton: {
     backgroundColor: '#ccc',
+    color: '#eee',
+    borderColor: '#aaa',
   },
   textButton: {
     textAlign: 'center',
@@ -202,18 +211,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   logInContainer: {
+    fontFamily: 'Roboto',
     display: 'flex',
     flexDirection: 'row',
     gap: 5,
-    padding: 20,
   },
   textLogIn: {
     color: '#3F86FC',
   },
   errorText: {
     color: 'red',
-    marginTop: 5,
+    marginTop: -20,
   },
+  information: {
+    color: '#8586FF',
+    fontSize: 15,
+    marginVertical: 10,
+  }
 });
 
 export default SignUp;

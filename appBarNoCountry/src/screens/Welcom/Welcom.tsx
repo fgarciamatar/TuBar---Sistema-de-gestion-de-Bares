@@ -48,9 +48,14 @@ function Welcom() {
 
 const styles = StyleSheet.create({
   welcomContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
     backgroundColor: '#0305C5',
     height: '100%',
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical:0
   },
   titleWelcom: {
     fontSize: 30,
@@ -58,7 +63,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'Montserrat',
     fontWeight: 'bold',
-    paddingTop: 50,
+    paddingTop: 0,
+    
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 4},
+    textShadowRadius: 6
+
   },
   textBar: {
     color: '#EBB426',
@@ -66,6 +76,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat',
     textAlign: 'center',
     fontWeight: 'bold',
+
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 4},
+    textShadowRadius: 6
   },
   imageContainer: {
     display: 'flex',
@@ -86,8 +100,9 @@ const styles = StyleSheet.create({
   privacityText: {
     color: '#fff',
     textAlign: 'center',
-    fontSize: 10,
+    fontSize: 13,
     padding: 20,
+    fontWeight:"100"
   },
   sendButton: {
     padding: 10,
@@ -103,7 +118,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#4505D0",
     textAlign: "center",
-    fontSize: 14,
+    fontSize: 18,
+    paddingTop:0,
   },
   fromContainer: {
     display: 'flex',

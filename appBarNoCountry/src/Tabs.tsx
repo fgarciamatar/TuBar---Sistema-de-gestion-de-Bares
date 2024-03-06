@@ -42,12 +42,16 @@ const Drawer = createDrawerNavigator();
 function Tabs() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Welcom" component={Welcom} />
+      <Stack.Screen options={{ headerShown: false }} name="Welcom" component={Welcom} />
       <Stack.Screen
         options={{
+          title: 'Iniciar Sesión',
+          headerLeft: null,
           headerStyle: styles.headerScreen,
-          headerTintColor: '#000',
+          headerTintColor: '#0305C5',
           headerTitleStyle: {
+            paddingHorizontal:20,
+            fontSize: 24,
             fontWeight: 'bold',
           },
         }}
@@ -56,9 +60,13 @@ function Tabs() {
       />
       <Stack.Screen
         options={{
+          title: 'Registro',
+          headerLeft: null,
           headerStyle: styles.headerScreen,
-          headerTintColor: '#000',
+          headerTintColor: '#0305C5',
           headerTitleStyle: {
+            paddingHorizontal:20,
+            fontSize: 24,
             fontWeight: 'bold',
           },
         }}
@@ -67,9 +75,13 @@ function Tabs() {
       />
       <Stack.Screen
         options={{
+          title: 'Recuperar Contraseña',
+          headerLeft: null,
           headerStyle: styles.headerScreen,
-          headerTintColor: '#000',
+          headerTintColor: '#0305C5',
           headerTitleStyle: {
+            paddingHorizontal:20,
+            fontSize: 24,
             fontWeight: 'bold',
           },
         }}
@@ -94,8 +106,9 @@ function Tabs() {
       <Stack.Screen
         options={{
           headerStyle: styles.headerScreen,
-          headerTintColor: '#000',
+          headerTintColor: '#0305C5',
           headerTitleStyle: {
+            fontSize: 24,
             fontWeight: 'bold',
           },
         }}
@@ -105,8 +118,9 @@ function Tabs() {
       <Stack.Screen
         options={{
           headerStyle: styles.headerScreen,
-          headerTintColor: '#000',
+          headerTintColor: '#0305C5',
           headerTitleStyle: {
+            fontSize: 24,
             fontWeight: 'bold',
           },
         }}
@@ -116,8 +130,9 @@ function Tabs() {
       <Stack.Screen
         options={{
           headerStyle: styles.headerScreen,
-          headerTintColor: '#000',
+          headerTintColor: '#0305C5',
           headerTitleStyle: {
+            fontSize: 24,
             fontWeight: 'bold',
           },
         }}
@@ -128,8 +143,9 @@ function Tabs() {
       <Stack.Screen
         options={{
           headerStyle: styles.headerScreen,
-          headerTintColor: '#000',
+          headerTintColor: '#0305C5',
           headerTitleStyle: {
+            fontSize: 24,
             fontWeight: 'bold',
           },
         }}
