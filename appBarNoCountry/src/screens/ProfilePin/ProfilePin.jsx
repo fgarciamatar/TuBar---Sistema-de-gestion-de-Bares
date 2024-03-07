@@ -25,7 +25,7 @@ function ProfilePin({route}) {
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
-    const profileLogin = await postLoginProfile(pin, idProfile);
+    const profileLogin = await postLoginProfile(pin.trim(), idProfile);
     const {profile} = profileLogin;
     dispatch(setProfileSession(profile));
     if (profileLogin.status) {
@@ -37,6 +37,8 @@ function ProfilePin({route}) {
     }
   };
 
+
+
   let imageSource;
 
   if (role === 'ADMIN') {
@@ -46,6 +48,9 @@ function ProfilePin({route}) {
   } else {
     imageSource = chefImage;
   }
+
+
+   
 
   return (
     <View style={styles.container}>
@@ -65,6 +70,7 @@ function ProfilePin({route}) {
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.textButton}>Ingresar</Text>
       </TouchableOpacity>
+
     </View>
   );
 }

@@ -11,6 +11,9 @@ const TableModel = db.define<TableAttributes>('tables', {
       notNull: {
         msg: "El campo 'tableNumber' es obligatorio y debe ser proporcionado.",
       },
+      isNumeric: {
+        msg: "El campo 'tableNumber' tiene que ser numerico.",
+      },
     },
   },
   ability: {
@@ -19,6 +22,9 @@ const TableModel = db.define<TableAttributes>('tables', {
     validate: {
       notNull: {
         msg: "El campo 'ability' es obligatorio y debe ser proporcionado.",
+      },
+      isNumeric: {
+        msg: "El campo 'ability' tiene que ser numerico.",
       },
     },
   },

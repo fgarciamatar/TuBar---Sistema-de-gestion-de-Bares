@@ -26,15 +26,15 @@ function Login() {
   const handleSend = async () => {
     setloading(true);
     const userData = {
-      userName: userName,
-      password: password,
+      userName: userName.trim(),
+      password: password.trim(),
     };
 
     try {
       const resp = await apiLogin(userData);
-      console.log('Respuesta del login:', resp);
+      // console.log('Respuesta del login:', resp);
       await AsyncStorage.setItem('accessToken', resp.token);
-      console.log('Token guardado correctamente en AsyncStorage.');
+      // console.log('Token guardado correctamente en AsyncStorage.');
       setloading(false);
       Alert.alert('Éxito', 'Sesion iniciada', [
         {

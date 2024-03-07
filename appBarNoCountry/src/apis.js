@@ -1,7 +1,7 @@
-import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {urlApi} from './utils/definition';
+import axios from 'axios';
 import axiosInstance from './services/axiosInstance';
+import { urlApi } from './utils/definition';
 
 const API_BASE_URL = urlApi;
 
@@ -42,18 +42,18 @@ api.interceptors.request.use(
   async config => {
     const accessToken = await AsyncStorage.getItem('accessToken');
     const accessTokenProfile = await AsyncStorage.getItem('accessTokenProfile');
-    console.log('INTERCEPTO', config);
+    // console.log('INTERCEPTO', config);
     if (!EXEMPTED_ROUTES.includes(config.url)) {
-      console.log('INTERCEPTO2', accessToken);
+      // console.log('INTERCEPTO2', accessToken);
       if (!EXEMPTED_ROUTES2.includes(config.url)) {
-        console.log('INTERCEPTO3');
+        // console.log('INTERCEPTO3');
         if (accessTokenProfile) {
-          console.log('INTERCEPTO4', accessTokenProfile);
+          // console.log('INTERCEPTO4', accessTokenProfile);
           config.headers.Authorization = `Bearer ${accessTokenProfile}`;
         }
       }
       if (EXEMPTED_ROUTES2.includes(config.url)) {
-        console.log('INTERCEPTO2b');
+        // console.log('INTERCEPTO2b');
         config.headers.Authorization = `Bearer ${accessToken}`;
       }
     }
@@ -68,7 +68,7 @@ api.interceptors.request.use(
 //PERFILES APIS
 
 export const apiCreateProfile = async userData => {
-  console.log('USERDATA', userData);
+  // console.log('USERDATA', userData);
   const token = await AsyncStorage.getItem('accessTokenProfile');
   try {
     const response = await axios.post(`${urlApi}/profiles`, userData, {
@@ -77,11 +77,11 @@ export const apiCreateProfile = async userData => {
       },
     });
 
-    console.log('Respuesta del servidor:', response.data);
+    // console.log('Respuesta del servidor:', response.data);
 
     return response.data;
   } catch (error) {
-    console.log('ERROR PERFIL', error);
+    // console.log('ERROR PERFIL', error);
     return {status: false};
     throw error; // Puedes manejar el error según sea necesario en tu aplicación
     //  console.log(error);
@@ -89,7 +89,7 @@ export const apiCreateProfile = async userData => {
 };
 
 export const apiEditProfile = async userData => {
-  console.log('USERDATA', userData);
+  // console.log('USERDATA', userData);
   const data = {
     name: userData.name,
     role: userData.role,
@@ -107,7 +107,7 @@ export const apiEditProfile = async userData => {
       },
     );
 
-    console.log('Respuesta del servidor:', response.data);
+    // console.log('Respuesta del servidor:', response.data);
 
     return response.data;
   } catch (error) {
@@ -129,7 +129,7 @@ export const apiDeleteProfile = async id => {
       },
     });
 
-    console.log('Respuesta del servidor:', response.data);
+    // console.log('Respuesta del servidor:', response.data);
 
     return {status: true};
   } catch (error) {
@@ -156,7 +156,7 @@ export const apiCreateCategory = async categoryData => {
 };
 
 export const apiEditCategory = async categoryData => {
-  console.log('categoryData', categoryData);
+  // console.log('categoryData', categoryData);
   const data = {
     name: categoryData.name,
     description: categoryData.description,
@@ -177,7 +177,7 @@ export const apiEditCategory = async categoryData => {
 };
 
 export const apiDeleteCategory = async id => {
-  console.log('ID', id);
+  // console.log('ID', id);
 
   const token = await AsyncStorage.getItem('accessTokenProfile');
   try {
@@ -187,7 +187,7 @@ export const apiDeleteCategory = async id => {
       },
     });
 
-    console.log('Respuesta del servidor:', response.data);
+    // console.log('Respuesta del servidor:', response.data);
 
     return {status: true};
   } catch (error) {
@@ -216,7 +216,7 @@ export const apiCreateProduct = async productData => {
 };
 
 export const apiEditProduct = async productData => {
-  console.log('productData', productData);
+  // console.log('productData', productData);
   const data = {
     name: productData.name,
     description: productData.description,
@@ -229,7 +229,7 @@ export const apiEditProduct = async productData => {
       data,
     );
 
-    console.log('Respuesta del servidor:', response.data);
+    // console.log('Respuesta del servidor:', response.data);
 
     return response.data;
   } catch (error) {
@@ -270,13 +270,13 @@ export const createTables = async numTables => {
               },
             },
           );
-          console.log('response' + i, response.data);
+          // console.log('response' + i, response.data);
         } catch (error) {
           console.log('BAD RESPONSE');
         }
       }
 
-      console.log('FINALIZADA LA CREACION DE TABLAS');
+      // console.log('FINALIZADA LA CREACION DE TABLAS');
       return {status: true};
     } catch (error) {
       return {status: false};
@@ -288,18 +288,18 @@ export const createTables = async numTables => {
 
 export const deleteTables = async id => {
   const token = await AsyncStorage.getItem('accessTokenProfile');
-  console.log('ESTE ID EN DELETED', id);
+  // console.log('ESTE ID EN DELETED', id);
   const urlDelete = `${urlApi}/tables/${id}`;
-  console.log('URL', urlDelete);
+  // console.log('URL', urlDelete);
   try {
     const response = await axios.delete(urlDelete, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log('response', response.data);
+    // console.log('response', response.data);
 
-    console.log('FINALIZADA LA ELIMINACION DE TABLA');
+    // console.log('FINALIZADA LA ELIMINACION DE TABLA');
     return {status: true};
   } catch (error) {
     console.log('ERROR: ' + error.message);
@@ -327,10 +327,31 @@ export const postLoginProfile = async (pin, idProfile) => {
     AsyncStorage.setItem('accessTokenProfile', newToken);
     AsyncStorage.setItem('role', role);
 
-    console.log('response', response.data, 'ROL', role);
+    // console.log('response', response.data, 'ROL', role);
     return response.data;
   } catch (error) {
     return {status: false};
+  }
+};
+
+export const passwordRecovery = async email => {
+  try {
+    console.log("emailApi", email);
+    const response = await axiosInstance.post('/auth/forgot-password', {email});
+    console.log("RESPONSEDATA",response);
+    return response.data;
+  } catch (error) {
+    console.log("error", error.response.data.message);
+    // throw error;
+  }
+};
+
+export const newPasswordApi = async (code, newPassword) => {
+  try {
+    const response = await axiosInstance.post('/auth/new-password', {newPassword: newPassword, verifyPassword: newPassword, code: code});
+    return response.data;
+  } catch (error) {
+    console.log("error", error.response.data.message);
   }
 };
 

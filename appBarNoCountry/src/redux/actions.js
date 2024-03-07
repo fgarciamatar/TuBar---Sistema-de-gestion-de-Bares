@@ -22,9 +22,8 @@ export const hideLoaderGlobal = () => ({
   type: HIDE_LOADER,
 });
 export const setProfileSession = profile => {
-  console.log('asdasd');
 
-  console.log(profile);
+  // console.log(profile);
   return function (dispatch) {
     return dispatch({
       type: PROFILE_SESSION,
