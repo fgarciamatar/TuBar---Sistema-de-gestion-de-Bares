@@ -261,12 +261,19 @@ function Salon({route, navigation}) {
         />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.table}>Mesas ocupadas: {mesasOcupadas.length}</Text>
-        <Text style={styles.table}>Mesas desocupadas: {mesasDesocupadas.length}</Text>
+        <View style={{flexDirection: 'row', alignItems:'center'}}>
+          <Text style={styles.table}>Mesas ocupadas</Text>
+          <Text style={[styles.ballon, {backgroundColor:'#F7505A'}]}>{mesasOcupadas.length}</Text>
+        </View>
+        <View style={{flexDirection: 'row', alignItems:'center'}}>
+          <Text style={styles.table}>Mesas desocupadas</Text>
+          <Text style={[styles.ballon, {backgroundColor:'#7BE769'}]}>{mesasDesocupadas.length}</Text>
+        </View>
       </View>
 
-      <Tables tables={tables} />
-
+      <View style={styles.tablesContainer}>
+        <Tables tables={tables} />
+      </View>
       <Dialog
         isVisible={open}
         isCount={count}
@@ -301,13 +308,34 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    marginTop: 25,
+    alignItems:'center',
+    marginHorizontal:10,
+  },
+  ballon:{
+    width:45,
+    height:25,
+    color:'white',
+    fontSize:14,
+    paddingTop:2,
+    textAlign:'center',
+    paddingHorizontal:8,
+    borderRadius:16,
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: {width: -1, height: 4},
+    textShadowRadius: 6,
+    marginLeft:2
   },
   table: {
     color: "#0305C5",
+    marginVertical:10,
     fontSize: 15,
   },
+  tablesContainer: {
+    width: '100%',
+    height: '86.5%',
+    alignItems:'center',
+    justifyContent:'center'
+  }
   
 
 });

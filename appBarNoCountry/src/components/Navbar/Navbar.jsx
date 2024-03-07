@@ -47,7 +47,7 @@ function Navbar({
         </View>
       </View>
       {role === 'ADMIN' ? (
-        <XStack gap="$1" justifyContent="center" style={{marginRight: 5}}>
+        <XStack gap="$-3" justifyContent="center" style={{marginRight: 5}}>
           <Button size="$3" chromeless onPress={onPressAdd}>
             <Icon name="add-circle" color={'#4505D0'} iconStyle={styles.iconStyle} />
           </Button>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 0,
     backgroundColor: '#D0BBFD', // Color de fondo de la barra de navegación
   },
   titleContainer: {
@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
   image: {
     width: 40,
     height: 40,
+
   },
 });
 

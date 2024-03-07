@@ -53,30 +53,46 @@ console.log("tables",tables)
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    height: 600,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    minHeight: '10%',
   },
   tablesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    gap: 20,
     padding: 10,
   },
   table: {
-    width: '26%', 
-    height: "15%",
+    width: 100,
+    height: 100,
+    aspectRatio:1/1,
+    resizeMode:'contain',
     backgroundColor: 'white', // Cambiado a fondo blanco
     borderRadius: 10, // Bordes redondeados
     alignItems: 'center', // Centra el contenido horizontalmente
     justifyContent: 'center', // Centra el contenido verticalmente
     marginVertical: 10, // Espacio vertical entre mesas
+    shadowOffset: {
+	    width: 0,
+	    height: 2,
+    },
+    shadowColor: 'black',
+    shadowRadius: 10,
+    shadowOpacity: 1,
+    elevation: 5,
   },
   tableText: {
-    fontSize: 18,
+    paddingTop:4,
+    fontSize: 30,
+    color:'white',
     fontWeight: 'bold',
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: {width: -1, height: 4},
+    textShadowRadius: 6
   },
 });
 
