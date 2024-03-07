@@ -10,6 +10,7 @@ import {
   SHOW_LOADER,
   HIDE_LOADER,
   PROFILE_SESSION,
+  GET_ORDERS,
 } from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axiosInstance from '../services/axiosInstance';
@@ -101,6 +102,27 @@ export const getProducts = () => {
       });
     } catch (error) {
       console.log('error Products', error);
+    }
+  };
+};
+
+export const getOrders = () => {
+  return async function (dispatch) {
+    const token = await AsyncStorage.getItem('accessTokenProfile');
+    try {
+      const apiData = await axios.get(`${urlApi}/bill-orders`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const products = apiData.data;
+      // console.log("apiData products",apiData.data);
+      return dispatch({
+        type: GET_ORDERS,
+        payload: orders,
+      });
+    } catch (error) {
+      console.log('error Orders', error);
     }
   };
 };

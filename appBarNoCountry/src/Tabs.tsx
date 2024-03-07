@@ -15,6 +15,7 @@ import Password from './screens/Password/Password.jsx';
 import Order from './screens/Order/Order.tsx';
 import ProfilePin from './screens/ProfilePin/ProfilePin.jsx';
 import Menu from './screens/Menu/Menu.tsx';
+import ChefView from './screens/ChefView/ChefView.jsx'
 import OrderDetail from './screens/orderDetail/orderDetail.jsx';
 import {BillOrder} from './interfaces/interface';
 import Bill from './screens/BillOrder/Bill.tsx';
@@ -22,6 +23,7 @@ import CodePassword from "./screens/CodePassword/CodePassword.jsx"
 
 
 export type RootStackParamList = {
+  ChefView: undefined;
   Welcom: undefined;
   Login: undefined;
   SignUp: undefined;
@@ -103,6 +105,11 @@ function Tabs() {
       <Stack.Screen
         name="Salon"
         component={Salon}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ChefView"
+        component={ChefView}
         options={{headerShown: false}}
       />
       <Stack.Screen
