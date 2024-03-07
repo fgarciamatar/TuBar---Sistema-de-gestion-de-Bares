@@ -6,3 +6,4 @@ export * from './productCategory.controllers';
 export * from './profile.controllers';
 export * from './table.controllers';
 export * from './billOrder.controllers';
+export * from './orderDetail.controllers';

@@ -1,9 +1,8 @@
 import { BillOrderProps, OrderDetailProps } from '../interfaces';
-import { BillOrderService } from '../services';
+import { billOrderService } from '../services';
 import { catchAsync } from '../utils';
 import { joinDuplicateOrder } from '../utils/tools';
 
-const billOrderService = new BillOrderService();
 
 const getBillOrdersForBar = catchAsync(async (_req, res) => {
   const { profileSession } = res.locals;

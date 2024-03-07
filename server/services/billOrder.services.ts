@@ -45,6 +45,28 @@ class BillOrderService {
     }));
     return billOrdersTransform.reverse();
   }
+  async updateTotalPriceInBillOrder(billOrderId: number) {
+    const billOrder = await BillOrderModel.findOne({
+      where: {
+        id: billOrderId,
+      },
+      include: {
+        model: OrderDetailModel,
+      },
+    });
+    if (!billOrder)
+      throw new AppError(
+        'No se encontró ningun factura con el ID especificado.',
+        404
+      );
+    const totalPricerOrder =
+      billOrder.orderDetails?.reduce(
+        (acc, { price, quantity }) => (acc += price * quantity),
+        0
+      ) ?? 0;
+    await billOrder.update({ total: totalPricerOrder });
+    return billOrder;
+  }
 
   async createBillOrderForBar(
     barId: number,
@@ -176,6 +198,21 @@ class BillOrderService {
     if (!findBillOrderInProfile)
       throw new AppError(
         'No se encontró ningun factura en el bar con el ID especificado.',
+        404
+      );
+
+    return billOrder;
+  }
+
+  async findBillOrderForOrderInBar(billOrderId: number, barId: number) {
+    const billOrder = await this.findBillOrderOr404(billOrderId);
+    const findBillOrderInTable = await tableService.findTableForBar(
+      billOrder.tableId,
+      barId
+    );
+    if (!findBillOrderInTable)
+      throw new AppError(
+        'No se encontró ningun Orden en el bar con el ID especificado.',
         404
       );
 
