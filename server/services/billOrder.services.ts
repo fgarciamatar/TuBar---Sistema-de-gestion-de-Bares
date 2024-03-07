@@ -77,6 +77,8 @@ class BillOrderService {
     const billOrderActive = await BillOrderModel.findOne({
       where: {
         isBilled: false,
+        isDelivered: false,
+        isCooked: false,
         tableId: table.id,
       },
     });
@@ -144,6 +146,8 @@ class BillOrderService {
       where: {
         tableId: table.id,
         isBilled: false,
+        isDelivered: false,
+        isCooked: false,
       },
       include: {
         model: OrderDetailModel,
@@ -249,6 +253,8 @@ class BillOrderService {
       where: {
         tableId: table.id,
         isBilled: false,
+        isDelivered: false,
+        isCooked: false,
       },
       include: {
         model: OrderDetailModel,
@@ -269,6 +275,24 @@ class BillOrderService {
   async payBillOrder(billOrderId: number, barId: number) {
     const billOrder = await this.findBillOrderForBarOr404(billOrderId, barId);
     billOrder.update({ isBilled: true });
+    await tableService.IsOrNotOccupiedTableForBar(billOrder.tableId, barId);
+    const billOrderWithBillOrderNumber =
+      await this.getBillOrderWithBillOrderNumber(billOrder, barId);
+    return billOrderWithBillOrderNumber;
+  }
+
+  async deliverBillOrder(billOrderId: number, barId: number) {
+    const billOrder = await this.findBillOrderForBarOr404(billOrderId, barId);
+    billOrder.update({ isDelivered: true });
+    await tableService.IsOrNotOccupiedTableForBar(billOrder.tableId, barId);
+    const billOrderWithBillOrderNumber =
+      await this.getBillOrderWithBillOrderNumber(billOrder, barId);
+    return billOrderWithBillOrderNumber;
+  }
+
+  async cookBillOrder(billOrderId: number, barId: number) {
+    const billOrder = await this.findBillOrderForBarOr404(billOrderId, barId);
+    billOrder.update({ isCooked: true });
     await tableService.IsOrNotOccupiedTableForBar(billOrder.tableId, barId);
     const billOrderWithBillOrderNumber =
       await this.getBillOrderWithBillOrderNumber(billOrder, barId);

@@ -12,6 +12,8 @@ export interface BillOrderAttributes
   id?: CreationOptional<number>;
   total?: CreationOptional<number>;
   isBilled: CreationOptional<boolean>;
+  isDelivered: CreationOptional<boolean>;
+  isCooked: CreationOptional<boolean>;
   profileId: number;
   tableId: number;
   createdAt?: CreationOptional<Date>;

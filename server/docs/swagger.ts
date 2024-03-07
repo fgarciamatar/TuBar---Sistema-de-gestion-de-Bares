@@ -110,7 +110,7 @@ const swaggerDefinition: OAS3Definition = {
           role: {
             type: 'string',
             example: 'EMPLOYEE',
-            enum: ['ADMIN', 'EMPLOYEE', 'CHEF'],
+            enum: ['ADMIN', 'EMPLOYEE', 'CHEF', 'SCREEN'],
           },
           pinCode: { type: 'string', example: 'abcde12345' },
         },
@@ -390,6 +390,8 @@ const swaggerDefinition: OAS3Definition = {
           billOrder: {
             total: 84,
             isBilled: false,
+            isDelivered: false,
+            isCooked: false,
             id: 26,
             profileId: 9,
             tableId: 13,
@@ -405,6 +407,8 @@ const swaggerDefinition: OAS3Definition = {
           billOrder: {
             total: 84,
             isBilled: true,
+            isDelivered: true,
+            isCooked: true,
             id: 26,
             profileId: 9,
             tableId: 13,
@@ -419,6 +423,8 @@ const swaggerDefinition: OAS3Definition = {
           id: 24,
           total: 84,
           isBilled: true,
+          isDelivered: true,
+          isCooked: true,
           profileId: 9,
           tableId: 13,
           createdAt: '2024-02-29T07:34:23.771Z',

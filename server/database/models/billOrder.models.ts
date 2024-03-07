@@ -30,6 +30,30 @@ const BillOrderModel = db.define<BillOrderAttributes>('billOrders', {
       },
     },
   },
+  isDelivered: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+    validate: {
+      isBoolean(value: unknown) {
+        if (typeof value !== 'boolean') {
+          throw new Error("El campo 'isDelivered' debe ser un valor booleano.");
+        }
+      },
+    },
+  },
+  isCooked: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+    validate: {
+      isBoolean(value: unknown) {
+        if (typeof value !== 'boolean') {
+          throw new Error("El campo 'isCooked' debe ser un valor booleano.");
+        }
+      },
+    },
+  },
   profileId: {
     type: DataTypes.INTEGER,
     allowNull: false,

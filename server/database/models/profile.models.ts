@@ -17,12 +17,12 @@ const ProfileModel = db.define<ProfileAttributes>('profiles', {
     },
   },
   role: {
-    type: DataTypes.ENUM('ADMIN', 'EMPLOYEE', 'CHEF'),
+    type: DataTypes.ENUM('ADMIN', 'EMPLOYEE', 'CHEF', 'SCREEN'),
     defaultValue: 'EMPLOYEE',
     allowNull: false,
     validate: {
       isIn: {
-        args: [['ADMIN', 'EMPLOYEE', 'CHEF']],
+        args: [['ADMIN', 'EMPLOYEE', 'CHEF', 'SCREEN']],
         msg: "Tipo de role inválido. Por favor, seleccione entre 'ADMIN', 'EMPLOYEE' o 'CHEF'.",
       },
       notNull: {
