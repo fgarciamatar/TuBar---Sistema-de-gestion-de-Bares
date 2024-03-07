@@ -91,11 +91,11 @@ function Salon({route, navigation}) {
 
   const handleDecrement = () => {
     console.log('ACTUAL COUNT', count);
-    if (count > 0 || count > tableLength) {
+    if (count > 0) {
       console.log('ENTRE A COUNT > 0');
       setCount(count - 1);
     } else {
-      console.log('ENTRE A COUNT NORMAL');
+      console.log('ENTRE A COUNT NORMA');
       setCount(0);
     }
   };

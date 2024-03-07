@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
   table: {
     width: 100,
     height: 100,
-    aspectRatio:1/1,
     resizeMode:'contain',
     backgroundColor: 'white', // Cambiado a fondo blanco
     borderRadius: 10, // Bordes redondeados
