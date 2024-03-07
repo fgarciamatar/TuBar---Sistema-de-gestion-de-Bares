@@ -16,7 +16,7 @@ const router = Router();
 
 router.use(protect(['profileSession']));
 
-router.use(checkRole(['ADMIN', 'EMPLOYEE']));
+router.use(checkRole(['ADMIN', 'EMPLOYEE', 'CHEF', 'SCREEN']));
 
 /**
  * @swagger
