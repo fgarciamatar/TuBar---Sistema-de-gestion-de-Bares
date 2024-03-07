@@ -8,10 +8,12 @@ import {
   SHOW_LOADER,
   HIDE_LOADER,
   PROFILE_SESSION,
+  GET_ORDERS,
 } from './types';
 
 const initialState = {
   profiles: [],
+  orders: [],
   tables: [],
   categories: [],
   products: [],
@@ -61,6 +63,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         profileSession: action.payload,
+      };
+    case GET_ORDERS:
+      return {
+        ...state,
+        orders: action.payload,
       };
     default:
       return {...state};
