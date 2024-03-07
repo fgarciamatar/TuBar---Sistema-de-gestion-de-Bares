@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {useState} from 'react';
 import {newPasswordApi} from './../../apis.js';
+import { useNavigation } from '@react-navigation/native';
 
 function CodePassword() {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,13 +17,23 @@ function CodePassword() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [code, setCode] = useState('');
 
+  const navigation = useNavigation()
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
   const handleSend = async () => {
     try {
-      if (newPassword === confirmPassword) {
+      if (newPassword.trim() === confirmPassword.trim()) {
         const resp = await newPasswordApi(code.trim(), newPassword.trim());
+        Alert.alert('Éxito', resp.msg, [
+          {
+            text: 'OK',
+            onPress: () => {
+              navigation.navigate('Login');
+            },
+          },
+        ]);
       } else {
         Alert.alert('Error', 'Las contraseñas no coinciden');
         return;

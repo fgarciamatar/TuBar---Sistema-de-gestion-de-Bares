@@ -25,7 +25,7 @@ function ProfilePin({route}) {
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
-    const profileLogin = await postLoginProfile(pin, idProfile);
+    const profileLogin = await postLoginProfile(pin.trim(), idProfile);
     const {profile} = profileLogin;
     dispatch(setProfileSession(profile));
     if (profileLogin.status) {

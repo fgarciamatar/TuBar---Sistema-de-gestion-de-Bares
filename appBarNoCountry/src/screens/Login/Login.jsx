@@ -26,8 +26,8 @@ function Login() {
   const handleSend = async () => {
     setloading(true);
     const userData = {
-      userName: userName,
-      password: password,
+      userName: userName.trim(),
+      password: password.trim(),
     };
 
     try {

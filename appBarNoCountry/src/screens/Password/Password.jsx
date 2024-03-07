@@ -17,7 +17,7 @@ function Password() {
 
   const handleCode = async () => {
     try {
-      const resp = await passwordRecovery(email);
+      const resp = await passwordRecovery(email.trim());
       // console.log("respPASSWRD",resp);
       
       Alert.alert('Éxito', resp.msg, [

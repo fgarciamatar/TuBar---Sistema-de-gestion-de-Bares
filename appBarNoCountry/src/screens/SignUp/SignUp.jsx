@@ -37,10 +37,10 @@ function SignUp() {
   const handleSend = async () => {
     setloading(true)
     const userData = {
-      name: name,
-      userName: userName,
-      email: email,
-      password: password,
+      name: name.trim(),
+      userName: userName.trim(),
+      email: email.trim(),
+      password: password.trim(),
     };
 
     try {
