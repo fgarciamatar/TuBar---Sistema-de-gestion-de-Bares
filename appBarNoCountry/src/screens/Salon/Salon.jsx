@@ -251,7 +251,7 @@ function Salon({route, navigation}) {
 
       <View>
         <Navbar
-          title={'Salon'}
+          title={'Salón'}
           role={rol}
           onPressAdd={handleOpenDialog}
           onPressEdit={handleOpenEditDialog}

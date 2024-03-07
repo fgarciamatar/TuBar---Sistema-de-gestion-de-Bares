@@ -14,6 +14,8 @@ function SelectPerfil() {
       <View style={styles.container}>
         <Text style={styles.title}>Selecciona tu perfil</Text>
         <ScrollView>
+          <View style={styles.profilesContainer}>
+
           {profilesSelectPerfil.profiles !== undefined &&
           profilesSelectPerfil.profiles ? (
             profilesSelectPerfil?.profiles.map(profile => (
@@ -27,6 +29,8 @@ function SelectPerfil() {
           ) : (
             <Spinner size="large" color="$orange10" />
           )}
+          </View>
+
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -35,32 +39,25 @@ function SelectPerfil() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
-    marginBottom: 100,
+    display:'flex',
+    backgroundColor: '#EEEBEB',
     borderWidth: 1,
+    width:'100%',
+    height:'100%'
   },
-  cardContainer: {
-    width: '48%', // Ancho del contenedor de tarjeta para que dos tarjetas se muestren en una fila
-    marginBottom: 12, // Espacio entre las tarjetas
-    backgroundColor: '#fff', // Fondo blanco de las tarjetas
-    borderRadius: 15, // Bordes redondeados de las tarjetas
-    padding: 12, // Padding dentro del contenedor de tarjeta
-    shadowColor: '#000000',
-     // Color de la sombra
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.2, // Opacidad de la sombra
-    shadowRadius: 2, // Radio de la sombra
-    elevation: 3, // Elevación de la tarjeta
+  profilesContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between', // Alinear las columnas en el espacio disponible
+    paddingHorizontal: 10, // Añadir espacio horizontal para evitar que los perfiles toquen los bordes
+    paddingBottom: 10, // Añadir espacio en la parte inferior para evitar que los perfiles toquen el borde inferior
   },
   title: {
     fontSize: 26,
+    color: '#0305C5',
     textAlign: 'center',
-    backgroundColor: '#D0BBFD',
-    fontWeight: "bold",
-    padding: 10,
+    fontWeight: 'bold',
+    paddingVertical: 10, // Ajustar el espacio vertical para centrar el texto
   },
 });
 
