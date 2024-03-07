@@ -306,6 +306,17 @@ const swaggerDefinition: OAS3Definition = {
           price: { type: 'float', example: 10.5 },
         },
       },
+      orderDetailEdit: {
+        type: 'object',
+        required: ['quantity', 'description'],
+        properties: {
+          quantity: { type: 'number', example: 2 },
+          description: {
+            type: 'string',
+            example: 'Hamburgesa con mayonesa',
+          },
+        },
+      },
       product: {
         type: 'object',
         example: {
@@ -341,6 +352,19 @@ const swaggerDefinition: OAS3Definition = {
               ],
             },
           },
+        },
+      },
+      OrderDetailReponse: {
+        type: 'object',
+        example: {
+          id: 41,
+          quantity: 3,
+          price: 13.6,
+          description: 'Hamburguesa sin mayonesa',
+          billOrderId: 24,
+          productId: 1,
+          createdAt: '2024-02-29T07:34:24.982Z',
+          updatedAt: '2024-02-29T07:34:24.982Z',
         },
       },
       order: {

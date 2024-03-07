@@ -21,6 +21,7 @@ import {
   productRoutes,
   barRoutes,
   billOrderRoutes,
+  orderDetailRoutes,
 } from '../routes';
 
 class Server {
@@ -28,7 +29,6 @@ class Server {
   private PORT: string = process.env.PORT || '4003';
   private HOST: string = process.env.HOST || 'localhost';
   private ROUTE: string = process.env.ROUTE || '/api/v1';
-  private rootDir = path.resolve(__dirname, '..');
 
   constructor() {
     this.app = express();
@@ -64,6 +64,7 @@ class Server {
     router.use('/product-categories', productCategoryRoutes);
     router.use('/products', productRoutes);
     router.use('/bill-orders', billOrderRoutes);
+    router.use('/order-detail', orderDetailRoutes);
 
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 

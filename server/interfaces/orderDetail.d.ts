@@ -11,6 +11,7 @@ export interface OrderDetailAttributes
   id?: CreationOptional<number>;
   productId: number;
   quantity: number;
+  price: number;
   description: CreationOptional<string>;
   billOrderId: number;
   createdAt?: CreationOptional<Date>;
@@ -19,5 +20,5 @@ export interface OrderDetailAttributes
 
 export type OrderDetailProps = Pick<
   OrderDetailAttributes,
-  'quantity' | 'productId'
+  'quantity' | 'productId' | 'description'
 >;

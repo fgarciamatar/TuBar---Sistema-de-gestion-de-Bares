@@ -31,6 +31,16 @@ class TableService {
     }
     return table;
   }
+  async findTableForBar(tableId: number, barId: number) {
+    const table = await TableModel.findOne({
+      where: {
+        id: tableId,
+        barId,
+      },
+    });
+
+    return table;
+  }
 
   async createTableForBar({
     ability,
