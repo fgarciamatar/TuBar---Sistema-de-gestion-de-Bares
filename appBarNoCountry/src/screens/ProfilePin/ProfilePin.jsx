@@ -16,6 +16,7 @@ import {setProfileSession} from '../../redux/actions';
 import adminImage from '../../assets/menu/admin.png';
 import employeeImage from '../../assets/waiter.png';
 import chefImage from '../../assets/chef.png';
+import screenImage from '../../assets/screen.png';
 
 function ProfilePin({route}) {
   const [pin, setPin] = useState('');
@@ -31,6 +32,7 @@ function ProfilePin({route}) {
     if (profileLogin.status) {
       Alert.alert('Exito', 'PIN correcto.');
       if(role === "CHEF" ) navigation.navigate('Kitchen');
+      else if (role === 'SCREEN') navigation.navigate('screenView')
       else  navigation.navigate('Salon', {role: role});
     } else if (!profileLogin.status) {
       Alert.alert('Error', 'PIN incorrecto. Por favor, inténtalo de nuevo.');
@@ -46,6 +48,8 @@ function ProfilePin({route}) {
     imageSource = adminImage;
   } else if (role === 'EMPLOYEE') {
     imageSource = employeeImage;
+  } else if (role === 'SCREEN') {
+    imageSource = screenImage;
   } else {
     imageSource = chefImage;
   }

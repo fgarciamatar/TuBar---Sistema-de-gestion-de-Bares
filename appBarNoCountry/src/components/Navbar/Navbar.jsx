@@ -5,6 +5,7 @@ import {Icon, ListItem, Avatar} from '@rneui/themed';
 import {Button, XGroup, XStack, YStack, ZStack} from 'tamagui';
 import adminImage from '../../assets/menu/admin.png';
 import employeeImage from '../../assets/waiter.png';
+import screenImage from '../../assets/screen.png';
 import chefImage from '../../assets/chef.png';
 
 function Navbar({
@@ -25,6 +26,8 @@ function Navbar({
     imageSource = adminImage;
   } else if (role === 'EMPLOYEE') {
     imageSource = employeeImage;
+  } else if (role === 'SCREEN') {
+    imageSource = screenImage;
   } else {
     imageSource = chefImage;
   }
