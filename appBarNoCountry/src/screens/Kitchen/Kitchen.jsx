@@ -77,7 +77,7 @@ function Kitchen() {
                   <View key={index} style={styles.last1}>
                     <View style={styles.productContainer}>
                     <Text style={styles.foodName}>
-                      {orderDetail.product.description}
+                      {orderDetail.product.name}
                     </Text>
                     <Text >
                         {orderDetail.quantity //.description === orderDetail.product.description).length)}
