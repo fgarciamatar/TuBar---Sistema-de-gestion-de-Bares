@@ -153,8 +153,7 @@ class BillOrderService {
         model: OrderDetailModel,
       },
     });
-
-    if (billOrderByTableByProfile?.orderDetails?.length) {
+    if (billOrderByTableByProfile) {
       const billOrder = await this.addOrderInBillOrderForBar(
         billOrderByTableByProfile.id,
         barId,
