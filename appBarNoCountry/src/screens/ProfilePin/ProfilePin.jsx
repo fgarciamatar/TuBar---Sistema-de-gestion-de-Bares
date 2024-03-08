@@ -32,7 +32,7 @@ function ProfilePin({route}) {
     if (profileLogin.status) {
       Alert.alert('Exito', 'PIN correcto.');
       if(role === "CHEF" ) navigation.navigate('Kitchen');
-      else if (role === 'SCREEN') navigation.navigate('screenView')
+      else if (role === 'SCREEN') navigation.navigate('ScreenView')
       else  navigation.navigate('Salon', {role: role});
     } else if (!profileLogin.status) {
       Alert.alert('Error', 'PIN incorrecto. Por favor, inténtalo de nuevo.');
