@@ -115,10 +115,10 @@ const styles = StyleSheet.create({
     borderColor: '#AA84FC',
   },
   textButton:{
-    fontWeight: "600",
+    fontWeight: "400",
     color: "#4505D0",
     textAlign: "center",
-    fontSize: 18,
+    fontSize: 14,
     paddingTop:0,
   },
   fromContainer: {

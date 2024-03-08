@@ -64,7 +64,7 @@ function ProfilePin({route}) {
         source={imageSource}
       />
       <Text style={styles.text}>{name}</Text>
-      <Text style={styles.title}>Ingrese el Pin (2bc6e8)</Text>
+      <Text style={styles.title}>Ingrese el Pin</Text>
       <TextInput
         style={styles.input}
         placeholder="PIN"

@@ -43,7 +43,7 @@ function Salon({route, navigation}) {
           desocupadas.push(mesa);
         }
       });
-      console.log('OCUPADAS', ocupadas, 'DESOCUPADAS', desocupadas);
+      // console.log('OCUPADAS', ocupadas, 'DESOCUPADAS', desocupadas);
       setmesasOcupadas(ocupadas);
       setmesasDesocupadas(desocupadas);
       settableLength(tables.length);
@@ -61,7 +61,7 @@ function Salon({route, navigation}) {
 
   const handleOpenMenu = () => {
     setopenMenu(!openMenu);
-    console.log('OPEN MENU', openMenu);
+    // console.log('OPEN MENU', openMenu);
   };
 
   const handleOpenDialog = () => {
@@ -80,7 +80,7 @@ function Salon({route, navigation}) {
 
   useFocusEffect(
     useCallback(() => {
-      console.log('entreas as');
+      // console.log('entreas as');
       dispatch(getTables());
     }, []),
   );

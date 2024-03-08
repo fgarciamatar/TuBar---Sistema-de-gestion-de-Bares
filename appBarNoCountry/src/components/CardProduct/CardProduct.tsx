@@ -52,7 +52,10 @@ const CardProduct = ({
                   productCategoryId,
                 });
               }}>
-              <Icon name="edit" size={18} />
+              <Image
+                style={styles.Image}
+                source={require('../../assets/menu/email.png')}
+              />
             </Button>
           )}
           {handleShowDeleteProduct && (
@@ -60,7 +63,10 @@ const CardProduct = ({
               size="$1.5"
               chromeless
               onPress={() => handleShowDeleteProduct(id)}>
-              <Icon name="delete" color={'red'} size={18} />
+              <Image
+                style={styles.Image}
+                source={require('../../assets/menu/remove.png')}
+              />
             </Button>
           )}
         </View>
@@ -100,7 +106,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-
+  Image: {
+    width: 25,
+    height: 25,
+  },
   itemContainer: {
     justifyContent: 'center',
     alignItems: 'center',

@@ -144,7 +144,8 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     color: '#0305C5',
-    marginBottom:-6
+    marginBottom:4
+
   },
   formContainer: {
     display: 'flex',
