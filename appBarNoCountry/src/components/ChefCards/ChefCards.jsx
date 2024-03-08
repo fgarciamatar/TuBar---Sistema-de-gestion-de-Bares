@@ -64,9 +64,9 @@ function ProfileCards({
               </XStack>
             ) : null}
           </YStack>
-        </View>
+        </View>*/
       </TouchableOpacity>
-      */
+      
     </View>
   );
 }
