@@ -126,6 +126,7 @@ const [pickerFocused, setPickerFocused] = useState(false)
                       <Picker.Item label="Administrador" value="ADMIN" />
                       <Picker.Item label="Empleado" value="EMPLOYEE" />
                       <Picker.Item label="Chef" value="CHEF" />
+                      <Picker.Item label="Pantalla" value="SCREEN" />
                       </Picker>
                       </View>
                     </XStack>
