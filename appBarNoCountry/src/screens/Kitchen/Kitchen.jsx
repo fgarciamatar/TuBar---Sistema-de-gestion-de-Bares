@@ -23,9 +23,9 @@ function Kitchen() {
     const getBillOrder = async () => {
       try {
         const res = await axiosInstance.get(`${urlApi}/bill-orders`);
-        const filteredFoods = res.data.billOrders.filter(item => !item.isBilled);
+       const filteredFoods = res.data.billOrders.filter(item => !item.isBilled);
         setFoods(filteredFoods);
-        setReversedFoods(filteredFoods.slice().reverse()); // Invertir y almacenar en el estado separado
+        setReversedFoods(filteredFoods.reverse()); // Invertir y almacenar en el estado separado
       } catch (error) {
         console.error('Error al obtener datos de la API:', error);
       }
@@ -61,7 +61,7 @@ function Kitchen() {
   };
 
   return (
-    <View>
+    <View>{console.log('hola')}
       <View style={styles.menuContainer}>
         {foods !== undefined && foods ? (
           <FlatList
@@ -74,10 +74,15 @@ function Kitchen() {
                 onPress={() => handleShowDialog(item)} // Corrección aquí
 >
                 {item.orderDetails.map((orderDetail, index) => (
-                  <View key={index}>
+                  <View key={index} style={styles.last1}>
+                    <View style={styles.productContainer}>
                     <Text style={styles.foodName}>
                       {orderDetail.product.description}
                     </Text>
+                    <Text >
+                        {orderDetail.quantity //.description === orderDetail.product.description).length)}
+                        }</Text>
+                    </View>
                     {orderDetail.description && (
                       <Text style={styles.description}>
                         {orderDetail.description}
@@ -130,6 +135,19 @@ foodItem: {
   width: '100%', // Ocupa todo el ancho disponible
   flexGrow: 0, // Evita la expansión vertical
 },
+  last1: {
+          borderBottomColor:'#3032FC',
+        borderBottomWidth:1,
+    marginHorizontal:5
+
+  },
+  productContainer:{
+  flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-between',
+            paddingTop: 3,
+  },
+
   orderNumber: {
         color: '#fff',
         fontWeight: 'bold',
@@ -144,9 +162,7 @@ foodItem: {
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 20,
-        paddingTop: 3,
-        borderBottomColor:'#3032FC',
-        borderBottomWidth:1,
+
         width: 'auto',
       },
       description: {
@@ -156,6 +172,7 @@ foodItem: {
         fontSize: 20,
         width: 'auto',
         paddingHorizontal:10,
+    marginBottom:5,
       },
       category: {
         fontSize: 13,
