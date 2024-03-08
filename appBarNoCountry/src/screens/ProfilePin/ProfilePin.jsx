@@ -30,9 +30,17 @@ function ProfilePin({route}) {
     dispatch(setProfileSession(profile));
     if (profileLogin.status) {
       Alert.alert('Exito', 'PIN correcto.');
+<<<<<<< HEAD
       if(role === "CHEF" ) navigation.navigate('Kitchen');
       else  navigation.navigate('Salon', {role: role});
      
+=======
+      if(role != 'CHEF'){
+        navigation.navigate('Salon', {role: role});}
+      else{
+        navigation.navigate('ChefView', {role: role})
+      }
+>>>>>>> 26c0f20339609f635a6749e08894d94a60aba5fa
     } else if (!profileLogin.status) {
       Alert.alert('Error', 'PIN incorrecto. Por favor, inténtalo de nuevo.');
       setPin('');

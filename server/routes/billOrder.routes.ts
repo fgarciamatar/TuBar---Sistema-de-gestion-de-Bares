@@ -5,6 +5,8 @@ import {
   createBillOrderForBar,
   getBillOrdersForBar,
   payBillOrder,
+  deliverBillOrder,
+  cookBillOrder,
   getBillOrderForBar,
   getBillOrderByTableForBar,
   addOrCreateOrderInBillOrderForBar,
@@ -20,7 +22,7 @@ const router = Router();
  */
 
 router.use(protect(['profileSession']));
-router.use(checkRole(['EMPLOYEE', 'ADMIN']));
+router.use(checkRole(['EMPLOYEE', 'ADMIN', 'CHEF', 'SCREEN']));
 
 /**
  * @swagger
@@ -281,4 +283,73 @@ router.patch('/:billOrderId/addOrder', addOrderInBillOrderForBar);
  */
 router.patch('/:billOrderId/pay', payBillOrder);
 
+/**
+ * @swagger
+ * /bill-orders/{billOrderId}/pay:
+ *  patch:
+ *    tags: [Factura]
+ *    summary: Marcar como pagado la factura del bar, requiere sesion del perfil
+ *    description: Endpoint para marcar la factura del bar
+ *    parameters:
+ *       - name: billOrderId
+ *         in: path
+ *         description: Id de la factura
+ *         required: true
+ *         schema:
+ *           type: integer
+ *    responses:
+ *       '200':
+ *         description: Factura marcada como pagada exitosamente.
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: "#/components/schemas/billOrderResponse"
+ *       '401':
+ *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
+ *       '403':
+ *         description: Este perfil no tiene permisos para acceder a esta ruta..
+ *       '404':
+ *         description: No se encontró ninguna factura con el ID especificado.
+ *       '500':
+ *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
+ *    security:
+ *      - bearerAuth: []
+ *
+ */
+router.patch('/:billOrderId/pay', cookBillOrder);
+
+/**
+ * @swagger
+ * /bill-orders/{billOrderId}/pay:
+ *  patch:
+ *    tags: [Factura]
+ *    summary: Marcar como pagado la factura del bar, requiere sesion del perfil
+ *    description: Endpoint para marcar la factura del bar
+ *    parameters:
+ *       - name: billOrderId
+ *         in: path
+ *         description: Id de la factura
+ *         required: true
+ *         schema:
+ *           type: integer
+ *    responses:
+ *       '200':
+ *         description: Factura marcada como pagada exitosamente.
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: "#/components/schemas/billOrderResponse"
+ *       '401':
+ *         description: ¡Usted no se ha identificado! por favor inicie sesión con su perfil para obtener acceso.
+ *       '403':
+ *         description: Este perfil no tiene permisos para acceder a esta ruta..
+ *       '404':
+ *         description: No se encontró ninguna factura con el ID especificado.
+ *       '500':
+ *          description: Ha ocurrido un error interno. Por favor, inténtelo de nuevo más tarde.
+ *    security:
+ *      - bearerAuth: []
+ *
+ */
+router.patch('/:billOrderId/pay', deliverBillOrder);
 export default router;

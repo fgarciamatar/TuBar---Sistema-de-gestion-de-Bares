@@ -45,6 +45,28 @@ class BillOrderService {
     }));
     return billOrdersTransform.reverse();
   }
+  async updateTotalPriceInBillOrder(billOrderId: number) {
+    const billOrder = await BillOrderModel.findOne({
+      where: {
+        id: billOrderId,
+      },
+      include: {
+        model: OrderDetailModel,
+      },
+    });
+    if (!billOrder)
+      throw new AppError(
+        'No se encontró ningun factura con el ID especificado.',
+        404
+      );
+    const totalPricerOrder =
+      billOrder.orderDetails?.reduce(
+        (acc, { price, quantity }) => (acc += price * quantity),
+        0
+      ) ?? 0;
+    await billOrder.update({ total: totalPricerOrder });
+    return billOrder;
+  }
 
   async createBillOrderForBar(
     barId: number,
@@ -55,6 +77,8 @@ class BillOrderService {
     const billOrderActive = await BillOrderModel.findOne({
       where: {
         isBilled: false,
+        isDelivered: false,
+        isCooked: false,
         tableId: table.id,
       },
     });
@@ -122,6 +146,8 @@ class BillOrderService {
       where: {
         tableId: table.id,
         isBilled: false,
+        isDelivered: false,
+        isCooked: false,
       },
       include: {
         model: OrderDetailModel,
@@ -182,6 +208,21 @@ class BillOrderService {
     return billOrder;
   }
 
+  async findBillOrderForOrderInBar(billOrderId: number, barId: number) {
+    const billOrder = await this.findBillOrderOr404(billOrderId);
+    const findBillOrderInTable = await tableService.findTableForBar(
+      billOrder.tableId,
+      barId
+    );
+    if (!findBillOrderInTable)
+      throw new AppError(
+        'No se encontró ningun Orden en el bar con el ID especificado.',
+        404
+      );
+
+    return billOrder;
+  }
+
   async getBillOrderWithBillOrderNumber(
     billOrder: BillOrderAttributes,
     barId: number
@@ -212,6 +253,8 @@ class BillOrderService {
       where: {
         tableId: table.id,
         isBilled: false,
+        isDelivered: false,
+        isCooked: false,
       },
       include: {
         model: OrderDetailModel,
@@ -232,6 +275,24 @@ class BillOrderService {
   async payBillOrder(billOrderId: number, barId: number) {
     const billOrder = await this.findBillOrderForBarOr404(billOrderId, barId);
     billOrder.update({ isBilled: true });
+    await tableService.IsOrNotOccupiedTableForBar(billOrder.tableId, barId);
+    const billOrderWithBillOrderNumber =
+      await this.getBillOrderWithBillOrderNumber(billOrder, barId);
+    return billOrderWithBillOrderNumber;
+  }
+
+  async deliverBillOrder(billOrderId: number, barId: number) {
+    const billOrder = await this.findBillOrderForBarOr404(billOrderId, barId);
+    billOrder.update({ isDelivered: true });
+    await tableService.IsOrNotOccupiedTableForBar(billOrder.tableId, barId);
+    const billOrderWithBillOrderNumber =
+      await this.getBillOrderWithBillOrderNumber(billOrder, barId);
+    return billOrderWithBillOrderNumber;
+  }
+
+  async cookBillOrder(billOrderId: number, barId: number) {
+    const billOrder = await this.findBillOrderForBarOr404(billOrderId, barId);
+    billOrder.update({ isCooked: true });
     await tableService.IsOrNotOccupiedTableForBar(billOrder.tableId, barId);
     const billOrderWithBillOrderNumber =
       await this.getBillOrderWithBillOrderNumber(billOrder, barId);

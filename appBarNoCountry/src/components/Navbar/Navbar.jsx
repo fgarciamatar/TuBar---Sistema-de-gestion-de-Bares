@@ -47,17 +47,17 @@ function Navbar({
         </View>
       </View>
       {role === 'ADMIN' ? (
-        <XStack gap="$1" justifyContent="center" style={{marginRight: 5}}>
+        <XStack gap="$-3" justifyContent="center" style={{marginRight: 5}}>
           <Button size="$3" chromeless onPress={onPressAdd}>
-            <Icon name="add-circle" color={'#4505D0'} />
+            <Icon name="add-circle" color={'#4505D0'} iconStyle={styles.iconStyle} />
           </Button>
           {onPlusOptions ? (
             <>
               <Button size="$3" chromeless onPress={onPressEdit}>
-                <Icon name="edit" color={'#4505D0'}/>
+                <Icon name="edit" color={'#4505D0'} iconStyle={styles.iconStyle} />
               </Button>
               <Button size="$3" chromeless onPress={onPressMenu}>
-                <Icon name="menu" color={'#4505D0'}/>
+                <Icon name="menu" color={'#4505D0'} iconStyle={styles.iconStyle} />
               </Button>
             </>
           ) : null}
@@ -84,17 +84,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 0,
     backgroundColor: '#D0BBFD', // Color de fondo de la barra de navegación
   },
   titleContainer: {
     flex: 1,
   },
+  iconStyle: {paddingVertical:5,
+  textShadowColor: 'rgba(0, 0, 0, 0.1)',
+  textShadowOffset: {width: -1, height: 4},
+  textShadowRadius: 6
+  },
   title: {
-    marginTop: 5,
-    color: 'black',
-    fontSize: 20,
+    fontSize: 26,
+    color: '#0305C5',
+    textAlign: 'center',
     fontWeight: 'bold',
+    paddingVertical: 10,// Ajustar el espacio vertical para centrar el texto
+    paddingHorizontal: 10,
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: {width: -1, height: 4},
+    textShadowRadius: 6
   },
   imageContainer: {
     // Ajusta el contenedor de la imagen según sea necesario
@@ -102,6 +112,7 @@ const styles = StyleSheet.create({
   image: {
     width: 40,
     height: 40,
+
   },
 });
 

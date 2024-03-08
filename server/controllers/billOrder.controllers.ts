@@ -1,9 +1,8 @@
 import { BillOrderProps, OrderDetailProps } from '../interfaces';
-import { BillOrderService } from '../services';
+import { billOrderService } from '../services';
 import { catchAsync } from '../utils';
 import { joinDuplicateOrder } from '../utils/tools';
 
-const billOrderService = new BillOrderService();
 
 const getBillOrdersForBar = catchAsync(async (_req, res) => {
   const { profileSession } = res.locals;
@@ -88,11 +87,41 @@ const payBillOrder = catchAsync(async (req, res) => {
   res.status(200).json({ status: true, billOrder: billOrderTransform });
 });
 
+const deliverBillOrder = catchAsync(async (req, res) => {
+  const { billOrderId } = req.params;
+  const { profileSession } = res.locals;
+  const billOrder = await billOrderService.deliverBillOrder(
+    +billOrderId,
+    profileSession.barId
+  );
+  const billOrderTransform = {
+    ...billOrder,
+    orderDetails: joinDuplicateOrder(billOrder.orderDetails ?? []),
+  };
+  res.status(200).json({ status: true, billOrder: billOrderTransform });
+});
+
+const cookBillOrder = catchAsync(async (req, res) => {
+  const { billOrderId } = req.params;
+  const { profileSession } = res.locals;
+  const billOrder = await billOrderService.cookBillOrder(
+    +billOrderId,
+    profileSession.barId
+  );
+  const billOrderTransform = {
+    ...billOrder,
+    orderDetails: joinDuplicateOrder(billOrder.orderDetails ?? []),
+  };
+  res.status(200).json({ status: true, billOrder: billOrderTransform });
+});
+
 export {
   getBillOrdersForBar,
   createBillOrderForBar,
   addOrderInBillOrderForBar,
   payBillOrder,
+  deliverBillOrder,
+  cookBillOrder,
   getBillOrderForBar,
   getBillOrderByTableForBar,
   addOrCreateOrderInBillOrderForBar,

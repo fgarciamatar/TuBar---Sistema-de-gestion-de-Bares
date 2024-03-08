@@ -3,32 +3,25 @@ import {StyleSheet, ScrollView, SafeAreaView} from 'react-native';
 import {Text} from 'react-native-elements';
 import {Spinner} from 'tamagui';
 import {View} from 'tamagui';
-import ProfileCards from '../../components/ProfileCards/ProfileCards';
+import ChefCards from '../../components/ChefCards/ChefCards';
 import {useSelector} from 'react-redux';
 
 function SelectPerfil() {
-  const profilesSelectPerfil = useSelector(state => state.reducers.profiles);
+  const viewOrders = useSelector(state => state.reducers.orders);
 
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Text style={styles.title}>Selecciona tu perfil</Text>
+        <Text style={styles.title}>Cocina</Text>
         <ScrollView>
           <View style={styles.profilesContainer}>
-
-          {profilesSelectPerfil.profiles !== undefined &&
-          profilesSelectPerfil.profiles ? (
-            profilesSelectPerfil?.profiles.map(profile => (
-              <ProfileCards
-                name={profile.name}
-                role={profile.role}
-                key={profile.id}
-                id={profile.id}
+            {console.log(viewOrders)}
+              <ChefCards
+                name={'test'}
+                role={'CHEF'}
+                key={1}
+                id={1}
               />
-            ))
-          ) : (
-            <Spinner size="large" color="$orange10" />
-          )}
           </View>
 
         </ScrollView>
@@ -62,3 +55,4 @@ const styles = StyleSheet.create({
 });
 
 export default SelectPerfil;
+

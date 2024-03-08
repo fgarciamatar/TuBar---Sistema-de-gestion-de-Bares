@@ -185,7 +185,10 @@ function SelectPerfil({navigation}) {
           </Button>
         </XStack>
         {!loading ? (
-          <ScrollView style={{marginBottom: 100}}>
+          <ScrollView 
+            style={{marginBottom: 100}}
+          >
+            <View style={styles.profilesContainer}>
             {profilesSelectPerfil.profiles !== undefined &&
             profilesSelectPerfil.profiles ? (
               profilesSelectPerfil?.profiles
@@ -204,6 +207,7 @@ function SelectPerfil({navigation}) {
             ) : (
               <Spinner size="large" color="$orange10" />
             )}
+            </View>
           </ScrollView>
         ) : (
           <Spinner size="large" color="$orange10" />
@@ -243,8 +247,25 @@ function SelectPerfil({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
-    padding: 6, // Padding general
+    display:'flex',
+    backgroundColor: '#EEEBEB',
+    borderWidth: 1,
+    width:'100%',
+    height:'100%'
+  },
+  profilesContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between', // Alinear las columnas en el espacio disponible
+    paddingHorizontal: 10, // Añadir espacio horizontal para evitar que los perfiles toquen los bordes
+    paddingBottom: 10, // Añadir espacio en la parte inferior para evitar que los perfiles toquen el borde inferior
+  },
+  title: {
+    fontSize: 26,
+    color: '#0305C5',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    paddingVertical: 10, // Ajustar el espacio vertical para centrar el texto
   },
   cardContainer: {
     width: '48%', // Ancho del contenedor de tarjeta para que dos tarjetas se muestren en una fila
@@ -260,10 +281,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2, // Opacidad de la sombra
     shadowRadius: 2, // Radio de la sombra
     elevation: 3, // Elevación de la tarjeta
-  },
-  title: {
-    fontSize: 26,
-    textAlign: 'center',
   },
 });
 

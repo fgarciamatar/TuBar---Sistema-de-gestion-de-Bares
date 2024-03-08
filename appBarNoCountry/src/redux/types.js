@@ -7,3 +7,4 @@ export const SELECTED_PRODUCTS = 'SELECTED_PRODUCTS';
 export const SHOW_LOADER = 'SHOW_LOADER';
 export const HIDE_LOADER = 'HIDE_LOADER';
 export const PROFILE_SESSION = 'PROFILE_SESSION';
+export const GET_ORDERS = 'GET_ORDERS'

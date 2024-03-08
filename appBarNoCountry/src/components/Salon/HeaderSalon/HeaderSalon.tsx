@@ -18,7 +18,7 @@ const HeaderSalon = () => {
   };
   return (
     <View style={styles.header}>
-      <Text style={styles.TextSalon}>Salon</Text>
+      <Text style={styles.title}>Salón</Text>
       <View style={styles.optionsHeader}>
         <TouchableOpacity>
           <Image
@@ -50,10 +50,15 @@ const HeaderSalon = () => {
 };
 
 const styles = StyleSheet.create({
-  TextSalon: {
+  title: {
+    fontSize: 26,
     color: '#0305C5',
-    fontSize: 24,
+    textAlign: 'center',
     fontWeight: 'bold',
+    paddingVertical: 10, // Ajustar el espacio vertical para centrar el texto
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 4},
+    textShadowRadius: 6
   },
   header: {
     display: 'flex',

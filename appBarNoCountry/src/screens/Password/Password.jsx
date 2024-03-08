@@ -77,29 +77,32 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    height: '100%',
   },
   image: {
     width: 174,
     height: 163.8,
-    padding: 20,
-    backgroundColor: 'white',
-    borderRadius: 100,
-    marginTop: 20,
+    padding: 0,
+    marginBottom:25,
   },
   formContainer: {
     display: 'flex',
-    gap: 10,
-    marginTop: 60,
+    gap: 0,
+    marginTop: 30,
   },
   input: {
     borderRadius: 8,
     backgroundColor: '#D7D7D7',
+    paddingHorizontal: 10,
+    paddingVertical: 0,
+    marginVertical: 0,
     width: 288,
     height: 35,
   },
   label: {
     fontSize: 16,
-    color: '#000',
+    color: '#0305C5',
+    marginBottom:-6
   },
   button: {
     width: 200,
@@ -108,8 +111,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#D0BBFD',
     borderWidth: 1,
     borderColor: '#AA84FC',
-    marginTop: 60,
-    marginBottom: 40,
+    marginVertical: 45,
   },
   textButton: {
     textAlign: 'center',
@@ -122,11 +124,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     gap: 5,
-    marginTop: 10,
+    marginBottom:10,
   },
   createCount: {
     color: '#3F86FC',
-    lineHeight: 17.07,
   },
 });
 

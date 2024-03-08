@@ -1,3 +1,4 @@
+
 import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
 import {StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
@@ -20,7 +21,7 @@ function ProfileCards({
   const navigation = useNavigation();
 
   const handleSalonAdm = () => {
-    navigation.navigate('ProfilePin', {idProfile: id, role: role, name: name});
+    navigation.navigate('', {idProfile: id, role: role, name: name});
   };
   let imageSource;
   let rolTraducido;
@@ -40,7 +41,7 @@ function ProfileCards({
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handleSalonAdm} style={styles.cardContainer}>
-        <View>
+        /*<View>
           <Image
             style={styles.image}
             source={imageSource}
@@ -65,6 +66,7 @@ function ProfileCards({
           </YStack>
         </View>
       </TouchableOpacity>
+      */
     </View>
   );
 }
