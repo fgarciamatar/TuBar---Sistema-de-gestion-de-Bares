@@ -1,58 +1,118 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, ScrollView, SafeAreaView} from 'react-native';
+import React, { useEffect } from 'react';
+import {TouchableOpacity, StyleSheet} from 'react-native';
 import {Text} from 'react-native-elements';
-import {Spinner} from 'tamagui';
-import {View} from 'tamagui';
-import ChefCards from '../../components/ChefCards/ChefCards';
+import {FlatList} from 'react-native-gesture-handler';
 import {useSelector} from 'react-redux';
+import {View} from 'tamagui';
+import axiosInstance from '../../services/axiosInstance';
+import {urlApi} from '../../utils/definition'
+function ChefView() {
+  const categories = useSelector(state => state.reducers.categories);
 
-function SelectPerfil() {
-  const viewOrders = useSelector(state => state.reducers.orders);
+  const getBillOrder = async () => {
+    axiosInstance
+      .get(`${urlApi}/bill-orders`)
+      .then(res => console.log(res.data));
+  };
+
+  useEffect(() => {
+    getBillOrder();
+  }, []);
 
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <Text style={styles.title}>Cocina</Text>
-        <ScrollView>
-          <View style={styles.profilesContainer}>
-            {console.log(viewOrders)}
-              <ChefCards
-                name={'test'}
-                role={'CHEF'}
-                key={1}
-                id={1}
-              />
-          </View>
-
-        </ScrollView>
+    <View>
+      <View>
+        <FlatList
+          data={categories}
+          renderItem={({item: category}) => (
+            <TouchableOpacity
+              style={styles.foodItem}
+            //   onPress={() => selectProducts(category.products)}>
+            onPress={() =>console.log("hola")}>
+              <Text style={styles.foodName}>{category.name}</Text>
+            </TouchableOpacity>
+          )}
+          horizontal={true}
+          keyExtractor={item => item.id}
+        />
       </View>
-    </SafeAreaView>
+      <View>
+
+      </View>
+    </View>
   );
 }
+export default ChefView;
 
 const styles = StyleSheet.create({
-  container: {
-    display:'flex',
-    backgroundColor: '#EEEBEB',
-    borderWidth: 1,
-    width:'100%',
-    height:'100%'
-  },
-  profilesContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between', // Alinear las columnas en el espacio disponible
-    paddingHorizontal: 10, // Añadir espacio horizontal para evitar que los perfiles toquen los bordes
-    paddingBottom: 10, // Añadir espacio en la parte inferior para evitar que los perfiles toquen el borde inferior
-  },
-  title: {
-    fontSize: 26,
-    color: '#0305C5',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    paddingVertical: 10, // Ajustar el espacio vertical para centrar el texto
-  },
-});
-
-export default SelectPerfil;
+    menuContainer: {
+        padding: 20,
+        gap: 10,
+        flex: 1
+      },
+    
+      foodItem: {
+        backgroundColor: '#8586FF',
+        borderRadius: 10,
+        marginBottom: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        marginHorizontal: 5,
+        borderWidth: 1.5,
+        borderColor: '#3032FC',
+      },
+    
+      foodName: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 16,
+      },
+    
+      category: {
+        fontSize: 13,
+      },
+    
+      quantity: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 10,
+      },
+      signs: {
+        fontSize: 20,
+      },
+      showQuantity: {
+        backgroundColor: '#D7D7D7',
+        borderRadius: 8,
+        width: 35,
+        textAlign: 'center',
+      },
+      fixedButtonContainer: {
+        position: 'absolute',
+        bottom: 10,
+        width: '100%',
+        marginHorizontal: 20,
+        alignItems: 'center',
+      },
+      Button: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#D0BBFD',
+        borderWidth: 1,
+        borderColor: '#AA84FC',
+        width: 60,
+        height: 30,
+        marginTop: 30,
+        borderRadius: 5,
+        position: 'absolute', 
+        bottom: 0,
+      },
+      buttonText: {
+        color: '#000',
+        fontSize: 20,
+        fontWeight: 'bold',
+      },
+})
 

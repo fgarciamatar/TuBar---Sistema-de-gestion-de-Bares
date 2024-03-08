@@ -20,6 +20,7 @@ const OrderDetailModel = db.define<OrderDetailAttributes>('orderDetails', {
   price: {
     type: DataTypes.DOUBLE,
     allowNull: false,
+    defaultValue: 0,
     validate: {
       notNull: {
         msg: "El campo 'price' es obligatorio y debe ser proporcionado.",
