@@ -5,6 +5,7 @@ import {Button, XStack, Input, View, YStack} from 'tamagui';
 import {Icon} from '@rneui/themed';
 import adminImage from '../../assets/menu/admin.png';
 import employeeImage from '../../assets/waiter.png';
+import screenImage from '../../assets/screen.png';
 import chefImage from '../../assets/chef.png';
 import { color } from '@rneui/base';
 
@@ -30,6 +31,9 @@ function ProfileCards({
   } else if (role === 'EMPLOYEE') {
     imageSource = employeeImage;
     rolTraducido = 'Mesero'
+  } else if (role === 'SCREEN') {
+    imageSource = screenImage;
+    rolTraducido = 'Pantalla'
   } else {
     imageSource = chefImage;
     rolTraducido = 'Cocinero'
