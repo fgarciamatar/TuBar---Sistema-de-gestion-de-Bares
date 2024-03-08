@@ -19,6 +19,7 @@ import OrderDetail from './screens/orderDetail/orderDetail.jsx';
 import {BillOrder} from './interfaces/interface';
 import Bill from './screens/BillOrder/Bill.tsx';
 import CodePassword from "./screens/CodePassword/CodePassword.jsx"
+import Kitchen from "./screens/Kitchen/Kitchen.jsx"
 
 
 export type RootStackParamList = {
@@ -35,7 +36,7 @@ export type RootStackParamList = {
   ManageProfile: undefined;
   Factura: {billOrder: BillOrder; tableNumber: number};
   CodePassword: undefined;
-  Cocina: undefined;
+  Kitchen: undefined;
 };
 export type ScreenProp = StackNavigationProp<RootStackParamList>;
 const Stack = createStackNavigator<RootStackParamList>();
@@ -144,6 +145,10 @@ function Tabs() {
 <Stack.Screen
         name="CodePassword"
         component={CodePassword}
+      />
+      <Stack.Screen
+        name="Kitchen"
+        component={Kitchen}
       />
 
       
