@@ -17,13 +17,13 @@ const ProfileModel = db.define<ProfileAttributes>('profiles', {
     },
   },
   role: {
-    type: DataTypes.ENUM('ADMIN', 'EMPLOYEE', 'CHEF', 'SCREEN'),
+    type: DataTypes.ENUM('ADMIN', 'EMPLOYEE', 'CHEF', 'SCREEN', 'COUNTER'),
     defaultValue: 'EMPLOYEE',
     allowNull: false,
     validate: {
       isIn: {
-        args: [['ADMIN', 'EMPLOYEE', 'CHEF', 'SCREEN']],
-        msg: "Tipo de role inválido. Por favor, seleccione entre 'ADMIN', 'EMPLOYEE' o 'CHEF'.",
+        args: [['ADMIN', 'EMPLOYEE', 'CHEF', 'SCREEN', 'COUNTER']],
+        msg: "Tipo de role inválido. Por favor, seleccione entre 'ADMIN', 'EMPLOYEE' , 'CHEF', 'SCREEN' o 'COUNTER' .",
       },
       notNull: {
         msg: "El campo 'role' es obligatorio y debe ser proporcionado.",

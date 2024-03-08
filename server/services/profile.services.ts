@@ -51,8 +51,12 @@ class ProfileService {
         'No se encontró ningún perfil en el bar con el ID especificado.',
         404
       );
-    const hashedPin = await encrypt(pinCode);
-    profile.update({ name, role, pinCode: hashedPin });
+    if (pinCode) {
+      const hashedPin = await encrypt(pinCode);
+      await profile.update({ name, role, pinCode: hashedPin });
+    } else {
+      await profile.update({ name, role });
+    }
     return profile;
   }
   async removeProfileForBar(profileId: number, barId: number) {
