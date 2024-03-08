@@ -137,9 +137,10 @@ function Order() {
             data={billOrder.orderDetails}
             renderItem={({item}) => (
               <CardProduct
-                product={item.product}
-                quantity={item.quantity}
-                handleEditProduct={() => handleEditOrder(item)}
+              product={item.product}
+              quantity={item.quantity}
+              handleEditProduct={() => handleEditOrder(item)}
+               icono="icono1"
                 handleShowDeleteProduct={() => handleShowDeleteOrder(item.id)}
                 havePermision
               />

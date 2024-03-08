@@ -284,6 +284,7 @@ function Menu() {
               product={item}
               quantity={quantity[item.id] || 0}
               handleShowDeleteProduct={handleShowDeleteProduct}
+              icono="icono2"
               handleEditProduct={handleEditProduct}
               havePermision={isAdmin}
             />

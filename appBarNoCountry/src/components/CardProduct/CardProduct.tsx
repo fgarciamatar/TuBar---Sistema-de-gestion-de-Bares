@@ -13,6 +13,7 @@ interface CardProductProps {
   havePermision?: boolean;
   handleEditProduct?: (product: ProductData) => void;
   handleShowDeleteProduct?: (id: number) => void;
+  icono:string;
 }
 
 const CardProduct = ({
@@ -22,9 +23,14 @@ const CardProduct = ({
   quantity,
   havePermision = false,
   handleEditProduct,
+  icono,
   handleShowDeleteProduct,
+  
 }: CardProductProps) => {
   const {id, name, description, price, productCategoryId} = product;
+
+  const icon1 = { mensaje: require('../../assets/menu/email.png'), remove: require('./../../assets/menu/remove.png') };
+  const icon2 = {edit: require('../../assets/menu/pencil.png'), eliminar: require('./../../assets/menu/trash.png')}
   return (
     <TouchableOpacity style={styles.cardContainer}>
       <Image
@@ -54,7 +60,7 @@ const CardProduct = ({
               }}>
               <Image
                 style={styles.Image}
-                source={require('../../assets/menu/email.png')}
+                source={(icono === "icono1") ? icon1.mensaje : icon2.edit}
               />
             </Button>
           )}
@@ -64,8 +70,8 @@ const CardProduct = ({
               chromeless
               onPress={() => handleShowDeleteProduct(id)}>
               <Image
-                style={styles.Image}
-                source={require('../../assets/menu/remove.png')}
+                style={(icono === "icono1") ? styles.Image : styles.ImageNeg}
+                source={(icono === "icono1") ? icon1.remove : icon2.eliminar}
               />
             </Button>
           )}
@@ -109,6 +115,17 @@ const styles = StyleSheet.create({
   Image: {
     width: 25,
     height: 25,
+  
+  },
+  ImageNeg:{
+    width: 25,
+    height: 25,
+  tintColor: 'black'
+  },
+  buttonText: {
+    color: '#000',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   itemContainer: {
     justifyContent: 'center',
