@@ -8,10 +8,6 @@ Sabemos que el camarero siempre toma sus pedidos de memoria, en un papel o utili
 
 ---
 
-## LINKS DE DEPLOY
-
-front / back
-
 ## INTEGRANTES
 
 ### FrontEnd
@@ -27,6 +23,9 @@ front / back
 ### UX/UI
 - [Florencia Parodi](https://github.com/florenciaParodi)
 - [Christopher Peralta](https://github.com/ChristopherPeralta)
+
+### TL
+- Daniela Betania Romero
 
 ***
 ## TECNOLOGÍAS UTILIZADAS
@@ -63,10 +62,6 @@ front / back
 ### UX/UI
 - Figma
 ***
-
-### LINKS
-- Trello
-- Figma
 ***
 
 ### **Algunos ejemplos de pantallas**
@@ -89,92 +84,43 @@ front / back
 
 ### **¿Cómo nos organizamos con el equipo?**
 
-Intentamos coordinar con nuestro UX/UI para contar con la información en Figma y con el grupo de BackEnd para tener los servicios a utilizar en las tareas de cada Sprint.
+Primero creamos un diseño de baja fidelidad en Excalidraw para tener en claro de que se trataba la app y definir nuestro MVP. Luego creamos sun diseño de media fidelidad en Figma y comenzamos a crear la BDD. Una vez que avanzamos sobre ese último diseño definimos logo, tonalidades y fuentes para la app, allí creamos el diseño de alta fidelidad y se comezó a trabajar en el front.
+Una vez completo el MVP, avanzamos sobre funcionalidades extras y errores.
 
-Creamos un MVP y dividimos las tareas en sprints (con duración de una semana):
+Tuvimos en cuenta las semanas organizadas por No-Country para cumplir con los tiempos de entrega.
 
 **Funcionalidades para el MVP:**
 - Registro
 - Logueo
-- Ver la pantalla de mercado, seleccionar/deseleccionar favoritos e ir a compra
-- Ver la pantalla de compra
-- Ver la pantalla de venta
-- Ver la pantalla de billetera
+- Ver perfil camarero
+- Ver salón
+- Tomar pedido
+- Eliminar producto del pedido
+- Enviar pedido a cocina
 
-## SPRINT 1 - Funcionalidades:
-Crear el Footer, Header y Navbar
-
-Pantalla de Login y Registro, la maquetación, sin la funcionalidad
-
-Pantalla de mercado, por el momento se trae la inforamcion desde una API publica, para luego unir con el Back
-
-Creacion de base de datos para login y registro
-
-## SPRINT 2 - Funcionalidades:
-Se ajusta tanto el login como el registro para poder conectar back y front
-
-Se ajusta la pagina de market para traer la informacion de las monedas ya con el back y dejar la API
-
-Se rediseña la tabla que muestra las monedas, apra poder reagruparlas por la información que muestra en columnas, siempre manteniendo mobile first, es responsive en todos los dispositivos.
-
-Se pasa a un context tanto la informacion de login como las monedas, y se hacen los ajustes en la parte de login, los condiconales para mostrar o no el navbar dependiendo de si esta logueado o no. Tambien se ajusta como se muestra la moneda en la pagina de market.
-
-Se crea un contexto para un estado general de carga, asi cuando se está realizando el llamado de datos, se pone la pantalla griseada y se ve una animación similar a la de Binance de las barras al cargar. Asi el usuario sabe que se esta haciendo una carga o busqueda.
-
-## SPRINT 3 - Funcionalidades:
-Se completa la funcionalidad para agregar o sacar monedas favoritas
-
-Se continua con las paginas de compra y venta
-
-Se agrega la pagina Not Found que redirige a market en el caso de ser un usuario ya loguedo.
-
-## SPRINT 4 - Funcionalidades:
-Se finalizan las paginas de compra y venta
-
-Se ajustan los datos del suaurio para mostrarlos una vvez logueado
-
-Se realiza la página de billetera
 ***
 
-¿Cómo veo en local el Front y el Back ?
+## SPRINT 1
+- **Figma / BDD / log in y salón sin funcionalidades :**
+  Realizamos el diseño y prototipado en Figma desde "Aceptar términos y condiciones" hasta las últimas pantallas del "perfil camarero". También realizamos la BDD y las pantallas de log in y salón en el front sin funcionalidades.
 
-**1ro:**
-- copiar el repositorio con: git clone https://github.com/No-Country/s10-03-t-node-nest-react-binance.git
+## SPRINT 2
+- **Perfil camarero (salón, comnanda) y perfil admin SIN funcionalidades :**
+  Avanzamos en el perfil camarero y el perfil admin. Agregamos las mesas y botones necesarios a las pantallas y creamos el espacio para la comanda del pedido. También creamos el perfil admin que contiene más opciones para el usuario:
+  - agregar/editar/eliminar produtos
+  - agregar/editar/eliminar categorías
+  - agregar/editar/eliminar perfiles (empleados)
+  
+## SPRINT 3
+- **Funcionalidades :**
+  Agregamos las funcionalidades a los distintos perfiles
+  - camarero: log in con PIN, tomar pedido, eliminar productos del pedido, enviar comanda a la cocina, cancelar pedido, facturar orden.
+  - admin: log in con PIN, ver salón y pedidos por mesa, CRUD de productos, categorias y perfiles, cancelar orden
 
-external-server-miscellaneous-kiranshastry-lineal-color-kiranshastry
+## SPRINT 4
+- **Estilos, errores y funcionalidades extras :**
+  - Finalizamos con los estilos en el front
+  - Creamos funcionalidades extras (mensaje en pedido, reportes, imprimir factura, perfil cocina para el chef)
+  - resolvimos errores
 
-**2do:**
-- Para el Back ir al repositorio server y ya dentro:
-
--> Instación de dependencias: $ npm install
-
--> Para correr la app:
-
-En development: $ npm run start
-
-(watch mode)
-
-$ npm run start:dev
-En modo produccion: $ npm run start:prod
-
--> Para los test:
-
-(unit tests)
-
-$ npm run test
-(e2e tests)
-
-$ npm run test:e2e
-(test coverage)
-
-$ npm run test:cov
-web 3ro.: para el Front, ir al repositorio en client y ya dentro:
--> Instación de dependencias: $ npm install
-
--> Para correr la app:
-
-En development: $ npm run dev
-
--> Para correr la app:
-
-En development: $ npm run dev
+***
